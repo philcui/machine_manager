@@ -23,7 +23,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## 模板框架包含以下内容
 
 * 多页结构，pages下的每个页面代表一个独立的单页（目前未支持子文件夹划分）
-* less预编译配置，支持less书写
 * 支持主题配置，src/style/theme.less定义了全局的变量，无需每个组件单独引入
 * 全局的http请求方法
 * 移动端rem适配

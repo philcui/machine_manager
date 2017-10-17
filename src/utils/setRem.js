@@ -5,6 +5,6 @@
 export default function setRem () {
   var oHtml = document.documentElement
   var hWdith = oHtml.getBoundingClientRect().width
-  oHtml.style.fontSize = hWdith / 19.2 + 'px'
+  oHtml.style.fontSize = hWdith / 6.4 + 'px'
 }
 

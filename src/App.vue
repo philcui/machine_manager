@@ -1,28 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-    <group>
-      <cell title="title" value="value"></cell>
-    </group>
-    <group>
-      <calendar title="title" v-model="value"></calendar>
-    </group>
+    
   </div>
 </template>
 
 <script>
 import setRem from '@/utils/setRem.js'
-import { Group, Cell, Calendar} from 'vux'
 export default {
   name: 'app',
   mounted(){
-    //setRem()
-  },
-  components: {
-    Group,
-    Cell,
-    Calendar
+    setRem()
   }
 }
 </script>

@@ -29,6 +29,7 @@ export default {
   border-bottom: 1px solid #949494;
   .leftContent {
     width: 1.66rem;
+    text-align: center;
     .leftImg {
       width: 1.38rem;
       height: 1.38rem;

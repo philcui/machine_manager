@@ -1,8 +1,8 @@
 <template>
-  <div class="cell">
+  <a class="cell" :href="menuCell.url">
     <img class="cell-icon" :src="menuCell.imgSrc" alt="">
     <span class="cell-name">{{menuCell.title}}</span>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -17,10 +17,13 @@ export default {
 .cell {
   flex: 1;
   height: 1.61rem;
+  display: block;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-decoration: none;
+  color: #313131;
   .cell-icon {
     display: block;
     height: 0.46rem;

@@ -1,13 +1,7 @@
 <template>
   <div id="app">
     <MainHead></MainHead>
-    <div class="msgTop">
-      <img class="msg" src="./img/huatong.png" alt="">
-      <marquee>
-        <marquee-item v-for="(item, index) in pubMessage" :key="index">{{item.content}}</marquee-item>
-      </marquee>
-      <img class="huatong" src="./img/msg.png" alt="">
-    </div>
+    <top-msg :pubMessage='pubMessage'></top-msg>
     <div class="menu">
       <div class="row">
         <menu-cell v-for="(item, index) in cellList1" :key="index" :menuCell='item'></menu-cell>
@@ -20,18 +14,23 @@
       <hdivider class="divider"></hdivider>
       <jiyou-item v-for="(item, index) in jiyouList" :key="index" :itemData='item'></jiyou-item>
     </div>
-    <TabBottom></TabBottom>
+    <TabBottom :tabBarList='tabBarList'></TabBottom>
   </div>
 </template>
 
 <script>
-import setRem from '@/utils/setRem.js'
+//底部tab
 import TabBottom from '@/components/TabBottom.vue'
+//头部
 import MainHead from '@/components/MainHead.vue'
-import { Marquee, MarqueeItem} from 'vux'
+//菜单单元格
 import MenuCell from '@/components/MenuCell.vue'
+//新闻列表元素
 import JiyouItem from '@/components/JiyouItem.vue'
+//分隔标题
 import Hdivider from '@/components/Hdivider.vue'
+//顶部滚动播报
+import TopMsg from '@/components/TopMsg.vue'
 export default {
   name: 'app',
   data() {
@@ -42,7 +41,7 @@ export default {
         { content: '学厨师，到新东方！' }
       ],
       cellList1: [
-        {imgSrc: require('./img/zhaojiashi.png'), title: '找驾驶员'},
+        {imgSrc: require('./img/zhaojiashi.png'), title: '找驾驶员', url: './finddriver/index.html'},
         {imgSrc: require('./img/guzhang.png'), title: '故障问答'},
         {imgSrc: require('./img/ershou.png'), title: '二手机'}
       ],
@@ -64,44 +63,41 @@ export default {
           title: '大神们，帮我看下值多少钱，卡特320',
           text: '刚刚在工地包完月，工况非常好，行走有力，油、水温不高'
         },
+        {
+          imgSrc: require('./img/imgtest.jpg'), 
+          tag: '机友交流', 
+          title: '大神们，帮我看下值多少钱，卡特320',
+          text: '刚刚在工地包完月，工况非常好，行走有力，油、水温不高'
+        },
+        {
+          imgSrc: require('./img/imgtest.jpg'), 
+          tag: '机友交流', 
+          title: '大神们，帮我看下值多少钱，卡特320',
+          text: '刚刚在工地包完月，工况非常好，行走有力，油、水温不高'
+        }
+      ],
+      tabBarList: [
+        {imgSrc: require('./img/zhuye.png'), title: '主页'},
+        {imgSrc: require('./img/faxian.png'), title: '发现'},
+        {imgSrc: require('./img/friends.png'), title: '机友圈'},
+        {imgSrc: require('./img/wode.png'), title: '我的'}
       ]
     }
-  },
-  mounted() {
-    setRem()
   },
   components: {
     TabBottom,
     MainHead,
-    Marquee,
-    MarqueeItem,
     MenuCell,
     JiyouItem,
-    Hdivider
+    Hdivider,
+    TopMsg
   }
 }
 </script>
 
 <style lang='less'>
 @import '~vux/src/styles/reset.less';
-body,
-html {
-  height: 100%;
-  font-size: 16px;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  height: 100%;
-  background-color: #eeeeee;
-}
-.msgTop{
-  background-color: #fff;
-}
+@import '../../style/base.less';
 .menu {
   background-color: #fff;
   margin-top: 12px;
@@ -113,21 +109,7 @@ html {
   margin-top: 12px;
   background-color: #fff;
   padding-top: 0.33rem;
-}
-.msgTop{
-  padding-left: 0.26rem;
-  padding-right: 0.26rem;
-  height: 0.76rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .msg{
-    height: 0.32rem;
-    display: block;
-  }
-  .huatong{
-    height: 0.32rem;
-    display: block;
-  }
+  max-height: 40%;
+  overflow-y: auto;
 }
 </style>

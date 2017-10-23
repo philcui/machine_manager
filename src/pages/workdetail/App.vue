@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <find-driver></find-driver>
+    <detail></detail>
   </div>
 </template>
 
 <script>
-import FindDriver from './FindDriver.vue'
+import Detail from './Detail.vue'
 export default {
   data(){
     return {
@@ -16,7 +16,7 @@ export default {
 
   },
   components:{
-    FindDriver
+    Detail
   }
 }
 </script>
@@ -24,4 +24,5 @@ export default {
 <style lang='less'>
 @import '~vux/src/styles/reset.less';
 @import '../../style/base.less';
+
 </style>

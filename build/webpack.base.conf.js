@@ -78,6 +78,14 @@ module.exports = vuxLoader.merge(webpackConfig, {
     {
       name: 'less-theme',
       path: 'src/style/theme.less'
+    },
+    {
+      name: 'duplicate-style',
+      events: {
+        done: function () {
+          console.log('done!')
+        }
+      }
     }
   ]
 })

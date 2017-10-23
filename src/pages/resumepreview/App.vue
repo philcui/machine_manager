@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <find-driver></find-driver>
+    <resume-preview></resume-preview>
   </div>
 </template>
 
 <script>
-import FindDriver from './FindDriver.vue'
+import ResumePreview from './ResumePreview.vue'
 export default {
   data(){
     return {
@@ -16,7 +16,7 @@ export default {
 
   },
   components:{
-    FindDriver
+    ResumePreview
   }
 }
 </script>
@@ -24,4 +24,5 @@ export default {
 <style lang='less'>
 @import '~vux/src/styles/reset.less';
 @import '../../style/base.less';
+
 </style>

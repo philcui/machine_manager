@@ -58,35 +58,20 @@ var macTypeData = [
   },
 
   {
-    name: '吊车1',
+    name: '吊车',
     value: 'dc1',
     parent: 'dc'
   },
-  {
-    name: '吊车1',
-    value: 'dc2',
-    parent: 'dc'
-  },
 
   {
-    name: '叉车1',
+    name: '叉车',
     value: 'cc1',
     parent: 'cc'
   },
-  {
-    name: '叉车2',
-    value: 'cc2',
-    parent: 'cc'
-  },
 
   {
-    name: '压路机1',
+    name: '压路机',
     value: 'ylj1',
-    parent: 'ylj'
-  },
-  {
-    name: '压路机2',
-    value: 'ylj2',
     parent: 'ylj'
   }
 ]

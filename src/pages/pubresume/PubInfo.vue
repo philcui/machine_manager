@@ -55,16 +55,14 @@
     </group>
     <a class="submit" href="../result/index.html?restype=pubresume">提交</a>
 
-    <div>
-      <x-dialog v-model="showExample" class="dialog-demo">
-        <div class="img-box">
-          <img src="./img/example_resume.jpg" style="max-width:100%">
-        </div>
-        <div @click="showExample=false">
-          <span class="vux-close"></span>
-        </div>
-      </x-dialog>
-    </div>
+    <x-dialog v-model="showExample" class="dialog-demo">
+      <div class="img-box">
+        <img src="./img/example_resume.jpg" style="max-width:100%">
+      </div>
+      <div @click="showExample=false">
+        <span class="vux-close"></span>
+      </div>
+    </x-dialog>
   </div>
 </template>
 
@@ -252,12 +250,12 @@ export default {
 .nextTip {
   font-size: 0.24rem;
   text-align: center;
-  .smdesc{
+  .smdesc {
     font-size: 0.186rem;
     color: #434343;
   }
 }
-.skillcell{
+.skillcell {
   padding-right: 0 !important;
 }
 .work-item {

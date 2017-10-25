@@ -10,17 +10,12 @@
       <span class="label">地点：</span>
       <span class="text">{{normalObj.address}}</span>
     </div>
-    <div class="item distance">
-      <img src="./img/address.png" alt="">
-      <span class="label">距离：</span>
-      <span class="text">距离你{{normalObj.distance}}公里</span>
-    </div>
     <div class="item date">
       <img src="./img/time.png" alt="">
       <span class="label">时间：</span>
       <span class="text">{{normalObj.time}}</span>
     </div>
-    <a class="offer">应聘</a>
+    <a class="offer">详情</a>
   </a>  
 </template>
 
@@ -39,7 +34,7 @@ export default {
 <style lang='less' scoped>
   .info{
     display: block;
-    padding: 0.12rem 0.2rem;
+    padding: 0.12rem 0.24rem;
     background-color: white;
     margin-top: 0.08rem;
     font-size: 0.24rem;
@@ -56,8 +51,7 @@ export default {
       margin-right: 0.1rem;
     }
     .item{
-      padding-top: 0.05rem;
-      padding-bottom: 0.05rem;
+      line-height: 0.58rem;
     }
     .salary{
       border-bottom: 1px solid #e4e4e4;
@@ -73,7 +67,7 @@ export default {
       color: white;
       border-radius: 50%;
       position: absolute;
-      top: 0.94rem;
+      bottom: 0.35rem;
       right: 0.44rem;
       text-align: center;
       line-height: 0.7rem;

@@ -1,5 +1,5 @@
 <template>
-  <a class="cell" :href="menuCell.url">
+  <a @click.prevent="clickCell" class="cell" :href="menuCell.url">
     <img class="cell-icon" :src="menuCell.imgSrc" alt="">
     <span class="cell-name">{{menuCell.title}}</span>
   </a>
@@ -9,6 +9,11 @@
 export default {
   props: {
     menuCell: Object
+  },
+  methods:{
+    clickCell(){
+      this.$emit('on-cellclick')
+    }
   }
 }
 </script>

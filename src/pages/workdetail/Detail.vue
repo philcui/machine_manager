@@ -19,30 +19,38 @@
         工资月结，想干的尽快联系我
       </div>
     </div>
+    <one-key-share v-if="false"></one-key-share>
+    <focus-wechat v-if="false"></focus-wechat>
+    <free-resume></free-resume>
   </div>  
 </template>
 
 <script>
 import PreCell from "../../components/PreCell.vue";
+import OneKeyShare from "../../components/OneKeyShare.vue";
+import FocusWechat from "../../components/FocusWechat.vue";
+import FreeResume from "../../components/FreeResume.vue";
 export default {
   data() {
     return {
       cellList1: [
         { title: "月薪", content: "6000元" },
         { title: "设备类型", content: "大挖" },
-        { title: "干活地点", content: "杭州市文三路100号创意大厦" },
-        { title: "工作内容", content: "挖坑、破碎" }
+        { title: "工作地点", content: "杭州市文三路100号创意大厦" }
       ],
       cellList2: [
         { title: "操作方向", content: "反手" },
-        { title: "福利", content: "包吃包住" },
-        { title: "月薪", content: "6000元" },
-        { title: "工作内容", content: "" }
+        { title: "吃住", content: "包吃包住" },
+        { title: "工作内容", content: "挖坑、破碎" },
+        { title: "工作介绍", content: "" }
       ]
     };
   },
   components: {
-    PreCell
+    PreCell,
+    OneKeyShare,
+    FocusWechat,
+    FreeResume
   }
 };
 </script>

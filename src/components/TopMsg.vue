@@ -4,7 +4,6 @@
     <marquee class="marquee">
       <marquee-item v-for="(item, index) in pubMessage" :key="index">{{item.content}}</marquee-item>
     </marquee>
-    <img class="huatong" src="../assets/msg.png" alt="">
   </div>
 </template>
 
@@ -36,10 +35,6 @@ export default {
   }
   .marquee {
     margin-left: 0.2rem;
-  }
-  .huatong {
-    height: 0.32rem;
-    display: block;
   }
 }
 </style>

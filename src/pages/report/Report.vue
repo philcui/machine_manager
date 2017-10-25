@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { Cell, Group, Checker, CheckerItem } from "vux";
+import { Cell, Group, Checker, CheckerItem } from 'vux';
 export default {
   data() {
     return {

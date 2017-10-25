@@ -40,13 +40,30 @@
       <a href="../pubinfo/index.html" class="left button">发布机主招聘</a>
       <a href="../pubresume/index.html" class="button">发布机手求职</a>
     </div>
-    <img src="./img/publish.png" class="publish"></div>
+    <img src="./img/publish.png" class="publish" @click="showDialog=true">
+    
+    <x-dialog v-model="showDialog" class="dialog-trans" :dialog-style="{'background-color': 'transparent'}">
+      <div class="dia-content">
+        <div class="dia_content_line" style="border-bottom: 1px solid #707070;">
+          <img src="./img/icon_find.png" alt="">
+          <a href="../pubinfo/index.html" class="dia-button">我是机主：发布招聘</a>
+        </div>
+        <div class="dia_content_line">
+          <img src="./img/icon_admin.png" alt="">
+          <a href="../pubresume/index.html" class="dia-button">我是机手：发布求职</a>
+        </div>
+      </div>
+      <div @click="showDialog=false">
+        <img class="close" src="../../assets/close.png" alt="">
+      </div>
+    </x-dialog>
   </div>  
 </template>
 
 <script>
 import {
   XAddress,
+  XDialog,
   ChinaAddressV4Data,
   Value2nameFilter as value2name
 } from "vux";
@@ -112,7 +129,8 @@ export default {
           distance: 200,
           time: "2017-10-13 8:34"
         }
-      ]
+      ],
+      showDialog: false
     };
   },
   methods: {
@@ -127,7 +145,8 @@ export default {
     XAddress,
     PopupPicker,
     TopItem,
-    NormalItem
+    NormalItem,
+    XDialog
   },
   computed: {
     addName() {
@@ -161,7 +180,7 @@ export default {
     text-align: center;
     line-height: 0.57rem;
     height: 0.57rem;
-    img{
+    img {
       vertical-align: middle;
     }
     .arrow {
@@ -192,6 +211,12 @@ export default {
   padding-bottom: 0.78rem;
   background-color: #eeeeee;
   z-index: 2;
+  .topList {
+    border: 0.04rem solid @theme-color;
+    margin-top: 0.08rem;
+  }
+  .normalList {
+  }
 }
 
 .hrbottom {
@@ -200,7 +225,7 @@ export default {
   bottom: 0;
   width: 100%;
   z-index: 10;
-  .left{
+  .left {
     border-right: 1px solid white;
   }
   .button {
@@ -213,12 +238,43 @@ export default {
     text-align: center;
   }
 }
-.publish{
+.publish {
   display: block;
   position: fixed;
   right: -0.15rem;
   bottom: 1.12rem;
   height: 0.88rem;
   z-index: 10;
+}
+.dialog-trans {
+  .dia-content {
+    background-color: white;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    .dia_content_line {
+      padding-top: 0.28rem;
+      padding-bottom: 0.28rem;
+      .dia-button {
+        background-color: @theme-color;
+        border-radius: 0.05rem;
+        width: 3.46rem;
+        text-align: center;
+        display: inline-block;
+        height: 0.78rem;
+        line-height: 0.78rem;
+        color: white;
+        font-size: 0.32rem;
+      }
+      img {
+        vertical-align: middle;
+        margin-right: 0.2rem;
+        width: 0.57rem;
+      }
+    }
+  }
+  .close {
+    margin-top: 0.88rem;
+    width: 0.6rem;
+  }
 }
 </style>

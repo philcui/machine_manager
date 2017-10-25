@@ -3,20 +3,17 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
-import FastClick from 'fastclick'
 import setRem from '@/utils/setRem.js'
 
-FastClick.attach(document.body)
 Vue.config.productionTip = false
-import  { ToastPlugin } from 'vux'
-Vue.use(ToastPlugin)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
   components: { App },
-  mounted() {
+  mounted(){
     setRem()
   }
 })

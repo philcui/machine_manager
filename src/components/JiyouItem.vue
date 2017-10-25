@@ -33,6 +33,7 @@ export default {
     .leftImg {
       width: 1.38rem;
       height: 1.38rem;
+      border-radius: 0.15rem;
     }
   }
   .rightContent {

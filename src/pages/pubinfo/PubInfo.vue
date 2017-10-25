@@ -32,7 +32,7 @@
     </group>
     <group gutter='0.2rem'>
       <div>
-        <p>工作内容</p>
+        <p class="checker_content">工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item 
             v-for="(item, index) in skillList" 
@@ -66,7 +66,7 @@ import {
   Cell,
   Checker,
   CheckerItem
-} from "vux";
+} from 'vux';
 import macTypeData from "@/components/macType.js";
 import skillList from "@/components/SkillList.js";
 export default {
@@ -205,5 +205,9 @@ export default {
 .work-item-selected {
   background-color: @theme-color;
   color: white;
+}
+.checker_content{
+  padding-left: 0.22rem;
+  line-height: 0.7rem;
 }
 </style>

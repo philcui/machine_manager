@@ -210,4 +210,8 @@ export default {
   padding-left: 0.22rem;
   line-height: 0.7rem;
 }
+.close {
+  margin-top: 0.88rem;
+  width: 0.6rem;
+}
 </style>

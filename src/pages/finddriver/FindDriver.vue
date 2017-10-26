@@ -257,7 +257,7 @@ export default {
       .dia-button {
         background-color: @theme-color;
         border-radius: 0.05rem;
-        width: 3.46rem;
+        width: 3.4rem;
         text-align: center;
         display: inline-block;
         height: 0.78rem;

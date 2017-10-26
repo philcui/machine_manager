@@ -55,12 +55,12 @@
     </group>
     <a class="submit" href="../result/index.html?restype=pubresume">提交</a>
 
-    <x-dialog v-model="showExample" class="dialog-demo">
+    <x-dialog v-model="showExample" class="dialog-demo" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="img-box">
-        <img src="./img/example_resume.jpg" style="max-width:100%">
+        <img src="./img/example_resume.png" style="max-width:100%">
       </div>
       <div @click="showExample=false">
-        <span class="vux-close"></span>
+        <img class="close" src="../../assets/close.png" alt="">
       </div>
     </x-dialog>
   </div>
@@ -276,8 +276,8 @@ export default {
   height: 7.46rem;
   overflow: hidden;
 }
-.vux-close {
-  margin-top: 8px;
-  margin-bottom: 8px;
+.close {
+  margin-top: 0.88rem;
+  width: 0.6rem;
 }
 </style>

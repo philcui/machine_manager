@@ -2,22 +2,15 @@
   <div id="app">
     <div class="group service">
       <div class="group-title">精选服务</div>
-      <div>
-        <div class="row">
-          <menu-cell @on-cellclick="cellClick(item)" v-for="(item, index) in cellList1" :key="index" :menuCell='item'></menu-cell>
-        </div>
-        <div class="row">
-          <menu-cell @on-cellclick="cellClick(item)" v-for="(item, index) in cellList2" :key="index" :menuCell='item'></menu-cell>
-        </div>
+      <div class="menu-cell-wrap">
+        <menu-cell class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList1" :key="index" :menuCell='item'></menu-cell>
       </div>
     </div>
 
     <div class="group find">
       <div class="group-title">发现</div>
-      <div>
-        <div class="row">
-          <menu-cell @on-cellclick="cellClick(item)" v-for="(item, index) in cellList3" :key="index" :menuCell='item'></menu-cell>
-        </div>
+      <div class="menu-cell-wrap">
+        <menu-cell class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList2" :key="index" :menuCell='item'></menu-cell>
       </div>
     </div>
 
@@ -49,15 +42,10 @@ export default {
         { imgSrc: require("./img/guzhang.png"), title: "故障代码" },
         { imgSrc: require("./img/fuli.png"), title: "免费福利" },
         { imgSrc: require("./img/zizhu.png"), title: "自助商城" },
-        { imgSrc: require("./img/mingpian.png"), title: "免费名片" }
+        { imgSrc: require("./img/mingpian.png"), title: "免费名片" },
+        { imgSrc: require("./img/jieqian.png"), title: "我要借钱" }
       ],
       cellList2: [
-        { imgSrc: require("./img/jieqian.png"), title: "我要借钱" },
-        { imgSrc: "", title: "" },
-        { imgSrc: "", title: "" },
-        { imgSrc: "", title: "" }
-      ],
-      cellList3: [
         { imgSrc: require("./img/baisi.png"), title: "百思不得姐" },
         { imgSrc: require("./img/neihan.png"), title: "内涵视频" },
         { imgSrc: require("./img/huoshan.png"), title: "火山视频" },
@@ -76,8 +64,12 @@ export default {
 <style lang='less'>
 @import "~vux/src/styles/reset.less";
 @import "../../style/base.less";
-.row {
-  display: flex;
+
+.menu-cell-wrap {
+  overflow: hidden;
+  .menu-cell {
+    width: 25%;
+  }
 }
 .group {
   padding: 0.26rem 0.46rem;
@@ -93,23 +85,23 @@ export default {
     overflow: hidden;
     font-size: 0.27rem;
     margin-bottom: 0.43rem;
-    a{
+    a {
       color: #8e8e8e;
       float: right;
     }
   }
-  .news-item{
+  .news-item {
     height: 1.32rem;
     display: flex;
-    img{
+    img {
       width: 1.37rem;
       height: 1.37rem;
       margin-right: 0.14rem;
     }
-    .news-content{
+    .news-content {
       font-size: 0.22rem;
       flex: 1;
-      .text{
+      .text {
         margin-top: 0.25rem;
         color: #898989;
         font-size: 0.21rem;

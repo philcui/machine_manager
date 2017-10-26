@@ -20,6 +20,8 @@ export default {
 
 <style lang='less' scoped>
 .cell {
+  float: left;
+  //width: 2.13rem;
   flex: 1;
   height: 1.61rem;
   display: block;

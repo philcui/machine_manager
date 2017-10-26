@@ -1,14 +1,9 @@
 <template>
   <div id="app">
     <MainHead></MainHead>
-    <top-msg :pubMessage='pubMessage'></top-msg>
+    <!-- <top-msg :pubMessage='pubMessage'></top-msg> -->
     <div class="menu">
-      <div class="row">
-        <menu-cell @on-cellclick="cellClick(item)" v-for="(item, index) in cellList1" :key="index" :menuCell='item'></menu-cell>
-      </div>
-      <div class="row">
-        <menu-cell @on-cellclick="cellClick(item)" v-for="(item, index) in cellList2" :key="index" :menuCell='item'></menu-cell>
-      </div>
+      <menu-cell class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList" :key="index" :menuCell='item'></menu-cell>
     </div>
     <div class="jiyouquan" @click="showReg=true">
       <hdivider class="divider"></hdivider>
@@ -16,7 +11,7 @@
     </div>
     <TabBottom :selectedItem='0'></TabBottom>
     
-    <x-dialog v-model="pubNotice" :dialog-style="{'background-color': 'transparent'}">
+    <x-dialog v-model="pubNotice" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="noticeDialog">
         <div class="notice-title">
           发布须知
@@ -36,11 +31,11 @@
       </div>
     </x-dialog>
 
-    <x-dialog v-model="showReg" :dialog-style="{'background-color': 'transparent'}">
+    <x-dialog v-model="showReg" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="regContent">
         <a href="" class="huangou"><img src="./img/huangou.png" alt=""></a>
         <div class="info">
-          <p class="label"><span>*</span>手机号码</p>
+          <p class="label"><span>* </span>手机号码</p>
           <div class="phoneLine">
             <span>+86</span>
             <input type="phone" placeholder="请输入手机号">
@@ -55,6 +50,9 @@
             <select name="" id="">
               <option v-for="(item, index) in whoimList" :key="index" :value="item.value">{{item.key}}</option>
             </select>
+          </div>
+          <div class="submit">
+            确 定
           </div>
         </div>
       </div>
@@ -84,28 +82,26 @@ export default {
   name: "app",
   data() {
     return {
-      pubMessage: [
-        { content: "最新卡特挖掘机性能介绍，必看！" },
-        { content: "最新卡特挖掘机性能介绍，必看！" },
-        { content: "最新卡特挖掘机性能介绍，必看！" }
-      ],
-      cellList1: [
+      // pubMessage: [
+      //   { content: "最新卡特挖掘机性能介绍，必看！" },
+      //   { content: "最新卡特挖掘机性能介绍，必看！" },
+      //   { content: "最新卡特挖掘机性能介绍，必看！" }
+      // ],
+      cellList: [
         {
           imgSrc: require("./img/zhaojiashi.png"),
           title: "找驾驶员",
           url: "./finddriver/index.html"
         },
         { imgSrc: require("./img/guzhang.png"), title: "故障问答" },
-        { imgSrc: require("./img/ershou.png"), title: "二手机" }
-      ],
-      cellList2: [
+        { imgSrc: require("./img/ershou.png"), title: "二手机" },
         { imgSrc: require("./img/qiuzu.png"), title: "设备求租" },
         { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
         { imgSrc: require("./img/banche.png"), title: "板车托运" }
       ],
       jiyouList: [
         {
-          imgSrc: require("./img/imgtest.jpg"),
+          imgSrc: require("./img/video.png"),
           tag: "精彩视频",
           title: "每天更新，最懂机友的挖机视频",
           text: "拥有这样一台挖机就能娶三个老婆"
@@ -126,6 +122,7 @@ export default {
       pubNotice: false,
       showReg: false,
       whoimList: [
+        { key: "请选择自己的身份", value: "" },
         { key: "我是驾驶员", value: 0 },
         { key: "我是机主", value: 1 },
         { key: "我是自己的机子自己开", value: 2 },
@@ -161,6 +158,17 @@ export default {
       }
     },
     sendCode() {}
+  },
+  mounted() {
+    //ajax请求范例
+    this.axios
+      .get("oam/api/company/getAllCompany", {})
+      .then((res, req) => {
+        
+      })
+      .catch(err => {
+        
+      });
   }
 };
 </script>
@@ -171,15 +179,16 @@ export default {
 .menu {
   background-color: #fff;
   margin-top: 0.12rem;
-  .row {
-    display: flex;
+  overflow: hidden;
+  .menu-cell {
+    width: 33.333%;
   }
 }
 .jiyouquan {
   margin-top: 0.12rem;
   background-color: #fff;
   padding-top: 0.33rem;
-  max-height: 40%;
+  max-height: 55%;
   overflow-y: auto;
 }
 
@@ -200,34 +209,36 @@ export default {
     }
   }
   .info {
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
+    margin-left: 0.68rem;
+    margin-right: 0.68rem;
     .label {
       text-align: left;
       font-size: 0.194rem;
+      margin-bottom: 0.05rem;
       span {
         color: green;
       }
     }
     .phoneLine {
       height: 0.68rem;
-      line-height: 0.68rem;
       border: 1px solid #bfbbab;
       border-radius: 0.05rem;
       background-color: white;
-      display: flex;
       box-sizing: border-box;
+      overflow: hidden;
       span {
-        display: inline-block;
+        display: block;
         width: 1.43rem;
         height: 100%;
         background-color: #f1f1f1;
         text-align: center;
         line-height: 0.68rem;
+        float: left;
       }
       input {
-        display: inline-block;
-        flex: 1;
+        display: block;
+        float: left;
+        width: 2.72rem;
         padding: 0.2rem;
         font-size: 0.24rem;
         box-sizing: border-box;
@@ -236,11 +247,13 @@ export default {
     }
     .codeLine {
       margin-top: 0.18rem;
-      height: 0.68rem;
-      display: flex;
       box-sizing: border-box;
+      overflow: hidden;
       .codeInput {
         width: 2.52rem;
+        float: left;
+        border: 1px solid #bfbbab;
+        height: 0.68rem;
         input {
           display: inline-block;
           padding: 0.2rem;
@@ -248,10 +261,11 @@ export default {
           box-sizing: border-box;
           border: none;
           width: 2.52rem;
+          height: 100%;
         }
       }
       .codeBtn {
-        width: 1.37rem;
+        width: 1.38rem;
         margin-left: 0.23rem;
         height: 100%;
         border: 1px solid #bfbbab;
@@ -261,13 +275,13 @@ export default {
         background-color: #f1f1f1;
         text-align: center;
         font-size: 0.21rem;
-        flex: 1;
+        float: left;
+        box-sizing: border-box;
       }
     }
     .selectLine {
       margin-top: 0.18rem;
-      height: 0.68rem;
-      line-height: 0.68rem;
+      height: 0.55rem;
       border: 1px solid #bfbbab;
       border-radius: 0.05rem;
       background-color: white;
@@ -277,32 +291,43 @@ export default {
         font-size: 0.24rem;
         box-sizing: border-box;
         border: none;
-        height: 0.68rem;
+        height: 100%;
         width: 100%;
       }
     }
+  }
+  .submit {
+    margin: 0.1rem auto;
+    height: 0.66rem;
+    width: 3.45rem;
+    text-align: center;
+    line-height: 0.66rem;
+    color: white;
+    font-size: 0.29rem;
+    border-radius: 0.05rem;
+    background-color: @theme-color;
   }
 }
 .close {
   margin-top: 0.88rem;
   width: 0.6rem;
 }
-.noticeDialog{
+.noticeDialog {
   height: 5.56rem;
   background-color: white;
-  .notice-title{
+  .notice-title {
     height: 1.15rem;
     line-height: 1.15rem;
     font-size: 0.4rem;
     color: #313131;
     border-bottom: 1px solid @divid-color;
   }
-  .notice-content{
+  .notice-content {
     font-size: 0.24rem;
     color: @theme-color;
     margin-top: 0.36rem;
   }
-  .pubbtn{
+  .pubbtn {
     display: inline-block;
     height: 0.58rem;
     width: 3.2rem;
@@ -315,7 +340,7 @@ export default {
     margin-top: 0.36rem;
     margin-bottom: 0.36rem;
   }
-  .notice-tip{
+  .notice-tip {
     border-top: 1px solid @divid-color;
     font-size: 0.213rem;
     color: #535353;

@@ -6,10 +6,15 @@ import router from '@/router'
 import FastClick from 'fastclick'
 import setRem from '@/utils/setRem.js'
 
+import axios from '@/utils/http.js'
+import  { ToastPlugin } from 'vux'
+import  { LoadingPlugin } from 'vux'
+Vue.use(LoadingPlugin)
+Vue.use(ToastPlugin)
+
 FastClick.attach(document.body)
 Vue.config.productionTip = false
-import  { ToastPlugin } from 'vux'
-Vue.use(ToastPlugin)
+Vue.prototype.axios = axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

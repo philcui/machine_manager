@@ -200,7 +200,7 @@ export default {
       text-align: center;
       color: #eeeeee;
       font-size: 0.25rem;
-      padding-top: 0.06rem;
+      padding: 0.06rem;
       .example {
         display: inline-block;
         text-align: center;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="findDriver">
     <div class="filter">
       <div @click="changeShowAddress" class="filterItem address">
         {{addName}}
@@ -28,13 +28,14 @@
         {{locate}}
       </div>
     </div>
-    <div class="infoContent">
+    <div class="infoContent" @scroll="scrollList">
       <div class="topList">
         <top-item v-for="(item, index) in topList" :key="index" :topObj='item'></top-item>
       </div>
       <div class="normalList">
         <normal-item v-for="(item, index) in normalList" :key="index" :normalObj="item"></normal-item>
-      </div>  
+      </div>
+      <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <div class="hrbottom">
       <a href="../pubinfo/index.html" class="left button">发布机主招聘</a>
@@ -65,7 +66,8 @@ import {
   XAddress,
   XDialog,
   ChinaAddressV4Data,
-  Value2nameFilter as value2name
+  Value2nameFilter as value2name,
+  LoadMore
 } from "vux";
 import { PopupPicker } from "vux";
 import macTypeData from "@/components/macType.js";
@@ -93,44 +95,39 @@ export default {
           tagList: [{ name: "旋转挖" }, { name: "正手" }, { name: "包吃包住" }]
         }
       ],
-      normalList: [
+      normalList: [],
+      fakeList: [
         {
           salary: 12000,
-          address: "浙江省衢州市",
+          address: "浙江省湖州市",
           tagName: "大挖",
           distance: 200,
           time: "2017-10-13 8:34"
         },
         {
           salary: 12000,
-          address: "浙江省衢州市",
+          address: "浙江省宁波市",
           tagName: "大挖",
           distance: 200,
           time: "2017-10-13 8:34"
         },
         {
           salary: 12000,
-          address: "浙江省衢州市",
+          address: "浙江省嘉兴市",
           tagName: "大挖",
           distance: 200,
           time: "2017-10-13 8:34"
         },
         {
           salary: 12000,
-          address: "浙江省衢州市",
-          tagName: "大挖",
-          distance: 200,
-          time: "2017-10-13 8:34"
-        },
-        {
-          salary: 12000,
-          address: "浙江省衢州市",
+          address: "浙江省温州市",
           tagName: "大挖",
           distance: 200,
           time: "2017-10-13 8:34"
         }
       ],
-      showDialog: false
+      showDialog: false,
+      isLoading: false
     };
   },
   methods: {
@@ -139,6 +136,21 @@ export default {
     },
     changeShowMacType() {
       this.showMacType = !this.showMacType;
+    },
+    scrollList(e) {
+      if (this.isBottom(e.target)) {
+        this.loadData();
+      }
+    },
+    isBottom(target) {
+      return target.scrollHeight === target.scrollTop + target.clientHeight;
+    },
+    loadData() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.normalList = this.normalList.concat(this.fakeList)
+      }, 1000)
     }
   },
   components: {
@@ -146,7 +158,8 @@ export default {
     PopupPicker,
     TopItem,
     NormalItem,
-    XDialog
+    XDialog,
+    LoadMore
   },
   computed: {
     addName() {
@@ -163,11 +176,17 @@ export default {
         return "设备种类";
       }
     }
+  },
+  mounted(){
+    this.loadData();
   }
 };
 </script>
 
 <style lang='less' scoped>
+.findDriver {
+  height: 100%;
+}
 .filter {
   display: flex;
   width: 100%;
@@ -176,10 +195,14 @@ export default {
   position: fixed;
   top: 0;
   z-index: 10;
+  border-bottom: 1px solid #c9c9c9;
   .filterItem {
     text-align: center;
     line-height: 0.57rem;
     height: 0.57rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     img {
       vertical-align: middle;
     }
@@ -193,7 +216,7 @@ export default {
   }
   .machineType {
     flex: 1;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #c9c9c9;
   }
   .locate {
     width: 1.2rem;
@@ -211,6 +234,7 @@ export default {
   padding-bottom: 0.78rem;
   background-color: #eeeeee;
   z-index: 2;
+  box-sizing: border-box;
   .topList {
     border: 0.04rem solid @theme-color;
     margin-top: 0.08rem;

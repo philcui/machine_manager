@@ -53,7 +53,7 @@
       <selector title="操作证" direction='rtl' placeholder="请选择" v-model="zhengshu" :options="zhengshuList"></selector>
       <selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
-    <a class="submit" href="../result/index.html?restype=pubresume">提交</a>
+    <a class="submit" @click.prevent="submitResume" href="../result/index.html?restype=pubresume">提交</a>
 
     <x-dialog v-model="showExample" class="dialog-demo" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="img-box">
@@ -175,7 +175,88 @@ export default {
     CheckerItem,
     XDialog
   },
-  methods: {}
+  methods: {
+    getErrorInfo(key) {
+      var infoMap = {
+        "001": "请选择设备类型",
+        "002": "请选择工作地点",
+        "003": "请选择操作方向",
+        "004": "请选择吃住方式",
+        "005": "请选择月薪",
+        "006": "请填写联系电话",
+        "007": "请填写正确的电话格式",
+        "008": "请选择驾龄"
+      };
+      return infoMap[key];
+    },
+    validatePubInfo() {
+      if (this.macTypeVal == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("001"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.addVal == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("002"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.driveAge == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("008"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.operate == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("003"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.eat == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("004"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.salary == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("005"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.phone == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("006"),
+          type: "text"
+        });
+        return false;
+      }
+      if (!/^1[34578]\d{9}$/.test(this.phone)) {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("007"),
+          type: "text"
+        });
+        return false;
+      }
+      return true;
+    },
+    submitResume() {
+      if (this.validatePubInfo()) {
+        //前端校验通过
+        this.axios.post("submitResume", {}).then(() => {});
+      } else {
+        //前端校验不通过
+      }
+    }
+  }
 };
 </script>
 

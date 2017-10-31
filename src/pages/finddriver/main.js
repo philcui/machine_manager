@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import setRem from '@/utils/setRem.js'
+import  { ToastPlugin } from 'vux'
+import  { LoadingPlugin } from 'vux'
+Vue.use(LoadingPlugin)
+Vue.use(ToastPlugin)
 
 Vue.config.productionTip = false
 

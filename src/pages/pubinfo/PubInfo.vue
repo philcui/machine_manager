@@ -51,7 +51,7 @@
       </div>
       <selector title="是否愿意付费找驾驶员" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
-    <a href="../result/index.html?restype=pubinfo" class="submit">提交</a>
+    <a href="../result/index.html?restype=pubinfo" @click.prevent="submitPubInfo" class="submit">提交</a>
   </div>
 </template>
 
@@ -66,7 +66,7 @@ import {
   Cell,
   Checker,
   CheckerItem
-} from 'vux';
+} from "vux";
 import macTypeData from "@/components/macType.js";
 import skillList from "@/components/SkillList.js";
 export default {
@@ -123,6 +123,80 @@ export default {
     Checker,
     Cell,
     CheckerItem
+  },
+  methods: {
+    getErrorInfo(key) {
+      var infoMap = {
+        "001": "请选择设备类型",
+        "002": "请选择工作地点",
+        "003": "请选择操作方向",
+        "004": "请选择吃住方式",
+        "005": "请选择月薪",
+        "006": "请填写联系电话",
+        "007": "请填写正确的电话格式",
+      };
+      return infoMap[key];
+    },
+    validatePubInfo() {
+      if (this.macTypeVal == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("001"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.addVal == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("002"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.operate == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("003"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.eat == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("004"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.salary == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("005"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.phone == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("006"),
+          type: "text"
+        });
+        return false;
+      }
+      if (!/^1[34578]\d{9}$/.test(this.phone)) {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("007"),
+          type: "text"
+        });
+        return false;
+      }
+      return true
+    },
+    submitPubInfo() {
+      if (this.validatePubInfo()) {
+        //前端校验通过
+        this.axios.post("submitPubInfo", {}).then(() => {});
+      } else {
+        //前端校验不通过
+      }
+    }
   }
 };
 </script>
@@ -206,7 +280,7 @@ export default {
   background-color: @theme-color;
   color: white;
 }
-.checker_content{
+.checker_content {
   padding-left: 0.22rem;
   line-height: 0.7rem;
 }

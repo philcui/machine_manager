@@ -151,7 +151,15 @@ export default {
         this.isLoading = false;
         this.normalList = this.normalList.concat(this.fakeList)
       }, 1000)
-    }
+    },
+    reloadData(){
+      this.isLoading = true;
+      this.normalList = [];
+      setTimeout(() => {
+        this.isLoading = false;
+        this.normalList = this.fakeList
+      }, 1000)
+    },
   },
   components: {
     XAddress,
@@ -179,6 +187,14 @@ export default {
   },
   mounted(){
     this.loadData();
+  },
+  watch: {
+    addVal(){
+      this.reloadData();
+    },
+    macTypeVal(){
+      this.reloadData();
+    }
   }
 };
 </script>

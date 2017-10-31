@@ -38,20 +38,20 @@
           <p class="label"><span>* </span>手机号码</p>
           <div class="phoneLine">
             <span>+86</span>
-            <input type="phone" placeholder="请输入手机号">
+            <input type="phone" placeholder="请输入手机号" v-model.trim="phoneNum">
           </div>
           <div class="codeLine">
             <div class="codeInput">
-              <input type="text" placeholder="请输入验证码">
+              <input type="text" placeholder="请输入验证码" v-model.trim="checkNum">
             </div>
             <div class="codeBtn" @click="sendCode">短信验证码</div>
           </div>
           <div class="selectLine">
-            <select name="" id="">
+            <select name="" id="" v-model="personType">
               <option v-for="(item, index) in whoimList" :key="index" :value="item.value">{{item.key}}</option>
             </select>
           </div>
-          <div class="submit">
+          <div @click="regByPhone" class="submit">
             确 定
           </div>
         </div>
@@ -132,7 +132,11 @@ export default {
         { key: "我是配件商", value: 6 },
         { key: "我有工程方找设备", value: 7 },
         { key: "其它", value: 8 }
-      ]
+      ],
+
+      phoneNum: "",
+      checkNum: "",
+      personType: "",
     };
   },
   components: {
@@ -157,18 +161,55 @@ export default {
         window.location.href = item.url;
       }
     },
-    sendCode() {}
+    sendCode() {},
+    regByPhone() {
+      if (this.validateRegInfo()) {
+        //前端校验完成
+      } else {
+        //前端校验不通过
+        return;
+      }
+    },
+    validateRegInfo() {
+      if (this.phoneNum == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo('001'),
+          type: "text",
+        })
+        return false
+      }
+      if (! /^1[34578]\d{9}$/.test(this.phoneNum)) {
+        this.$vux.toast.show({
+          text: this.getErrorInfo('003'),
+          type: "text",
+        })
+        return false
+      }
+      if (this.personType == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo('005'),
+          type: "text",
+        })
+        return false
+      }
+    },
+    getErrorInfo(key) {
+      var infoMap = {
+        "001": "请填写电话号码",
+        "002": "请填写验证码",
+        "003": "请填写正确的电话号码",
+        "004": "请填写正确的验证码",
+        "005": "请选择身份"
+      };
+      return infoMap[key]
+    }
   },
   mounted() {
     //ajax请求范例
     this.axios
       .get("oam/api/company/getAllCompany", {})
-      .then((res, req) => {
-        
-      })
-      .catch(err => {
-        
-      });
+      .then((res, req) => {})
+      .catch(err => {});
   }
 };
 </script>

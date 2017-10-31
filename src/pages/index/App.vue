@@ -38,16 +38,16 @@
           <p class="label"><span>* </span>手机号码</p>
           <div class="phoneLine">
             <span>+86</span>
-            <input type="phone" placeholder="请输入手机号" v-model.trim="phoneNum">
+            <input type="phone" placeholder="请输入手机号" v-model.trim="regInfo.phoneNum">
           </div>
           <div class="codeLine">
             <div class="codeInput">
-              <input type="text" placeholder="请输入验证码" v-model.trim="checkNum">
+              <input type="text" placeholder="请输入验证码" v-model.trim="regInfo.checkNum">
             </div>
             <div class="codeBtn" @click="sendCode">短信验证码</div>
           </div>
           <div class="selectLine">
-            <select name="" id="" v-model="personType">
+            <select name="" id="" v-model="regInfo.personType">
               <option v-for="(item, index) in whoimList" :key="index" :value="item.value">{{item.key}}</option>
             </select>
           </div>
@@ -134,9 +134,11 @@ export default {
         { key: "其它", value: 8 }
       ],
 
-      phoneNum: "",
-      checkNum: "",
-      personType: "",
+      regInfo: {
+        phoneNum: "",
+        checkNum: "",
+        personType: ""
+      }
     };
   },
   components: {
@@ -161,56 +163,83 @@ export default {
         window.location.href = item.url;
       }
     },
-    sendCode() {},
+    sendCode() {
+      if (this.validatePhone()) {
+        this.axios
+          .post("sendCode/", {
+            phoneNum: this.regInfo.phoneNum,
+          })
+          .then(() => {});
+      } else {
+        return;
+      }
+    },
     regByPhone() {
       if (this.validateRegInfo()) {
         //前端校验完成
+        this.axios
+          .post("submit/", {
+            regInfo: this.regInfo
+          })
+          .then(() => {
+            this.showReg = false;
+          });
       } else {
         //前端校验不通过
         return;
       }
     },
+    validatePhone() {
+      if (this.regInfo.phoneNum == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("001"),
+          type: "text"
+        });
+        return false;
+      }
+      if (!/^1[34578]\d{9}$/.test(this.regInfo.phoneNum)) {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("003"),
+          type: "text"
+        });
+        return false;
+      }
+
+      return true;
+    },
     validateRegInfo() {
-      if (this.phoneNum == "") {
-        this.$vux.toast.show({
-          text: this.getErrorInfo('001'),
-          type: "text",
-        })
-        return false
+      if (!this.validatePhone()) {
+        return false;
       }
-      if (! /^1[34578]\d{9}$/.test(this.phoneNum)) {
+      if (this.regInfo.checkNum == "") {
         this.$vux.toast.show({
-          text: this.getErrorInfo('003'),
-          type: "text",
-        })
-        return false
+          text: this.getErrorInfo("002"),
+          type: "text"
+        });
+        return false;
       }
-      if (this.personType == "") {
+      if (this.regInfo.personType == "") {
         this.$vux.toast.show({
-          text: this.getErrorInfo('005'),
-          type: "text",
-        })
-        return false
+          text: this.getErrorInfo("005"),
+          type: "text"
+        });
+        return false;
       }
+
+      return true;
     },
     getErrorInfo(key) {
       var infoMap = {
         "001": "请填写电话号码",
         "002": "请填写验证码",
-        "003": "请填写正确的电话号码",
+        "003": "请填写正确格式的电话号码",
         "004": "请填写正确的验证码",
         "005": "请选择身份"
       };
-      return infoMap[key]
+      return infoMap[key];
     }
   },
-  mounted() {
-    //ajax请求范例
-    this.axios
-      .get("oam/api/company/getAllCompany", {})
-      .then((res, req) => {})
-      .catch(err => {});
-  }
+  mounted() {}
 };
 </script>
 

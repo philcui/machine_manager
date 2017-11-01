@@ -167,7 +167,7 @@ export default {
       if (this.validatePhone()) {
         this.axios
           .post("sendCode/", {
-            phoneNum: this.regInfo.phoneNum,
+            phoneNum: this.regInfo.phoneNum
           })
           .then(() => {});
       } else {
@@ -239,7 +239,12 @@ export default {
       return infoMap[key];
     }
   },
-  mounted() {}
+  mounted() {
+    window.myc = this.cookie
+    this.cookie.set('test', 'cookie123')
+    console.log(this.cookie.get('test'))
+    this.cookie.delete('test')
+  }
 };
 </script>
 

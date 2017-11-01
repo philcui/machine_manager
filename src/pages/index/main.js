@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from '@/router'
 import FastClick from 'fastclick'
 import setRem from '@/utils/setRem.js'
+import Cookie from 'vue-cookie'
 
 import axios from '@/utils/http.js'
 import  { ToastPlugin } from 'vux'
@@ -15,6 +16,7 @@ Vue.use(ToastPlugin)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
+Vue.prototype.cookie = Cookie
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

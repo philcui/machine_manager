@@ -11,8 +11,9 @@ var instance = axios.create({
   timeout: 10000,
   baseURL: "",
   headers: {
-    'Content-Type': 'application/json; charset=UTF-8',
-    'X-Requested-With': 'XMLHttpRequest'
+    //'Content-Type': 'application/json; charset=UTF-8',
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+    'X-Requested-With': 'XMLHttpRequest',
   }
 })
 
@@ -30,6 +31,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
+    vue.$vux.loading.hide()
     return response
   },
   error => {

@@ -79,7 +79,7 @@ export default {
       addVal: [],
       addressData: ChinaAddressV4Data,
       showAddress: false,
-      locate: "杭州",
+      locate: "定位中",
       macTypeData: macTypeData,
       macTypeVal: [],
       showMacType: false,
@@ -187,6 +187,9 @@ export default {
   },
   mounted(){
     this.loadData();
+    this.axios.post('/api/default/guess-address',).then((res) => {
+      this.locate = res.data.data.name;
+    })
   },
   watch: {
     addVal(){
@@ -235,7 +238,7 @@ export default {
     border-left: 1px solid #c9c9c9;
   }
   .locate {
-    width: 1.2rem;
+    width: 1.5rem;
     img {
       width: 0.2rem;
       margin-right: 10px;

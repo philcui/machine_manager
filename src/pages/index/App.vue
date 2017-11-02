@@ -31,7 +31,7 @@
       </div>
     </x-dialog>
 
-    <x-dialog v-model="showReg" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
+    <x-dialog @on-show='initReg' v-model="showReg" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="regContent">
         <a href="" class="huangou"><img src="./img/huangou.png" alt=""></a>
         <div class="info">
@@ -44,7 +44,7 @@
             <div class="codeInput">
               <input type="text" placeholder="请输入验证码" v-model.trim="regInfo.checkNum">
             </div>
-            <div class="codeBtn" @click="sendCode">短信验证码</div>
+            <div class="codeBtn" @click="sendCode" :style="{'background-color': isSending?'#ccc':'white'}">{{checkButtonText}}</div>
           </div>
           <div class="selectLine">
             <select name="" id="" v-model="regInfo.personType">
@@ -138,7 +138,10 @@ export default {
         phoneNum: "",
         checkNum: "",
         personType: ""
-      }
+      },
+      checkButtonText: "短信验证码",
+      sendTime: 10,
+      isSending: false
     };
   },
   components: {
@@ -164,25 +167,60 @@ export default {
       }
     },
     sendCode() {
-      if (this.validatePhone()) {
-        this.axios
-          .post("sendCode/", {
-            phoneNum: this.regInfo.phoneNum
-          })
-          .then(() => {});
-      } else {
+      if (this.isSending) {
         return;
+      } else {
+        if (this.validatePhone()) {
+          this.axios
+            .post(
+              "/api/default/get_captcha",
+              this.qs.stringify({
+                mobile: this.regInfo.phoneNum
+              })
+            )
+            .then(res => {
+              console.log(res);
+              this.$vux.toast.show({
+                text: res.data.msg
+              });
+              if (res.data.code == 200) {
+                this.isSending = true;
+                var int = setInterval(() => {
+                  if (this.sendTime == 0) {
+                    clearInterval(int);
+                    this.checkButtonText = "短信验证码";
+                    this.sendTime = 10;
+                    this.isSending = false;
+                  } else {
+                    this.checkButtonText = (this.sendTime--).toString() + "秒";
+                  }
+                }, 1000);
+              }
+            });
+        } else {
+          return;
+        }
       }
     },
     regByPhone() {
       if (this.validateRegInfo()) {
         //前端校验完成
         this.axios
-          .post("submit/", {
-            regInfo: this.regInfo
-          })
-          .then(() => {
-            this.showReg = false;
+          .post(
+            "/api/user/bind",
+            this.qs.stringify({
+              mobile: this.regInfo.phoneNum,
+              code: this.regInfo.checkNum
+            })
+          )
+          .then(res => {
+            console.log(res);
+            this.$vux.toast.show({
+              text: res.data.msg
+            });
+            if (res.data.code == 200) {
+              this.showReg = false;
+            }
           });
       } else {
         //前端校验不通过
@@ -237,13 +275,21 @@ export default {
         "005": "请选择身份"
       };
       return infoMap[key];
+    },
+    initReg() {
+      Object.keys(this.regInfo).forEach((item, index) => {
+        this.regInfo[item] = "";
+      });
     }
   },
   mounted() {
-    window.myc = this.cookie
-    this.cookie.set('test', 'cookie123')
-    console.log(this.cookie.get('test'))
-    this.cookie.delete('test')
+    //模拟登录，写入cookie
+    //this.cookie.set('auth_cookie', tmp)
+    document.cookie =
+      "auth_cookie=e4336578cddb05522fc1a41735ce72f92c211d7a7cff9798febc5947e3272b93a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A36%3A%22b53e2ecf29f19ae2e1c22b3a8942f95f%23%23%233%22%3B%7D";
+    this.axios.get("/api/user/my").then(res => {
+      console.log(res);
+    });
   }
 };
 </script>

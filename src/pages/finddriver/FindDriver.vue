@@ -1,7 +1,7 @@
 <template>
   <div class="findDriver">
     <div class="filter">
-      <div @click="changeShowAddress" class="filterItem address">
+      <!-- <div @click="changeShowAddress" class="filterItem address">
         {{addName}}
         <img class="arrow" src="./img/arrowDown.png" alt="">
         <x-address 
@@ -10,6 +10,17 @@
           :list="addressData" placeholder="请选择地址" 
           :show.sync="showAddress">
         </x-address>
+      </div> -->
+       <div @click="changeShowAddress" class="filterItem address">
+        {{addName}}
+        <img class="arrow" src="./img/arrowDown.png" alt="">
+        <popup-picker 
+          style="display:none;"
+          title="title" 
+          :data="addressData" 
+          v-model="addVal" 
+          :show.sync="showAddress">
+        </popup-picker>
       </div>
       <div @click="changeShowMacType" class="filterItem machineType">
         {{macTypeName}}
@@ -19,7 +30,6 @@
           title="title" 
           :data="macTypeData" 
           v-model="macTypeVal" 
-          :columns="3" 
           :show.sync="showMacType">
         </popup-picker>
       </div>
@@ -65,19 +75,22 @@
 import {
   XAddress,
   XDialog,
-  ChinaAddressV4Data,
+  //ChinaAddressV4Data,
   Value2nameFilter as value2name,
   LoadMore
 } from "vux";
 import { PopupPicker } from "vux";
-import macTypeData from "@/components/macType.js";
+//import macTypeData from "@/components/macType.js";
+import macTypeData from "@/data/car_type.json";
 import TopItem from "./TopItem.vue";
 import NormalItem from "./NormalItem.vue";
+import provinceData from "@/data/prov.json"
+console.log(provinceData)
 export default {
   data() {
     return {
       addVal: [],
-      addressData: ChinaAddressV4Data,
+      addressData: provinceData,
       showAddress: false,
       locate: "定位中",
       macTypeData: macTypeData,
@@ -160,6 +173,16 @@ export default {
         this.normalList = this.fakeList
       }, 1000)
     },
+    findName(val, mylist){
+      var name = ''
+      mylist[0].forEach((item, index) => {
+        if(val == item.value){
+          name = item.name
+          return;
+        }
+      })
+      return name
+    },
   },
   components: {
     XAddress,
@@ -170,16 +193,24 @@ export default {
     LoadMore
   },
   computed: {
+    // addName() {
+    //   if (this.addVal && this.addVal.length > 0) {
+    //     return value2name(this.addVal, this.addressData);
+    //   } else {
+    //     return "工作地点";
+    //   }
+    // },
     addName() {
       if (this.addVal && this.addVal.length > 0) {
-        return value2name(this.addVal, this.addressData);
+        return this.findName(this.addVal[0], provinceData)
       } else {
         return "工作地点";
       }
     },
     macTypeName() {
       if (this.macTypeVal && this.macTypeVal.length > 0) {
-        return value2name(this.macTypeVal, this.macTypeData);
+        //return value2name(this.macTypeVal, this.macTypeData);
+        return this.findName(this.macTypeVal[0], macTypeData)
       } else {
         return "设备种类";
       }
@@ -189,6 +220,7 @@ export default {
     this.loadData();
     this.axios.post('/api/default/guess-address',).then((res) => {
       this.locate = res.data.data.name;
+      console.log(res)
     })
   },
   watch: {

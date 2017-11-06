@@ -85,7 +85,6 @@ import macTypeData from "@/data/car_type.json";
 import TopItem from "./TopItem.vue";
 import NormalItem from "./NormalItem.vue";
 import provinceData from "@/data/prov.json"
-console.log(provinceData)
 export default {
   data() {
     return {

@@ -30,6 +30,7 @@ import PreCell from "../../components/PreCell.vue";
 import OneKeyShare from "../../components/OneKeyShare.vue";
 import FocusWechat from "../../components/FocusWechat.vue";
 import FreeResume from "../../components/FreeResume.vue";
+//import share from '@/utils/share.js'
 export default {
   data() {
     return {
@@ -51,6 +52,9 @@ export default {
     OneKeyShare,
     FocusWechat,
     FreeResume
+  },
+  mounted() {
+
   }
 };
 </script>
@@ -70,30 +74,30 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
-    .report{
+    .report {
       position: absolute;
       top: 0.2rem;
       right: 0.2rem;
       color: #686868;
       font-size: 0.2rem;
-      a{
+      a {
         color: @theme-color;
       }
     }
-    .avatar{
+    .avatar {
       width: 0.82rem;
       margin-right: 0.22rem;
     }
-    .right{
+    .right {
       height: 0.82rem;
-      p{
-        line-height: 0.40rem;
+      p {
+        line-height: 0.4rem;
       }
-      .name{
+      .name {
         color: #626262;
         font-size: 0.24rem;
       }
-      .time{
+      .time {
         color: #a0a0a0;
         font-size: 0.21rem;
       }
@@ -104,7 +108,7 @@ export default {
   .info3 {
     margin-top: 0.18rem;
     flex: 1;
-    .workDetail{
+    .workDetail {
       font-size: 0.24rem;
       color: #535353;
       padding-top: 0.2rem;

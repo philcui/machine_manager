@@ -32,7 +32,8 @@ export default {
         { 
           img: require("../assets/wode.png"),
           activeImg: require("../assets/wode_active.png"),
-          title: "我的"
+          title: "我的",
+          url: "../mine/index.html"
         }
       ]
     };

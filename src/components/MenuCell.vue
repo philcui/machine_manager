@@ -1,5 +1,5 @@
 <template>
-  <a @click.prevent="clickCell" class="cell" :href="menuCell.url">
+  <a @click="clickCell" class="cell" :href="menuCell.url" :style="cellStyle">
     <img class="cell-icon" :src="menuCell.imgSrc" alt="">
     <span class="cell-name">{{menuCell.title}}</span>
   </a>
@@ -8,7 +8,8 @@
 <script>
 export default {
   props: {
-    menuCell: Object
+    menuCell: Object,
+    cellStyle: Object,
   },
   methods:{
     clickCell(){

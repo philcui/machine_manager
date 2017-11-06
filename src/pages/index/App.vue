@@ -142,7 +142,7 @@ export default {
       checkButtonText: "短信验证码",
       sendTime: 10,
       isSending: false,
-      timer: ''
+      timer: ""
     };
   },
   components: {
@@ -196,7 +196,7 @@ export default {
                     this.checkButtonText = (this.sendTime--).toString() + "秒";
                   }
                 }, 1000);
-                this.timer = int
+                this.timer = int;
               }
             });
         } else {
@@ -282,8 +282,8 @@ export default {
       Object.keys(this.regInfo).forEach((item, index) => {
         this.regInfo[item] = "";
       });
-      this.isSending = false
-      clearTimeout(this.timer)
+      this.isSending = false;
+      clearTimeout(this.timer);
     }
   },
   mounted() {

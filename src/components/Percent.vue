@@ -35,13 +35,14 @@ export default {
 .percent {
   height: 0.1rem;
   width: 100%;
-  border-radius: 50%;
-  background-color: white;
+  border-radius: 0.04rem;
+  background-color: #cfb999;
   border: 1px solid @divid-color;
   .inner {
     height: 100%;
-    background-color: @theme-color;
+    background-color: white;
     transition: width 2s;
+    border-radius: 0.04rem;
   }
 }
 </style>

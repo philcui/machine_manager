@@ -6,6 +6,7 @@
 </template>
 
 <script>
+//todo outer element should clear float
 export default {
   props: {
     menuCell: Object,

@@ -1,6 +1,6 @@
 <template>
   <div class="personalCenter">
-    <div class="head">
+    <a href="../personinfo/index.html" class="head">
       <div class="avatar">
         <img src="./img/demo_avatar.png" alt="">
       </div>
@@ -17,7 +17,7 @@
           <img src="./img/right_arrow.png" alt="">
         </div>  
       </div>
-    </div>
+    </a>
     <div class="renzheng">
       <div class="idcard_wrap wrap">
         <span class="item item-left"><img src="./img/id_card.png" alt="">身份证认证</span>
@@ -66,7 +66,7 @@ export default {
   components: {
     TabBottom,
     Percent,
-    MenuCell
+    MenuCell,
   },
   mounted() {
     this.percent = 90;
@@ -79,6 +79,7 @@ export default {
   height: 100%;
   background-color: white;
   .head {
+    display: block;
     height: 2.16rem;
     background-color: @theme-color;
     display: flex;

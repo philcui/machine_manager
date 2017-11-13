@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    vue is simple
-    这个文件夹是一个页面的模板
+    <person-info></person-info>
   </div>
 </template>
 
 <script>
+import PersonInfo from './PersonInfo.vue'
 export default {
   data(){
     return {
@@ -16,7 +16,7 @@ export default {
 
   },
   components:{
-
+    PersonInfo
   }
 }
 </script>

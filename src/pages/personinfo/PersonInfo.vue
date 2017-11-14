@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <group>
+  <div class="personInfo">
+    <group gutter='0'>
       <cell title="头像">
         <img class="tx" src="./img/tx.png">
       </cell>
@@ -46,11 +46,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .save-content{
-    padding: 10px 15px;
+  .personInfo{
     .tx{
       width: 1.13rem;
       height: 1.13rem;
+    }
+    .save-content{
+      padding: 10px 15px;
     }
   }
 </style>

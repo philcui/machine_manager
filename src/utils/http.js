@@ -14,7 +14,11 @@ var instance = axios.create({
     //'Content-Type': 'application/json; charset=UTF-8',
     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
     'X-Requested-With': 'XMLHttpRequest',
-  }
+  },
+  transformRequest: (data) => {
+    //请求数据转换
+    return data
+  },
 })
 
 instance.interceptors.request.use(

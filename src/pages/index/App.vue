@@ -301,6 +301,9 @@ export default {
 <style lang='less'>
 @import "~vux/src/styles/reset.less";
 @import "../../style/base.less";
+#app{
+  padding-bottom: 0.9rem;
+}
 .menu {
   background-color: #fff;
   margin-top: 0.12rem;

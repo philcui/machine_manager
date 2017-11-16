@@ -24,5 +24,7 @@ export default {
 <style lang='less'>
 @import '~vux/src/styles/reset.less';
 @import '../../style/base.less';
-
+#app{
+  padding-bottom: 0.9rem;
+}
 </style>

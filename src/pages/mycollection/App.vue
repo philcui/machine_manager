@@ -4,7 +4,7 @@
       <div @click="selectTab(1)" :class="getClass(1)">职位收藏</div>
       <div @click="selectTab(2)" :class="getClass(2)">二手机收藏</div>
     </div>
-    <div class="jobCollect" v-for="(item, index) in jobList" :key="index" v-show="true">
+    <div class="jobCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(1)">
       <div class="jobItem">
         <div class="left">
           <img :src="item.img" alt="">
@@ -21,8 +21,22 @@
         </div>
       </div>
     </div>
-    <div class="machineCollect" v-show="false">
-
+    
+    <div class="jobCollect machineCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(2)">
+      <div class="jobItem">
+        <div class="left">
+          <img :src="item.img" alt="">
+          <div>{{item.name}}</div>
+        </div>
+        <div class="center">
+          <p>{{item.type}}</p>
+          <p>{{item.salary}}</p>
+        </div>
+        <div class="right">
+          <div class="time">{{item.time}}</div>
+          <div class="cancelBtn">取消</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +106,10 @@ export default {
     },
     selectTab(index){
       this.activeIndex = index
-    }
+    },
+    showBindingActive(index){
+      return index == this.activeIndex ? true : false
+    },
   },
   components:{
 

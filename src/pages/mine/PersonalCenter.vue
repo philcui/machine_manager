@@ -78,6 +78,7 @@ export default {
 .personalCenter {
   height: 100%;
   background-color: white;
+  position: relative;
   .head {
     display: block;
     height: 2.16rem;
@@ -182,8 +183,9 @@ export default {
     padding-top: 0.4rem;
   }
   .feedback{
-    margin-top: 1.92rem;
-    margin-left: 0.64rem;
+    position: absolute;
+    left: 0.64rem;
+    bottom: 0.32rem;
     .title{
       color: #1b1b1b;
       font-size: 0.2rem;

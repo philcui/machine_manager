@@ -65,6 +65,9 @@ export default {
 @import "~vux/src/styles/reset.less";
 @import "../../style/base.less";
 
+#app{
+  padding-bottom: 0.9rem;
+}
 .menu-cell-wrap {
   overflow: hidden;
   .menu-cell {

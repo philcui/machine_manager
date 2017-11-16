@@ -20,11 +20,11 @@
     </a>
     <div class="renzheng">
       <div class="idcard_wrap wrap">
-        <span class="item item-left"><img src="./img/id_card.png" alt="">身份证认证</span>
+        <a href="../idcardauth/index.html" class="item item-left"><img src="./img/id_card.png" alt="">身份证认证</a>
         <span class="item unauth"><img src="./img/unauth.png" alt="">未认证</span>
       </div>
       <div class="opcard_wrap wrap">
-        <span class="item item-left"><img src="./img/op_card.png" alt="">操作证认证</span>
+        <a href="../opcardauth/index.html" class="item item-left"><img src="./img/op_card.png" alt="">操作证认证</a>
         <span class="item"><img src="./img/authed.png" alt="">已认证</span>
       </div>
     </div>

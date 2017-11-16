@@ -3,7 +3,7 @@
     <div class="top">
       <div class="circle">
         <div class="points_label">我的积分</div>
-        <div class="points">5000</div>
+        <div class="points">{{points}}</div>
       </div>
     </div>
     <div class="center">
@@ -35,14 +35,23 @@ export default {
     return {
       isInfoComplete: false,
       isIdCardComplete: true,
+      points: 0,
     };
   },
   methods: {
     getBtnClass(flag){
       return flag ? "btn complete" : "btn uncomplete"
     },
+    numberAnimate(num){
+      for(let i=0; i <= num; i++){
+        setTimeout(() => {this.points = i}, 1000/30)
+      }
+    }
   },
-  components: {}
+  components: {},
+  mounted(){
+    this.numberAnimate(5000)
+  }
 };
 </script>
 

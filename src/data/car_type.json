@@ -1,46 +1,46 @@
 [[
   {
-    "value": 1,
+    "value": "1",
     "name": "大挖(200以上)",
     "sort": 0
   },
   {
-    "value": 2,
+    "value": "2",
     "name": "中挖(120～200)",
     "sort": 0
   },
   {
-    "value": 3,
+    "value": "3",
     "name": "小挖(120以下)",
     "sort": 0
   },
   {
-    "value": 4,
+    "value": "4",
     "name": "长臂挖",
     "sort": 0
   },
   {
-    "value": 5,
+    "value": "5",
     "name": "轮挖",
     "sort": 0
   },
   {
-    "value": 6,
+    "value": "6",
     "name": "装载机",
     "sort": 0
   },
   {
-    "value": 7,
+    "value": "7",
     "name": "叉车",
     "sort": 0
   },
   {
-    "value": 8,
+    "value": "8",
     "name": "吊车",
     "sort": 0
   },
   {
-    "value": 9,
+    "value": "9",
     "name": "压路机",
     "sort": 0
   }

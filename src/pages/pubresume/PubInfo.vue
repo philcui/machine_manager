@@ -5,23 +5,27 @@
         <p>好的简历有助于好老板找到你 <span class="example" @click="showExample=true">效果展示</span></p>
       </div>
     </div>
+
+    <form ref="formInfo" action="/api/resume/add" method="post">
     <group gutter='0'>
       <popup-picker 
         :title="redDot + '操作设备'" 
         :data="macTypeData" 
         v-model="macTypeVal" show-name 
-        :columns="3" placeholder="请选择"> 
+        placeholder="请选择"> 
       </popup-picker>
-      <x-address  
-        :title="redDot + '期望地点'" v-model="addVal" 
-        :list="addressData" placeholder="请选择">
-      </x-address>
+      <popup-picker 
+        :title="redDot + '期望地点'" 
+        :data="addressData" 
+        v-model="addVal" show-name
+        placeholder="请选择"> 
+      </popup-picker>
       <popup-picker placeholder="请选择" show-name :title="redDot + '其它地区'" :data="anotherAddList" v-model="anotherAddVal"></popup-picker>
-      <popup-picker placeholder="请选择" :title="redDot + '驾龄'" :data="driveAgeList" v-model="driveAge"></popup-picker>
+      <popup-picker placeholder="请选择" show-name :title="redDot + '驾龄'" :data="driveAgeList" v-model="driveAge"></popup-picker>
     </group>
     <group gutter='0.2rem'>
       <cell title="照片" value-align='right'>
-        <input type="file">
+        <input name="image" type="file">
       </cell>
       <popup-picker placeholder="请选择" show-name :title="redDot + '操作方向'" :data="operateList" v-model="operate"></popup-picker>
       <popup-picker placeholder="请选择" :title="redDot + '期望薪资'" :data="salaryList" v-model="salary"></popup-picker>
@@ -29,7 +33,7 @@
       <div class="mycell">
         <p>自我介绍</p>
         <div class="summary">
-          <textarea name="" id="" cols="30" rows="10"
+          <textarea id="" cols="30" rows="10" v-model="description"
           placeholder="可以介绍自己能干啥活，个人优势，工资待遇要求，有助于找到好工作（50字以内）"></textarea>
         </div>
       </div>
@@ -53,7 +57,31 @@
       <selector title="操作证" direction='rtl' placeholder="请选择" v-model="zhengshu" :options="zhengshuList"></selector>
       <selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
-    <a class="submit" @click.prevent="submitResume" href="../result/index.html?restype=pubresume">提交</a>
+
+      <!-- 设备类型 -->
+      <input type="hidden" name="car_type_id" v-model="macTypeVal">
+      <!-- 工作地点 -->
+      <input type="hidden" name="address_id" v-model="addVal">
+      <!-- 可接受的工作范围 -->
+      <input type="hidden" name="location" v-model="anotherAddVal">
+      <!-- 驾龄 -->
+      <input type="hidden" name="working_age" v-model="driveAge">
+      <!-- 操作方向 -->
+      <input type="hidden" name="mode" v-model="operate">
+      <!-- 月薪 -->
+      <input type="hidden" name="base_salary" value="3000">
+      <!-- 联系电话 -->
+      <input type="hidden" name="mobile" v-model="phone">
+      <!-- 工作技能 -->
+      <!-- <input type="hidden" name="skill_list" v-model="skills_name"> -->
+      <!-- 工作介绍 -->
+      <input type="hidden" name="description" v-model="description">
+      <!-- 操作证 -->
+      <input type="hidden" name="certified" v-model="zhengshu">
+      <!-- 是否愿意付费 -->
+      <input type="hidden" name="will_pay" v-model="isLikePay">
+      <a class="submit" @click.prevent="submitResume" href="../result/index.html?restype=pubresume">提交</a>
+    </form>
 
     <x-dialog v-model="showExample" class="dialog-demo" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="img-box">
@@ -69,7 +97,6 @@
 <script>
 import {
   XAddress,
-  ChinaAddressV4Data,
   PopupPicker,
   Selector,
   Group,
@@ -79,12 +106,16 @@ import {
   CheckerItem,
   XDialog
 } from "vux";
-import macTypeData from "@/components/macType.js";
-import skillList from "@/components/SkillList.js";
+//import macTypeData from "@/components/macType.js";
+import macTypeData from "@/data/car_type.json";
+//import skillList from "@/components/SkillList.js";
+import provinceData from "@/data/prov.json";
+import modes from "@/data/mode_type.json"
+import skillList from "@/data/skills.json";
 export default {
   data() {
     return {
-      addressData: ChinaAddressV4Data,
+      addressData: provinceData,
       addVal: [],
       anotherAddVal: [],
       anotherAddList: [
@@ -97,48 +128,42 @@ export default {
       macTypeData: macTypeData,
       macTypeVal: [],
       operate: [],
-      operateList: [
-        [
-          { name: "左右旋转(正手)", value: "0" },
-          { name: "上下旋转(反手)", value: "1" },
-          { name: "都会", value: "2" }
-        ]
-      ],
+      operateList: modes,
       isLikePay: "",
-      isLikePayList: [{ key: true, value: "是" }, { key: false, value: "否" }],
+      isLikePayList: [{ key: 1, value: "是" }, { key: 2, value: "否" }],
       skillList: skillList,
       workContent: [],
       zhengshu: "",
       zhengshuList: [
-        { key: true, value: "有" },
-        { key: true, value: "无" },
-        { key: true, value: "想办证" }
+        { key: 1, value: "有" },
+        { key: 2, value: "无" },
+        { key: 3, value: "想办证" }
       ],
       driveAge: [],
       driveAgeList: [
         [
-          "学徒",
-          "1年",
-          "2年",
-          "3年",
-          "4年",
-          "5年",
-          "6年",
-          "7年",
-          "8年",
-          "9年",
-          "10年",
-          "11年",
-          "12年",
-          "13年",
-          "14年",
-          "15年",
-          "16年",
-          "17年",
-          "18年",
-          "19年",
-          "20年",
-          "20年以上"
+          { name: "学徒", value: "0" },
+          { name: "1年", value: "1" },
+          { name: "2年", value: "2" },
+          { name: "3年", value: "3" },
+          { name: "4年", value: "4" },
+          { name: "5年", value: "5" },
+          { name: "6年", value: "6" },
+          { name: "7年", value: "7" },
+          { name: "8年", value: "8" },
+          { name: "9年", value: "9" },
+          { name: "10年", value: "10" },
+          { name: "11年", value: "11" },
+          { name: "12年", value: "12" },
+          { name: "13年", value: "13" },
+          { name: "14年", value: "14" },
+          { name: "15年", value: "15" },
+          { name: "16年", value: "16" },
+          { name: "17年", value: "17" },
+          { name: "18年", value: "18" },
+          { name: "19年", value: "19" },
+          { name: "20年", value: "20" },
+          { name: "20年以上", value: "21" },
         ]
       ],
       salaryList: [
@@ -159,6 +184,7 @@ export default {
       ],
       salary: [],
       phone: "",
+      description: "",
       redDot: "<span style='color:red;'>*</span>",
 
       showExample: false
@@ -251,7 +277,8 @@ export default {
     submitResume() {
       if (this.validatePubInfo()) {
         //前端校验通过
-        this.axios.post("submitResume", {}).then(() => {});
+        //this.axios.post("submitResume", {}).then(() => {});
+        this.$refs.formInfo.submit()
       } else {
         //前端校验不通过
       }

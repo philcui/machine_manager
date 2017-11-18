@@ -1,9 +1,9 @@
 <template>
-  <a class="topItem" href="../workdetail/index.html">
+  <a class="topItem" :href="gethref()">
     <div class="line1">
       <img class="money" src="./img/money.png" alt="">
       <span class="number">月薪：{{topObj.salary}}元/月</span>
-      <tag v-for="(item, index) in topObj.tagList" :key="index" :tagName='item.name'></tag>
+      <tag v-for="(item, index) in getTags()" :key="index" :tagName='item'></tag>
     </div>
     <div class="line2">
       <span>地点：{{topObj.address}}</span>
@@ -20,7 +20,25 @@ export default {
   },
   components:{
     Tag
-  }
+  },
+  methods: {
+    getTags(){
+      let tags = []
+      if(this.topObj.car_type){
+        tags.push(this.topObj.car_type)
+      }
+      if(this.topObj.operating_mode){
+        tags.push(this.topObj.operating_mode)
+      }
+      if(this.topObj.benefit){
+        tags.push(this.topObj.benefit)
+      }
+      return tags
+    },
+    gethref(){
+      return "../workdetail/index.html?id=" + this.topObj.id
+    },
+  },
 }
 </script>
 

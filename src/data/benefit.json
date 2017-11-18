@@ -1,18 +1,18 @@
 [[
   {
-    "value": 0,
+    "value": "0",
     "name": "都不包"
   },
   {
-    "value": 1,
+    "value": "1",
     "name": "包吃"
   },
   {
-    "value": 2,
+    "value": "2",
     "name": "包住"
   },
   {
-    "value": 3,
+    "value": "3",
     "name": "包吃包住"
   }
 ]]

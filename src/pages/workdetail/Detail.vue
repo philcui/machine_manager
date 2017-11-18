@@ -3,21 +3,23 @@
     <div class="info info1">
       <img class="avatar" src="../../assets/avatar.png" alt="">
       <div class="right">
-        <p class="name">李峰</p>
-        <p class="time">2018-04-29 09:00</p>
+        <p class="name">{{info.realname}}</p>
+        <p class="time">{{info.ctime}}</p>
       </div>
       <div class="report">
         如遇虚假信息，请<a href="../report/index.html">立即举报</a>
       </div>
     </div>
     <div class="info info2">
-      <pre-cell v-for="(item, index) in cellList1" :key="index" :title="item.title" :content='item.content'></pre-cell>
+      <pre-cell title="月薪" :content='info.base_salary'></pre-cell>
+      <pre-cell title="设备类型" :content='info.car_type'></pre-cell>
+      <pre-cell title="工作地点" :content='info.address'></pre-cell>
     </div>
     <div class="info info3">
-      <pre-cell v-for="(item, index) in cellList2" :key="index" :title="item.title" :content='item.content'></pre-cell>
-      <div class="workDetail">
-        工资月结，想干的尽快联系我
-      </div>
+      <pre-cell title="操作方向" :content='info.operating_mode'></pre-cell>
+      <pre-cell title="吃住" :content='info.benefit'></pre-cell>
+      <pre-cell title="工作内容" :content='info.skills'></pre-cell>  
+      <div class="workDetail">{{info.description}}</div>
     </div>
     <one-key-share v-if="false"></one-key-share>
     <focus-wechat v-if="false"></focus-wechat>
@@ -30,21 +32,12 @@ import PreCell from "../../components/PreCell.vue";
 import OneKeyShare from "../../components/OneKeyShare.vue";
 import FocusWechat from "../../components/FocusWechat.vue";
 import FreeResume from "../../components/FreeResume.vue";
+import getUrlKey from '@/utils/getUrlKey.js'
 //import share from '@/utils/share.js'
 export default {
   data() {
     return {
-      cellList1: [
-        { title: "月薪", content: "6000元" },
-        { title: "设备类型", content: "大挖" },
-        { title: "工作地点", content: "杭州市文三路100号创意大厦" }
-      ],
-      cellList2: [
-        { title: "操作方向", content: "反手" },
-        { title: "吃住", content: "包吃包住" },
-        { title: "工作内容", content: "挖坑、破碎" },
-        { title: "工作介绍", content: "" }
-      ]
+      info: {},
     };
   },
   components: {
@@ -54,7 +47,11 @@ export default {
     FreeResume
   },
   mounted() {
-
+    this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey('id')}))
+    .then(res => {
+      this.info = res.data.data
+      console.log(res);
+    });
   }
 };
 </script>

@@ -6,18 +6,26 @@
         <p>主动发布让驾驶员联系你</p>
       </div>
     </div>
+    
+    <form ref="formInfo" action="/api/job/add" method="post">
     <group gutter='0'>
       <popup-picker 
         :title="redDot + '设备类型'" 
         :data="macTypeData" 
-        v-model="macTypeVal" show-name
-        :columns="3" placeholder="请选择"> 
+        v-model="macTypeVal"
+        show-name 
+        placeholder="请选择"> 
       </popup-picker>
-      <x-address  
-        :title="redDot + '工作地点'"  
-        v-model="addVal" 
+      <popup-picker 
+        :title="redDot + '工作地点'" 
+        :data="addressData" 
+        v-model="addVal" show-name
+        placeholder="请选择"> 
+      </popup-picker>
+      <!-- <x-address  
+        :title="redDot + '期望地点'" v-model="addVal" 
         :list="addressData" placeholder="请选择">
-      </x-address>
+      </x-address> -->
       <div class="mycell addTip">
         提示：为了更好的服务大家，目前只开通11个省份的招聘服务，其他省份请
         <a href="">点此发布</a>
@@ -45,20 +53,39 @@
       <div class="mycell">
         <p>工作介绍</p>
         <div class="summary">
-          <textarea name="" id="" cols="30" rows="10"
+          <textarea name="" id="" cols="30" rows="10" v-model="description"
           placeholder="可以填写工作要求，福利待遇，工资结算，特殊要求等等，60字以内"></textarea>
         </div>
       </div>
       <selector title="是否愿意付费找驾驶员" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
-    <a href="../result/index.html?restype=pubinfo" @click.prevent="submitPubInfo" class="submit">提交</a>
+      <!-- 设备类型 -->
+      <input type="hidden" name="car_type_id" v-model="macTypeVal">
+      <!-- 工作地点 -->
+      <input type="hidden" name="address_id" v-model="addVal">
+      <!-- 操作方向 -->
+      <input type="hidden" name="mode" v-model="operate">
+      <!-- 吃住 -->
+      <input type="hidden" name="benefit_type" v-model="eat">
+      <!-- 月薪 -->
+      <input type="hidden" name="base_salary" value="3000">
+      <!-- 联系电话 -->
+      <input type="hidden" name="mobile" v-model="phone">
+      <!-- 工作内容 -->
+      <!-- <input type="hidden" name="skill_list" v-model="skills_name"> -->
+      <!-- 工作介绍 -->
+      <input type="hidden" name="description" v-model="description">
+      <!-- 是否愿意付费 -->
+      <input type="hidden" name="will_pay" v-model="isLikePay">
+      <a href="../result/index.html?restype=pubinfo" @click.prevent="submitPubInfo" class="submit">提交</a>
+    </form>
   </div>
 </template>
 
 <script>
 import {
   XAddress,
-  ChinaAddressV4Data,
+  // ChinaAddressV4Data,
   PopupPicker,
   Selector,
   Group,
@@ -67,28 +94,25 @@ import {
   Checker,
   CheckerItem
 } from "vux";
-import macTypeData from "@/components/macType.js";
-import skillList from "@/components/SkillList.js";
+//import macTypeData from "@/components/macType.js";
+import macTypeData from "@/data/car_type.json";
+import benefit from "@/data/benefit.json";
+import skillList from "@/data/skills.json";
+//import skillList from "@/components/SkillList.js";
+import provinceData from "@/data/prov.json";
 export default {
   data() {
     return {
-      addressData: ChinaAddressV4Data,
+      addressData: provinceData,
       addVal: [],
       macTypeData: macTypeData,
       macTypeVal: [],
       operate: [],
       operateList: [
-        [{ name: "左右旋转(正手)", value: "0" }, { name: "上下旋转(反手)", value: "1" }]
+        [{ name: "左右旋转(正手)", value: "1" }, { name: "上下旋转(反手)", value: "2" }]
       ],
       eat: [],
-      eatList: [
-        [
-          { name: "包吃包住", value: "0" },
-          { name: "包吃", value: "1" },
-          { name: "包住", value: "2" },
-          { name: "都不包", value: "3" }
-        ]
-      ],
+      eatList: benefit,
       isLikePay: "",
       isLikePayList: [{ key: true, value: "是" }, { key: false, value: "否" }],
       skillList: skillList,
@@ -111,6 +135,7 @@ export default {
       ],
       salary: [],
       phone: "",
+      description: "",
       redDot: "<span style='color:red;'>*</span>"
     };
   },
@@ -133,7 +158,7 @@ export default {
         "004": "请选择吃住方式",
         "005": "请选择月薪",
         "006": "请填写联系电话",
-        "007": "请填写正确的电话格式",
+        "007": "请填写正确的电话格式"
       };
       return infoMap[key];
     },
@@ -187,15 +212,25 @@ export default {
         });
         return false;
       }
-      return true
+      return true;
     },
     submitPubInfo() {
       if (this.validatePubInfo()) {
         //前端校验通过
-        this.axios.post("submitPubInfo", {}).then(() => {});
+        //this.axios.post("submitPubInfo", {}).then(() => {});
+        this.$refs.formInfo.submit();
       } else {
         //前端校验不通过
       }
+    }
+  },
+  computed: {
+    skills_name() {
+      let names = [];
+      this.workContent.forEach((item, index, arr) => {
+        names.push(this.skillList[index].key);
+      });
+      return names;
     }
   }
 };

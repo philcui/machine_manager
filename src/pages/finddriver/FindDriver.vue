@@ -35,7 +35,7 @@
       </div>
       <div class="filterItem locate">
         <img src="./img/locate.png" alt="">
-        {{locate}}
+        {{locate.name}}
       </div>
     </div>
     <div class="infoContent" @scroll="scrollList">
@@ -84,62 +84,23 @@ import { PopupPicker } from "vux";
 import macTypeData from "@/data/car_type.json";
 import TopItem from "./TopItem.vue";
 import NormalItem from "./NormalItem.vue";
-import provinceData from "@/data/prov.json"
+import provinceData from "@/data/prov.json";
+//import {jobList, adsList} from "@/mock/index.js";
 export default {
   data() {
     return {
       addVal: [],
       addressData: provinceData,
       showAddress: false,
-      locate: "定位中",
+      locate: { name: "定位中", id: "" },
       macTypeData: macTypeData,
       macTypeVal: [],
       showMacType: false,
-      topList: [
-        {
-          salary: 7500,
-          address: "湖北省武汉市",
-          tagList: [{ name: "大挖" }, { name: "正手" }]
-        },
-        {
-          salary: 7500,
-          address: "湖南省临澧市",
-          tagList: [{ name: "旋转挖" }, { name: "正手" }, { name: "包吃包住" }]
-        }
-      ],
+      topList: [],
       normalList: [],
-      fakeList: [
-        {
-          salary: 12000,
-          address: "浙江省湖州市",
-          tagName: "大挖",
-          distance: 200,
-          time: "2017-10-13 8:34"
-        },
-        {
-          salary: 12000,
-          address: "浙江省宁波市",
-          tagName: "大挖",
-          distance: 200,
-          time: "2017-10-13 8:34"
-        },
-        {
-          salary: 12000,
-          address: "浙江省嘉兴市",
-          tagName: "大挖",
-          distance: 200,
-          time: "2017-10-13 8:34"
-        },
-        {
-          salary: 12000,
-          address: "浙江省温州市",
-          tagName: "大挖",
-          distance: 200,
-          time: "2017-10-13 8:34"
-        }
-      ],
       showDialog: false,
-      isLoading: false
+      isLoading: false,
+      nowPage: 0
     };
   },
   methods: {
@@ -158,30 +119,58 @@ export default {
       return target.scrollHeight === target.scrollTop + target.clientHeight;
     },
     loadData() {
+      // 加载，加载更多
       this.isLoading = true;
-      setTimeout(() => {
+      this.axios.post("/api/job/list", this.getFilter()).then(res => {
         this.isLoading = false;
-        this.normalList = this.normalList.concat(this.fakeList)
-      }, 1000)
+        this.nowPage++;
+        this.normalList = this.normalList.concat(res.data.data);
+        console.log(res);
+      });
     },
-    reloadData(){
-      this.isLoading = true;
+    getFilter(opt) {
+      // 动态条件生成
+      return this.qs.stringify(
+        Object.assign(
+          {
+            page: this.nowPage,
+            address_id: this.addVal[0] || this.locate.id,
+            car_type_id: this.macTypeVal[0]
+          },
+          opt
+        )
+      );
+    },
+    reloadData() {
+      // 条件变化，发生重新加载，重置当前数据及页码
       this.normalList = [];
-      setTimeout(() => {
-        this.isLoading = false;
-        this.normalList = this.fakeList
-      }, 1000)
+      this.nowPage = 0;
+      this.loadData();
     },
-    findName(val, mylist){
-      var name = ''
+    findName(val, mylist) {
+      var name = "";
       mylist[0].forEach((item, index) => {
-        if(val == item.value){
-          name = item.name
+        if (val == item.value) {
+          name = item.name;
           return;
         }
-      })
-      return name
+      });
+      return name;
     },
+    guessAddress() {
+      // 获取用户地址
+      return this.axios.post("/api/default/guess-address").then(res => {
+        this.locate = res.data.data;
+        console.log(res);
+      });
+    },
+    loadAds() {
+      this.axios
+        .post("/api/job/list", this.getFilter({ limit: 2 }))
+        .then(res => {
+          this.topList = res.data.data;
+        });
+    }
   },
   components: {
     XAddress,
@@ -201,7 +190,7 @@ export default {
     // },
     addName() {
       if (this.addVal && this.addVal.length > 0) {
-        return this.findName(this.addVal[0], provinceData)
+        return this.findName(this.addVal[0], provinceData);
       } else {
         return "工作地点";
       }
@@ -209,25 +198,32 @@ export default {
     macTypeName() {
       if (this.macTypeVal && this.macTypeVal.length > 0) {
         //return value2name(this.macTypeVal, this.macTypeData);
-        return this.findName(this.macTypeVal[0], macTypeData)
+        return this.findName(this.macTypeVal[0], macTypeData);
       } else {
         return "设备种类";
       }
     }
   },
-  mounted(){
-    this.loadData();
-    this.axios.post('/api/default/guess-address',).then((res) => {
-      this.locate = res.data.data.name;
-      console.log(res)
-    })
+  mounted() {
+    this.guessAddress().then(
+      val => {
+        this.loadData();
+        this.loadAds();
+      },
+      err => {
+        this.loadData();
+        this.loadAds();
+      }
+    );
   },
   watch: {
-    addVal(){
+    addVal() {
       this.reloadData();
+      this.loadAds();
     },
-    macTypeVal(){
+    macTypeVal() {
       this.reloadData();
+      this.loadAds();
     }
   }
 };

@@ -1,9 +1,9 @@
 <template>
-  <a class="info" href="../workdetail/index.html">
+  <a class="info" :href="gethref()">
     <div class="item salary">
       <img src="./img/money_strong.png" alt="">
       <span class="moneyTitle">预计收入：{{normalObj.salary}}元/月</span>
-      <tag :tagName='normalObj.tagName'></tag>
+      <tag v-if="normalObj.car_type" :tagName='normalObj.car_type'></tag>
     </div>
     <div class="item address">
       <img src="./img/car.png" alt="">
@@ -13,7 +13,7 @@
     <div class="item date">
       <img src="./img/time.png" alt="">
       <span class="label">时间：</span>
-      <span class="text">{{normalObj.time}}</span>
+      <span class="text">{{normalObj.ctime}}</span>
     </div>
     <a class="offer">详情</a>
   </a>  
@@ -27,6 +27,11 @@ export default {
   },
   components:{
     Tag
+  },
+  methods: {
+    gethref(){
+      return "../workdetail/index.html?id=" + this.normalObj.id
+    }
   }
 }
 </script>
@@ -58,6 +63,11 @@ export default {
       .moneyTitle{
         color: #ff0000;
       }
+    }
+    .address{
+      padding-right: 1.08rem;
+      overflow: hidden;
+      height: 0.58rem;
     }
     .offer{
       display: block;

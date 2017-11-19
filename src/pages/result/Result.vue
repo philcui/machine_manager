@@ -50,7 +50,8 @@ export default {
     }
   },
   mounted(){
-    this.resObj = this.resMap[getUrlKey('restype')]
+    //this.resObj = this.resMap[getUrlKey('restype')]
+    this.resObj = JSON.parse(getUrlKey('restype'))
     document.title = this.resObj.title;
   }
 }

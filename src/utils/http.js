@@ -42,7 +42,7 @@ instance.interceptors.response.use(
     vue.$vux.loading.hide()
     vue.$vux.toast.show({
       type: 'warn',
-      text: '请求失败'
+      text: '哇，出错了'
     })
     return Promise.reject(error)
   }

@@ -6,8 +6,6 @@
         <p>主动发布让驾驶员联系你</p>
       </div>
     </div>
-    
-    <form ref="formInfo" action="/api/job/add" method="post">
     <group gutter='0'>
       <popup-picker 
         :title="redDot + '设备类型'" 
@@ -34,7 +32,7 @@
       <popup-picker placeholder="请选择" show-name :title="redDot + '吃住'" :data="eatList" v-model="eat"></popup-picker>
     </group>
     <group gutter='0.2rem'>
-      <popup-picker placeholder="请选择" :title="redDot + '月薪'" :data="salaryList" v-model="salary"></popup-picker>
+      <popup-picker placeholder="请选择" show-name :title="redDot + '月薪'" :data="salaryList" v-model="salary"></popup-picker>
       <x-input placeholder="请填写" :title="redDot + '联系电话'" v-model="phone" text-align='right'></x-input>
       <div class="mycell nextTip">【以下部分为选填项】</div>
     </group>
@@ -59,26 +57,7 @@
       </div>
       <selector title="是否愿意付费找驾驶员" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
-      <!-- 设备类型 -->
-      <input type="hidden" name="car_type_id" v-model="macTypeVal">
-      <!-- 工作地点 -->
-      <input type="hidden" name="address_id" v-model="addVal">
-      <!-- 操作方向 -->
-      <input type="hidden" name="mode" v-model="operate">
-      <!-- 吃住 -->
-      <input type="hidden" name="benefit_type" v-model="eat">
-      <!-- 月薪 -->
-      <input type="hidden" name="base_salary" value="3000">
-      <!-- 联系电话 -->
-      <input type="hidden" name="mobile" v-model="phone">
-      <!-- 工作内容 -->
-      <!-- <input type="hidden" name="skill_list" v-model="skills_name"> -->
-      <!-- 工作介绍 -->
-      <input type="hidden" name="description" v-model="description">
-      <!-- 是否愿意付费 -->
-      <input type="hidden" name="will_pay" v-model="isLikePay">
-      <a href="../result/index.html?restype=pubinfo" @click.prevent="submitPubInfo" class="submit">提交</a>
-    </form>
+    <a href="" @click.prevent="submitPubInfo" class="submit">提交</a>
   </div>
 </template>
 
@@ -100,6 +79,7 @@ import benefit from "@/data/benefit.json";
 import skillList from "@/data/skills.json";
 //import skillList from "@/components/SkillList.js";
 import provinceData from "@/data/prov.json";
+import salaryList from "@/data/salary.json";
 export default {
   data() {
     return {
@@ -117,22 +97,7 @@ export default {
       isLikePayList: [{ key: true, value: "是" }, { key: false, value: "否" }],
       skillList: skillList,
       workContent: [],
-      salaryList: [
-        [
-          "面议",
-          "0-3000",
-          "3000-4000",
-          "4000-5000",
-          "5000-6000",
-          "6000-7000",
-          "7000-8000",
-          "8000-9000",
-          "9000-10000",
-          "10000-11000",
-          "11000-12000",
-          "12000以上"
-        ]
-      ],
+      salaryList: salaryList,
       salary: [],
       phone: "",
       description: "",
@@ -217,12 +182,38 @@ export default {
     submitPubInfo() {
       if (this.validatePubInfo()) {
         //前端校验通过
-        //this.axios.post("submitPubInfo", {}).then(() => {});
-        this.$refs.formInfo.submit();
+        this.axios.post("/api/job/add", this.qs.stringify({
+          car_type_id: this.macTypeVal[0],
+          address_id: this.addVal[0],
+          mode: this.operate[0],
+          benefit_type: this.eat[0],
+          base_salary: JSON.parse(this.salary[0])[0],
+          max_salary: JSON.parse(this.salary[0])[1],
+          mobile: this.phone,
+          skill_list: this.skills_name,
+          description: this.description,
+          will_pay: this.isLikePay,
+        }))
+        .then((res) => {
+          //todo 后端返回错误需处理
+          console.log(res)
+          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+        });
       } else {
         //前端校验不通过
       }
-    }
+    },
+    getResInfo(res){
+      return {
+          content1: "发布招聘信息成功",
+          content2: "我们会尽审核",
+          button1: "发布成功",
+          button2: "返回首页",
+          url1: "../index.html",
+          url2: "../index.html",
+          title: "发布招聘信息成功"
+      }
+    },
   },
   computed: {
     skills_name() {
@@ -231,7 +222,7 @@ export default {
         names.push(this.skillList[index].key);
       });
       return names;
-    }
+    },
   }
 };
 </script>

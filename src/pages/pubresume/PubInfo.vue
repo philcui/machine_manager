@@ -25,10 +25,10 @@
     </group>
     <group gutter='0.2rem'>
       <cell title="照片" value-align='right'>
-        <input name="image" type="file">
+        <input name="image" type="file" accept="image/*" id="photo">
       </cell>
       <popup-picker placeholder="请选择" show-name :title="redDot + '操作方向'" :data="operateList" v-model="operate"></popup-picker>
-      <popup-picker placeholder="请选择" :title="redDot + '期望薪资'" :data="salaryList" v-model="salary"></popup-picker>
+      <popup-picker placeholder="请选择" show-name :title="redDot + '期望薪资'" :data="salaryList" v-model="salary"></popup-picker>
       <x-input :title="redDot + '手机号码'" v-model="phone" text-align='right'></x-input>
       <div class="mycell">
         <p>自我介绍</p>
@@ -69,11 +69,12 @@
       <!-- 操作方向 -->
       <input type="hidden" name="mode" v-model="operate">
       <!-- 月薪 -->
-      <input type="hidden" name="base_salary" value="3000">
+      <input type="hidden" name="base_salary" :value="JSON.parse(this.salary[0])[0]">
+      <input type="hidden" name="max_salary" :value="JSON.parse(this.salary[0])[1]">
       <!-- 联系电话 -->
       <input type="hidden" name="mobile" v-model="phone">
       <!-- 工作技能 -->
-      <!-- <input type="hidden" name="skill_list" v-model="skills_name"> -->
+      <input type="hidden" name="skill_list[]" v-for="(item, index) in skills_name" :key="index" :value="item">
       <!-- 工作介绍 -->
       <input type="hidden" name="description" v-model="description">
       <!-- 操作证 -->
@@ -109,9 +110,11 @@ import {
 //import macTypeData from "@/components/macType.js";
 import macTypeData from "@/data/car_type.json";
 //import skillList from "@/components/SkillList.js";
-import provinceData from "@/data/prov.json";
+import provinceData from "@/data/prov.json"
 import modes from "@/data/mode_type.json"
-import skillList from "@/data/skills.json";
+import skillList from "@/data/skills.json"
+import workingAge from "@/data/working_age.json"
+import salaryList from "@/data/salary.json"
 export default {
   data() {
     return {
@@ -140,54 +143,15 @@ export default {
         { key: 3, value: "想办证" }
       ],
       driveAge: [],
-      driveAgeList: [
-        [
-          { name: "学徒", value: "0" },
-          { name: "1年", value: "1" },
-          { name: "2年", value: "2" },
-          { name: "3年", value: "3" },
-          { name: "4年", value: "4" },
-          { name: "5年", value: "5" },
-          { name: "6年", value: "6" },
-          { name: "7年", value: "7" },
-          { name: "8年", value: "8" },
-          { name: "9年", value: "9" },
-          { name: "10年", value: "10" },
-          { name: "11年", value: "11" },
-          { name: "12年", value: "12" },
-          { name: "13年", value: "13" },
-          { name: "14年", value: "14" },
-          { name: "15年", value: "15" },
-          { name: "16年", value: "16" },
-          { name: "17年", value: "17" },
-          { name: "18年", value: "18" },
-          { name: "19年", value: "19" },
-          { name: "20年", value: "20" },
-          { name: "20年以上", value: "21" },
-        ]
-      ],
-      salaryList: [
-        [
-          "面议",
-          "0-3000",
-          "3000-4000",
-          "4000-5000",
-          "5000-6000",
-          "6000-7000",
-          "7000-8000",
-          "8000-9000",
-          "9000-10000",
-          "10000-11000",
-          "11000-12000",
-          "12000以上"
-        ]
-      ],
+      driveAgeList: workingAge,
+      salaryList: salaryList,
       salary: [],
       phone: "",
       description: "",
       redDot: "<span style='color:red;'>*</span>",
 
-      showExample: false
+      showExample: false,
+      editType: "/api/resume/add",
     };
   },
   components: {
@@ -200,6 +164,15 @@ export default {
     Cell,
     CheckerItem,
     XDialog
+  },
+  computed: {
+    skills_name() {
+      let names = [];
+      this.workContent.forEach((item, index, arr) => {
+        names.push(this.skillList[index].key);
+      });
+      return names;
+    },
   },
   methods: {
     getErrorInfo(key) {
@@ -277,13 +250,61 @@ export default {
     submitResume() {
       if (this.validatePubInfo()) {
         //前端校验通过
-        //this.axios.post("submitResume", {}).then(() => {});
-        this.$refs.formInfo.submit()
+        this.axios.post(this.editType, new FormData(this.$refs.formInfo)).then((res) => {
+          //todo 后端返回错误需处理
+          console.log(res)
+          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+        });
       } else {
         //前端校验不通过
       }
+    },
+    getResInfo(res){
+      return {
+          content1: "简历提交成功",
+          content2: "正在跳转至我的简历",
+          button1: "点击返回应聘界面",
+          button2: "点击查看我的简历",
+          url1: "../index.html",
+          url2: "../resumepreview/index.html",
+          title: "简历提交成功"
+      }
+    },
+    getHisInfo(){
+      this.axios.post("/api/resume/detail")
+      .then((res) => {
+        if(res.data.data.car_type_id){
+          this.editType = "/api/resume/update"
+          this.setHisInfo(res.data.data)
+        }
+      })
+    },
+    getSkillValue(keys){
+
+    },
+    setHisInfo(data){
+      Object.keys(data).forEach((item, index) => {
+        if(data[item]){
+          data[item] = data[item].toString()
+        }
+      })
+      this.macTypeVal = [data.car_type_id]
+      this.addVal = [data.address_id]
+      this.anotherAddVal = [data.location]
+      this.driveAge = [data.working_age]
+      this.operate = [data.mode]
+      //todo 薪资form初始无值时有报错 这里的接口定义与前端不吻合导致
+      this.salary = [JSON.stringify([parseInt(data.base_salary), parseInt(data.max_salary)])]
+      this.phone = data.mobile
+      this.description = data.description
+      //this.workContent = data.skills
+      this.zhengshu = data.certified
+      this.isLikePay = data.will_pay
     }
-  }
+  },
+  mounted(){
+    this.getHisInfo()
+  },
 };
 </script>
 

@@ -280,7 +280,12 @@ export default {
       })
     },
     getSkillValue(keys){
-
+      keys = keys.split(' ')
+      return keys.map((x, index) => {
+        return this.skillList.find((item, index) => {
+          return item.key == x
+        }).value
+      })
     },
     setHisInfo(data){
       Object.keys(data).forEach((item, index) => {
@@ -297,7 +302,8 @@ export default {
       this.salary = [JSON.stringify([parseInt(data.base_salary), parseInt(data.max_salary)])]
       this.phone = data.mobile
       this.description = data.description
-      //this.workContent = data.skills
+      //todo 这里的接口返回的是数值不是id导致前端双层遍历查找
+      this.workContent = this.getSkillValue(data.skills)
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
     }

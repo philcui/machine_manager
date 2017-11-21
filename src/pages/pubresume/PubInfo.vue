@@ -115,19 +115,14 @@ import modes from "@/data/mode_type.json"
 import skillList from "@/data/skills.json"
 import workingAge from "@/data/working_age.json"
 import salaryList from "@/data/salary.json"
+import location from "@/data/location.json"
 export default {
   data() {
     return {
       addressData: provinceData,
       addVal: [],
       anotherAddVal: [],
-      anotherAddList: [
-        [
-          { name: "只在本市干", value: "0" },
-          { name: "本市和周边都可以去", value: "1" },
-          { name: "外省也可以去", value: "2" }
-        ]
-      ],
+      anotherAddList: location,
       macTypeData: macTypeData,
       macTypeVal: [],
       operate: [],

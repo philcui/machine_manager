@@ -1,10 +1,10 @@
 <template>
   <div class="resPre">
     <div class="head">
-      <img class="avatar" src="./img/avatar_gj.jpg" alt="">
+      <img class="avatar" :src="info.image || './img/avatar_gj.jpg'" alt="">
       <div class="right">
         <div class="line1">
-          <div class="name">陈一宇</div>
+          <div class="name">{{info.realname}}</div>
           <div class="renzheng">
             <img src="./img/id_card.png" alt="">
             <div>身份已认证</div>
@@ -14,7 +14,7 @@
             <div>有操作证</div>
           </div>
         </div>
-        <div class="line2">浙江杭州</div>
+        <div class="line2">{{info.address}}</div>
       </div>
       <img class="up_right" src="./img/up_right.png" alt="">
       <img class="down_right" src="./img/down_right.png" alt="">
@@ -25,9 +25,29 @@
         <img src="./img/icon_person.png" alt="">个人简介
       </p>
       <div class="list">
-        <p class="item" v-for="(item, index) in infoList" :key="index">
-          <span class="title">{{item.label}}</span> :
-          <span class="text">{{item.text}}</span>
+        <p class="item">
+          <span class="title">机型</span> :
+          <span class="text">{{getName(car_type[0], info.car_type_id)}}</span>
+        </p>
+        <p class="item">
+          <span class="title">驾龄</span> :
+          <span class="text">{{getName(working_age[0], info.working_age)}}</span>
+        </p>
+        <p class="item">
+          <span class="title">地区偏好</span> :
+          <span class="text">{{getName(location[0], info.location)}}</span>
+        </p>
+        <p class="item">
+          <span class="title">操作方向</span> :
+          <span class="text">{{getName(mode_type[0], info.mode)}}</span>
+        </p>
+        <p class="item">
+          <span class="title">工作技能</span> :
+          <span class="text">{{info.skills}}</span>
+        </p>
+        <p class="item">
+          <span class="title">期望薪资</span> :
+          <span class="text">{{getName(salary[0], "[" + info.base_salary + ',' + info.max_salary + "]")}}</span>
         </p>
       </div>
     </div>
@@ -35,7 +55,7 @@
       <p class="content_title">
         <img src="./img/icon_detail.png" alt="">个人介绍
       </p>
-      <p class="jieshao_info">本人爱护机子，能吃苦耐劳，挖路整平装车破碎没问题，保养方面也会很多</p>
+      <p class="jieshao_info">{{info.description}}</p>
     </div>
     <info-bottom></info-bottom>
   </div>  
@@ -43,22 +63,36 @@
 
 <script>
 import InfoBottom from '@/components/InfoBottom.vue'
+import car_type from "@/data/car_type.json"
+import mode_type from "@/data/mode_type.json"
+import salary from "@/data/salary.json"
+import working_age from "@/data/working_age.json"
+import location from "@/data/location.json"
+import getName from "@/utils/getName.js"
 export default {
   data() {
     return {
-      infoList: [
-        { label: "机型", text: "大挖" },
-        { label: "驾龄", text: "10年" },
-        { label: "地区偏好", text: "本省内都可以去" },
-        { label: "操作方向", text: "上下左右都会" },
-        { label: "工作技能", text: "挖沟 拆楼 破碎" },
-        { label: "期望薪资", text: "7500元" }
-      ]
+      info: {},
+      mode_type: mode_type,
+      car_type: car_type,
+      working_age: working_age,
+      salary: salary,
+      location: location,
     };
   },
   components:{
     InfoBottom
-  }
+  },
+  methods: {
+    getName: getName
+  },
+  mounted(){
+    this.axios.post("/api/resume/detail")
+    .then((res) => {
+      console.log(res)
+      this.info  = res.data.data
+    })
+  },
 };
 </script>
 

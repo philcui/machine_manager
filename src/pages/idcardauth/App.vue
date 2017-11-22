@@ -5,12 +5,13 @@
       <p>提升你的信誉值，让更多商业机会找到你</p> 
     </div>
     <group gutter="0">
-      <x-input title="姓名" placeholder="请输入"></x-input>
-      <x-input title="身份证号" placeholder="请输入"></x-input>
+      <x-input title="姓名" placeholder="请输入" v-model="realname"></x-input>
+      <x-input title="身份证号" placeholder="请输入" v-model="idcardnum"></x-input>
     </group>
     <div class="uploader">
       <div class="upwrap">
-        <input type="file" class="upload">
+        <img src="./img/bg_upload.png" alt="" class="prev">
+        <input type="file" class="upload" @change="fileChange" name="">
       </div>
       <p>点击上传本人身份证照片</p>
     </div>
@@ -19,9 +20,9 @@
       <img src="./img/demo_idcard.png" alt="">
       <div class="zhuyi">身份证上的所有信息清晰可见，必须能看清证件号。手持证件人的五官清晰可见，照片内容真实有效，不得做任何修改。 </div>
     </div>
-    <x-button type="primary">提交认证</x-button>
+    <x-button @click.native="submitInfo" type="primary">提交认证</x-button>
     <div class="xieyi">
-      <input type="checkbox" checked>
+      <input type="checkbox" checked readonly>
       <label for="">同意工机管家<a href="">《实名认证协议》</a></label>
     </div>
   </div>
@@ -32,11 +33,66 @@ import {Group, XInput, XButton} from "vux"
 export default {
   data(){
     return {
-
+      realname: '',
+      idcardnum: '',
     }
   },
   methods:{
+    fileChange(e){
+      let file = document.querySelector(".upload").files[0]
+      let reader = new FileReader()
+      reader.onload = function(e){
+        document.querySelector(".prev").src = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    validateInfo(){
+      if (this.realname == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("001"),
+          type: "text"
+        })
+        return false
+      }
+      if (this.idcardnum == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("002"),
+          type: "text"
+        })
+        return false
+      }
+      if (document.querySelector(".upload").value == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("003"),
+          type: "text"
+        })
+        return false
+      }
+      return true
+    },
+    getErrorInfo(key) {
+      var infoMap = {
+        "001": "请填写姓名",
+        "002": "请填写身份证号",
+        "003": "请上传身份证照片",
+      };
+      return infoMap[key];
+    },
+    submitInfo(){
+      if(this.validateInfo()){
+        //前端校验通过
+        var formdata = new FormData()
+        formdata.append("realname", this.realname)
+        formdata.append("number", this.idcardnum)
+        formdata.append("image", document.querySelector(".upload").files[0])
+        this.axios.post("/api/check/add-id", formdata)
+        .then((res) => {
+          console.log(res)
+        })
+      }else{
 
+      }
+    }
   },
   components:{
     Group,
@@ -75,12 +131,17 @@ export default {
     .upwrap{
       width: 3.44rem;
       height: 1.94rem;
-      background: url('./img/bg_upload.png') center center no-repeat;
-      background-size: cover;
+      position: relative;
+      img{
+        width: 100%;
+      }
       .upload{
+        position: absolute;
         width: 100%;
         height: 100%;
         opacity: 0;
+        top: 0;
+        left: 0;
       }
     }
   }

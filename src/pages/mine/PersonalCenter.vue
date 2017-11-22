@@ -2,13 +2,13 @@
   <div class="personalCenter">
     <a href="../personinfo/index.html" class="head">
       <div class="avatar">
-        <img src="./img/demo_avatar.png" alt="">
+        <img :src="info.avatar || require('./img/demo_avatar.png')" alt="">
       </div>
       <div class="info">
         <div class="left-info">
           <div class="info-line1">
-            <div class="name">陈一宇</div>
-            <div class="score">积分：3000</div>
+            <div class="name">{{info.realname}}</div>
+            <div class="score">积分：{{info.point}}</div>
           </div>
           <percent class="info-line2" :percent="percent"></percent>
           <div class="info-line3">完善认证，让更多的机会找上你</div>
@@ -60,7 +60,8 @@ export default {
         { imgSrc: require("./img/friends.png"), title: "邀请好友", url: "../invitefriends/index.html" },
         { imgSrc: require("./img/get_points.png"), title: "赚取积分", url: "../getpoints/index.html" },
         { imgSrc: require("./img/exchange_points.png"), title: "积分换购", url: "../pointstore/index.html" }
-      ]
+      ],
+      info: {},
     };
   },
   components: {
@@ -70,6 +71,11 @@ export default {
   },
   mounted() {
     this.percent = 90;
+
+    this.axios.post("/api/user/profile").then(res => {
+      console.log(res);
+      this.info = res.data.data;
+    });
   }
 };
 </script>

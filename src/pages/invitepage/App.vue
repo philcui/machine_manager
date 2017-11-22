@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./img/qrcode.png" alt="">
+    <img :src="src" alt="">
   </div>
 </template>
 
@@ -8,11 +8,18 @@
 export default {
   data(){
     return {
-
+      src: ""
     }
   },
   methods:{
 
+  },
+  mounted(){
+    this.axios.post("/api/qrcode/member-img")
+    .then((res) => {
+      console.log(res)
+      this.src = res.data
+    })
   },
   components:{
 

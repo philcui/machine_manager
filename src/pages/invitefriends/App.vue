@@ -7,7 +7,7 @@
 
     <x-dialog v-model="showMyInvite" :dialog-style="{'background-color': 'transparent'}">
       <div class="contentWrap">
-        <div class="num">25</div>
+        <div class="num">{{count}}</div>
       </div>
       <div @click="showMyInvite=false">
         <img class="close" src="../../assets/close.png" alt="">
@@ -30,9 +30,19 @@ export default {
     return {
       showMyInvite: false,
       showGift: false,
+      count: 0,
     };
   },
-  methods: {},
+  methods: {
+
+  },
+  mounted(){
+    this.axios.post("/api/qrcode/member-total-scan")
+    .then((res) => {
+      console.log(res)
+      this.count = res.data.data.count
+    })
+  },
   components: {
     XDialog
   }

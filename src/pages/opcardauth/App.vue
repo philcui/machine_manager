@@ -2,11 +2,12 @@
   <div id="app">
     <div class="top">
       <div class="uploader">
-        <input type="file" class="upload">
+        <img src="./img/bg_upload.png" alt="" class="prev">
+        <input type="file" class="upload" @change="fileChange" name="">
       </div>
     </div>
     <div class="bottom">
-      <x-button type="primary">提交认证</x-button>
+      <x-button @click.native="submitInfo" type="primary">提交认证</x-button>
       <div class="tip">
         <img src="./img/icon_op.png" alt="">
         <div class="tipText">如果你没有操作证，想找一家可靠的公司正规办理操作证，请<a href="">点此办理</a></div>
@@ -21,7 +22,31 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    fileChange(e){
+      let file = document.querySelector(".upload").files[0]
+      let reader = new FileReader()
+      reader.onload = function(e){
+        document.querySelector(".prev").src = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    submitInfo(){
+      if (document.querySelector(".upload").value == "") {
+        this.$vux.toast.show({
+          text: "请上传操作证照片",
+          type: "text"
+        })
+        return false
+      }
+      let formdata = new FormData()
+      formdata.append("image", document.querySelector(".upload").files[0])
+      this.axios.post("/api/check/cert-id", formdata)
+      .then((res) => {
+        console.log(res)
+      })
+    },
+  },
   components: {
     XButton
   }
@@ -43,10 +68,18 @@ export default {
       height: 3.18rem;
       width: 5.48rem;
       border: 1px solid white;
-      background: url("./img/bg_upload.png") center center no-repeat;
-      background-size: 85%;
       background-color: @theme-color;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 85%;
+      }
       .upload{
+        position: absolute;
+        top: 0;
+        left: 0;
         opacity: 0;
         height: 100%;
         width: 100%;

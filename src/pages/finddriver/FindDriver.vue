@@ -53,7 +53,7 @@
     </div>
     <img src="./img/publish.png" class="publish" @click="showDialog=true">
     
-    <x-dialog v-model="showDialog" class="dialog-trans" :dialog-style="{'background-color': 'transparent'}">
+    <x-dialog v-model="showDialog" class="dialog-trans" :dialog-style="{'background-color': 'transparent', 'max-width': '100%'}">
       <div class="dia-content">
         <div class="dia_content_line" style="border-bottom: 1px solid #707070;">
           <img src="./img/icon_find.png" alt="">

@@ -11,7 +11,7 @@
     <div class="uploader">
       <div class="upwrap">
         <img src="./img/bg_upload.png" alt="" class="prev">
-        <input type="file" class="upload" @change="fileChange" name="">
+        <input type="file" class="upload" @change="fileChange" accept="image/*" name="">
       </div>
       <p>点击上传本人身份证照片</p>
     </div>
@@ -88,6 +88,10 @@ export default {
         this.axios.post("/api/check/add-id", formdata)
         .then((res) => {
           console.log(res)
+          this.$vux.toast.show({
+            type: "success",
+            text: res.data.msg
+          })
         })
       }else{
 

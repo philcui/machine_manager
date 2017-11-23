@@ -5,7 +5,7 @@
     <div class="menu">
       <menu-cell class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList" :key="index" :menuCell='item'></menu-cell>
     </div>
-    <div class="jiyouquan" @click="showReg=true">
+    <div class="jiyouquan">
       <hdivider class="divider"></hdivider>
       <jiyou-item v-for="(item, index) in jiyouList" :key="index" :itemData='item'></jiyou-item>
     </div>
@@ -94,8 +94,8 @@ export default {
           url: "./finddriver/index.html"
         },
         { imgSrc: require("./img/guzhang.png"), title: "故障问答" },
-        { imgSrc: require("./img/ershou.png"), title: "二手机" },
         { imgSrc: require("./img/qiuzu.png"), title: "设备求租" },
+        { imgSrc: require("./img/ershou.png"), title: "二手机" },
         { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
         { imgSrc: require("./img/banche.png"), title: "板车托运" }
       ],
@@ -293,6 +293,7 @@ export default {
       "auth_cookie=e4336578cddb05522fc1a41735ce72f92c211d7a7cff9798febc5947e3272b93a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A36%3A%22b53e2ecf29f19ae2e1c22b3a8942f95f%23%23%233%22%3B%7D";
     this.axios.get("/api/user/my").then(res => {
       console.log(res);
+      this.showReg = res.data.data.status & 2 ? false : true
     });
   }
 };

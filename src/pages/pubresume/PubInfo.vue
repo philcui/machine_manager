@@ -62,6 +62,17 @@
           </checker-item>
         </checker>
       </div>
+      <div class="mycell skillcell">
+        <p>是否接受压工资</p>
+        <checker class="checker" v-model="bondSalary" default-item-class="work-item" selected-item-class="work-item-selected">
+          <checker-item 
+            v-for="(item, index) in bondList" 
+            :key="index" 
+            :value='item.value'>
+            {{item.key}}
+          </checker-item>
+        </checker>
+      </div>
       <selector title="操作证" direction='rtl' placeholder="请选择" v-model="zhengshu" :options="zhengshuList"></selector>
       <selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
@@ -81,6 +92,8 @@
       <input type="hidden" name="mobile" v-model="phone">
       <!-- 工作技能 -->
       <input type="hidden" name="skill_list[]" v-for="(item, index) in skills_name" :key="index" :value="item">
+      <!-- 压工资 -->
+      <input type="hidden" name="bond" v-model="bondSalary">
       <!-- 工作介绍 -->
       <input type="hidden" name="description" v-model="description">
       <!-- 操作证 -->
@@ -155,6 +168,25 @@ export default {
 
       showExample: false,
       editType: "/api/resume/add",
+      bondSalary: "",
+      bondList: [
+        {
+          key: "不压",
+          value: 1,
+        },
+        {
+          key: "压半个月",
+          value: 2,
+        },
+        {
+          key: "压一个月",
+          value: 3,
+        },
+        {
+          key: "面议",
+          value: 4,
+        }
+      ]
     };
   },
   components: {
@@ -267,7 +299,7 @@ export default {
         this.axios.post(this.editType, formInfo).then((res) => {
           //todo 后端返回错误需处理
           console.log(res)
-          //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
         });
       } else {
         //前端校验不通过

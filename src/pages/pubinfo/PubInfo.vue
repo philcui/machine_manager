@@ -24,10 +24,10 @@
         :title="redDot + '期望地点'" v-model="addVal" 
         :list="addressData" placeholder="请选择">
       </x-address>
-      <div class="mycell addTip">
+      <!-- <div class="mycell addTip">
         提示：为了更好的服务大家，目前只开通11个省份的招聘服务，其他省份请
         <a href="">点此发布</a>
-      </div>
+      </div> -->
       <popup-picker placeholder="请选择" show-name :title="redDot + '操作方向'" :data="operateList" v-model="operate"></popup-picker>
       <popup-picker placeholder="请选择" show-name :title="redDot + '吃住'" :data="eatList" v-model="eat"></popup-picker>
     </group>
@@ -42,6 +42,17 @@
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item 
             v-for="(item, index) in skillList" 
+            :key="index" 
+            :value='item.value'>
+            {{item.key}}
+          </checker-item>
+        </checker>
+      </div>
+      <div>
+        <p class="checker_content">是否压工资</p>
+        <checker class="checker" v-model="bondSalary" default-item-class="work-item" selected-item-class="work-item-selected">
+          <checker-item 
+            v-for="(item, index) in bondList" 
             :key="index" 
             :value='item.value'>
             {{item.key}}
@@ -101,7 +112,26 @@ export default {
       salary: [],
       phone: "",
       description: "",
-      redDot: "<span style='color:red;'>*</span>"
+      redDot: "<span style='color:red;'>*</span>",
+      bondSalary: "",
+      bondList: [
+        {
+          key: "不压",
+          value: 1,
+        },
+        {
+          key: "压半个月",
+          value: 2,
+        },
+        {
+          key: "压一个月",
+          value: 3,
+        },
+        {
+          key: "面议",
+          value: 4,
+        }
+      ]
     };
   },
   components: {
@@ -191,13 +221,14 @@ export default {
           max_salary: JSON.parse(this.salary[0])[1],
           mobile: this.phone,
           skill_list: this.skills_name,
+          bond: this.bondSalary,
           description: this.description,
           will_pay: this.isLikePay,
         }))
         .then((res) => {
           //todo 后端返回错误需处理
           console.log(res)
-          //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
         });
       } else {
         //前端校验不通过
@@ -214,6 +245,53 @@ export default {
           title: "发布招聘信息成功"
       }
     },
+    getHisInfo(){
+      this.axios.post("/api/resume/detail")
+      .then((res) => {
+        console.log(res)
+        if(res.data.data.car_type_id){
+          this.editType = "/api/resume/update"
+          this.setHisInfo(res.data.data)
+        }
+      })
+    },
+    getSkillValue(keys){
+      keys = keys.split(' ')
+      return keys.map((x, index) => {
+        return this.skillList.find((item, index) => {
+          return item.key == x
+        }).value
+      })
+    },
+    setHisInfo(data){
+      Object.keys(data).forEach((item, index) => {
+        if(data[item]){
+          data[item] = data[item].toString()
+        }
+      })
+      this.macTypeVal = [data.car_type_id]
+      this.addVal = this.getAddList(data.address_id)
+      this.anotherAddVal = [data.location]
+      this.driveAge = [data.working_age]
+      this.operate = [data.mode]
+      //todo 薪资form初始无值时有报错 这里的接口定义与前端不吻合导致
+      this.salary = [JSON.stringify([parseInt(data.base_salary), parseInt(data.max_salary)])]
+      this.phone = data.mobile
+      this.description = data.description
+      //todo 这里的接口返回的是数值不是id导致前端双层遍历查找
+      this.workContent = this.getSkillValue(data.skills)
+      this.zhengshu = data.certified
+      this.isLikePay = data.will_pay
+      this.realname = data.realname
+      document.querySelector(".prev").src = data.image
+    },
+    getAddList(target){
+      let res = []
+      res.push(target.substring(0, 2) + "0000")
+      res.push(target.substring(0, 4) + "00")
+      res.push(target)
+      return res
+    }
   },
   computed: {
     skills_name() {
@@ -223,6 +301,13 @@ export default {
       });
       return names;
     },
+  },
+  mounted(){
+    //修改发布的招聘信息
+    let type = ""
+    if(type == 'change'){
+      this.getHisInfo()
+    }
   }
 };
 </script>

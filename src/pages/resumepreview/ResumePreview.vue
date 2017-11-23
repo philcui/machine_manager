@@ -7,18 +7,18 @@
           <div class="name">{{info.realname}}</div>
           <div class="renzheng">
             <img src="./img/id_card.png" alt="">
-            <div>身份已认证</div>
+            <div>{{this.info.status & 4 ? "身份证已认证" : "身份证未认证"}}</div>
           </div>
           <div class="renzheng">
             <img src="./img/opreate_card.png" alt="">
-            <div>有操作证</div>
+            <div>{{this.info.status & 4 ? "操作证已认证" : "操作证未认证"}}</div>
           </div>
         </div>
         <div class="line2">{{info.address}}</div>
       </div>
       <img class="up_right" src="./img/up_right.png" alt="">
       <img class="down_right" src="./img/down_right.png" alt="">
-      <div class="getOpCard">办操作证？</div>
+      <!-- <div class="getOpCard">办操作证？</div> -->
     </div>
     <div class="jianjie">
       <p class="content_title">

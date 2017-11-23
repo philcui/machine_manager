@@ -73,6 +73,10 @@ export default {
         formdata.append("avatar", document.querySelector(".upload").files[0])
         this.axios.post("/api/user/update-profile", formdata).then(res => {
           console.log(res);
+          this.$vux.toast.show({
+            type: "success",
+            text: res.data.msg
+          })
         });
       } else {
       }

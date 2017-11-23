@@ -32,7 +32,7 @@ instance.interceptors.request.use(
     return Promise.reject(err)
   }
 )
-
+//todo 有关状态码的判读可以在这里加
 instance.interceptors.response.use(
   response => {
     vue.$vux.loading.hide()

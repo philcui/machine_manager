@@ -3,7 +3,7 @@
     <div class="top">
       <div class="uploader">
         <img src="./img/bg_upload.png" alt="" class="prev">
-        <input type="file" class="upload" @change="fileChange" name="">
+        <input type="file" class="upload" @change="fileChange" accept="image/*" name="">
       </div>
     </div>
     <div class="bottom">
@@ -23,29 +23,32 @@ export default {
     return {};
   },
   methods: {
-    fileChange(e){
-      let file = document.querySelector(".upload").files[0]
-      let reader = new FileReader()
-      reader.onload = function(e){
-        document.querySelector(".prev").src = e.target.result
-      }
-      reader.readAsDataURL(file)
+    fileChange(e) {
+      let file = document.querySelector(".upload").files[0];
+      let reader = new FileReader();
+      reader.onload = function(e) {
+        document.querySelector(".prev").src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
-    submitInfo(){
+    submitInfo() {
       if (document.querySelector(".upload").value == "") {
         this.$vux.toast.show({
           text: "请上传操作证照片",
           type: "text"
-        })
-        return false
+        });
+        return false;
       }
-      let formdata = new FormData()
-      formdata.append("image", document.querySelector(".upload").files[0])
-      this.axios.post("/api/check/cert-id", formdata)
-      .then((res) => {
-        console.log(res)
-      })
-    },
+      let formdata = new FormData();
+      formdata.append("image", document.querySelector(".upload").files[0]);
+      this.axios.post("/api/check/cert-id", formdata).then(res => {
+        console.log(res);
+        this.$vux.toast.show({
+          type: "success",
+          text: res.data.msg
+        });
+      });
+    }
   },
   components: {
     XButton
@@ -73,10 +76,10 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      img{
+      img {
         width: 85%;
       }
-      .upload{
+      .upload {
         position: absolute;
         top: 0;
         left: 0;

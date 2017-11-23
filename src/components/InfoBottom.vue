@@ -4,8 +4,12 @@
       <img src="../assets/share.png" alt="">
       <span>分享</span>
     </div>
+    <div class="box shareContainer" v-if="isShowCollect">
+      <img src="../assets/collect.png" alt="">
+      <span>收藏</span>
+    </div>
     <div class="box concatContainer">
-      <img src="../assets/call.png" alt="">立即联系
+      <img src="../assets/call.png" alt=""><a :href="mobileHref">立即联系</a>
     </div>
     <div class="box mainContainer">
       <img src="../assets/icon.png" alt="">
@@ -14,7 +18,29 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:{
+    mobile: {
+      type: Number
+    },
+    isShowCollect: {
+      default: false
+    },
+  },
+  computed: {
+    mobileHref(){
+      return "tel:" + this.mobile
+    }
+  },
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+
+  }
+};
 </script>
 
 <style lang='less' scoped>
@@ -35,6 +61,7 @@ export default {};
     background-color: white;
     font-size: 0.2rem;
     color: #535353;
+    border-right: 1px solid @divid-color;
     img {
       width: 0.26rem;
       display: block;
@@ -51,6 +78,9 @@ export default {};
     img {
       width: 0.37rem;
       margin-right: 0.15rem;
+    }
+    a{
+      color: white;
     }
   }
   .mainContainer {

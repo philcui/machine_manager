@@ -2,14 +2,17 @@
   <div class="personInfo">
     <group gutter='0'>
       <cell title="头像">
-        <img class="tx" :src="src">
+        <div class="uploadWrap">
+          <img src="../../assets/avatar.png" alt="" class="prev">
+          <input name="image" type="file" @change="fileChange" accept="image/*" id="photo" class="upload">
+        </div>
       </cell>
-      <x-input text-align='right' title="名字" v-model="name"></x-input>
+      <x-input text-align='right' title="名字" v-model="realname"></x-input>
       <x-input text-align='right' title="手机" v-model="phone"></x-input>
       <x-address title="地址" v-model="address" :list="addressData" ></x-address>
     </group>
     <group>
-      <cell title="身份证认证"></cell>
+      <cell title="身份证认证">{{idcardPassed}}</cell>
       <cell title="自我介绍"></cell>
       <x-textarea placeholder="介绍自己的实力、信誉等等" v-model="introduce"></x-textarea>
     </group>
@@ -33,22 +36,23 @@ export default {
   data() {
     return {
       addressData: ChinaAddressV4Data,
-      name: "",
+      realname: "",
       phone: "",
       address: [],
       introduce: "",
       src: require("./img/tx.png"),
-      info: {}
+      idcardPassed: "未认证",
+      info: {},
     };
   },
   methods: {
     getErrorInfo(key) {
       var infoMap = {
-        "001": "请填写姓名",
+        "001": "请填写姓名"
       };
       return infoMap[key];
     },
-    validateInfo(){
+    validateInfo() {
       // if (this.realname == "") {
       //   this.$vux.toast.show({
       //     text: this.getErrorInfo("001"),
@@ -56,22 +60,37 @@ export default {
       //   })
       //   return false
       // }
-      return true
+      return true;
     },
     submitInfo() {
       if (this.validateInfo()) {
         //前端校验通过
-        let formdata = new FormData()
-        formdata.append("realname", this.realname)
-        formdata.append("mobile", this.phone)
-        formdata.append("address_id", this.address[0])
-        formdata.append("description", this.introduce)
-        this.axios.post("api/user/update-profile", formdata)
-        .then((res) => {
-          console.log(res)
-        })
+        let formdata = new FormData();
+        formdata.append("realname", this.realname);
+        formdata.append("mobile", this.phone);
+        formdata.append("address_id", this.address[2]);
+        formdata.append("description", this.introduce);
+        formdata.append("avatar", document.querySelector(".upload").files[0])
+        this.axios.post("/api/user/update-profile", formdata).then(res => {
+          console.log(res);
+        });
       } else {
       }
+    },
+    fileChange(e) {
+      let file = document.querySelector(".upload").files[0];
+      let reader = new FileReader();
+      reader.onload = function(e) {
+        document.querySelector(".prev").src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    getAddList(target) {
+      let res = [];
+      res.push(target.substring(0, 2) + "0000");
+      res.push(target.substring(0, 4) + "00");
+      res.push(target);
+      return res;
     }
   },
   components: {
@@ -86,10 +105,12 @@ export default {
     this.axios.post("/api/user/profile").then(res => {
       console.log(res);
       this.info = res.data.data;
-      this.src = this.info.avatar;
-      this.name = this.info.realname;
+      document.querySelector(".prev").src = this.info.avatar;
+      this.realname = this.info.realname;
       this.phone = this.info.mobile;
       this.introduce = this.info.description;
+      this.address = this.getAddList(this.info.address_id.toString())
+      this.idcardPassed = this.info.status & 4 ? "已认证" : "未认证"
     });
   }
 };
@@ -97,9 +118,21 @@ export default {
 
 <style lang="less" scoped>
 .personInfo {
-  .tx {
+  .uploadWrap {
+    position: relative;
     width: 1.13rem;
     height: 1.13rem;
+    .prev {
+      width: 100%;
+    }
+    .upload {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+    }
   }
   .save-content {
     padding: 10px 15px;

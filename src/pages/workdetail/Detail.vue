@@ -23,7 +23,8 @@
     </div>
     <one-key-share v-if="false"></one-key-share>
     <focus-wechat v-if="false"></focus-wechat>
-    <free-resume></free-resume>
+    <free-resume v-if="true"></free-resume>
+    <info-bottom :mobile="info.mobile" :isShowCollect='true'></info-bottom>
   </div>  
 </template>
 
@@ -33,6 +34,7 @@ import OneKeyShare from "../../components/OneKeyShare.vue";
 import FocusWechat from "../../components/FocusWechat.vue";
 import FreeResume from "../../components/FreeResume.vue";
 import getUrlKey from '@/utils/getUrlKey.js'
+import InfoBottom from '@/components/InfoBottom.vue'
 //import share from '@/utils/share.js'
 export default {
   data() {
@@ -44,7 +46,8 @@ export default {
     PreCell,
     OneKeyShare,
     FocusWechat,
-    FreeResume
+    FreeResume,
+    InfoBottom,
   },
   mounted() {
     this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey('id')}))

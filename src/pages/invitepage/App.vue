@@ -39,10 +39,9 @@ body{
   background-size: cover;
   height: 10.32rem;
   position: relative;
+  text-align: center;
   img{
-    position: absolute;
-    top: 6.14rem;
-    left: 1.88rem;
+    margin-top: 6.14rem;
     height: 2.17rem;
   }
 }

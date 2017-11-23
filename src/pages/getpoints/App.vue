@@ -11,20 +11,20 @@
         <img src="./img/person_info.png" alt="">
         <div>完善个人资料</div>
         <div>+20积分</div>
-        <div :class="getBtnClass(isInfoComplete)">去完成</div>
+        <a href="../personinfo/index.html" :class="getBtnClass(isInfoComplete)">{{isInfoComplete ? "已完成" : "去完成"}}</a>
       </div>
       <div class="cell idcard">
         <img src="./img/id_card.png" alt="">
         <div>完成实名认证</div>
         <div>+20积分</div>
-        <div :class="getBtnClass(isIdCardComplete)">已完成</div>
+        <a href="../idcardauth/index.html" :class="getBtnClass(isIdCardComplete)">{{isIdCardComplete ? "已完成" : "去完成"}}</a>
       </div>
     </div>
     <div class="bottom">
       <img src="./img/friends.png" alt="">
       <div>邀请好友注册</div>
       <div>+20积分</div>
-      <div class="btn uncomplete">去分享</div>
+      <a href="../invitepage/index.html" class="btn uncomplete">去分享</a>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
       isInfoComplete: false,
       isIdCardComplete: true,
       points: 0,
+      info: {},
     };
   },
   methods: {
@@ -50,7 +51,13 @@ export default {
   },
   components: {},
   mounted(){
-    this.numberAnimate(5000)
+    this.axios.post("/api/user/profile").then(res => {
+      console.log(res);
+      this.info = res.data.data;
+      this.numberAnimate(this.info.point)
+      this.isInfoComplete = this.info.point == 100
+      this.isIdCardComplete = this.info.status & 4
+    });
   }
 };
 </script>

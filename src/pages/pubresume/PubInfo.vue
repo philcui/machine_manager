@@ -8,24 +8,32 @@
 
     <form ref="formInfo" action="/api/resume/add" method="post">
     <group gutter='0'>
+      <x-input :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
       <popup-picker 
         :title="redDot + '操作设备'" 
         :data="macTypeData" 
         v-model="macTypeVal" show-name 
         placeholder="请选择"> 
       </popup-picker>
-      <popup-picker 
+      <!-- <popup-picker 
         :title="redDot + '期望地点'" 
         :data="addressData" 
         v-model="addVal" show-name
         placeholder="请选择"> 
-      </popup-picker>
+      </popup-picker> -->
+      <x-address  
+        :title="redDot + '期望地点'" v-model="addVal" 
+        :list="addressData" placeholder="请选择">
+      </x-address>
       <popup-picker placeholder="请选择" show-name :title="redDot + '其它地区'" :data="anotherAddList" v-model="anotherAddVal"></popup-picker>
       <popup-picker placeholder="请选择" show-name :title="redDot + '驾龄'" :data="driveAgeList" v-model="driveAge"></popup-picker>
     </group>
     <group gutter='0.2rem'>
       <cell title="照片" value-align='right'>
-        <input name="image" type="file" accept="image/*" id="photo">
+        <div class="uploadWrap">
+          <img src="../../assets/avatar.png" alt="" class="prev">
+          <input name="image" type="file" @change="fileChange" accept="image/*" id="photo" class="upload">
+        </div>
       </cell>
       <popup-picker placeholder="请选择" show-name :title="redDot + '操作方向'" :data="operateList" v-model="operate"></popup-picker>
       <popup-picker placeholder="请选择" show-name :title="redDot + '期望薪资'" :data="salaryList" v-model="salary"></popup-picker>
@@ -57,20 +65,18 @@
       <selector title="操作证" direction='rtl' placeholder="请选择" v-model="zhengshu" :options="zhengshuList"></selector>
       <selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
     </group>
-
+      <!-- 姓名 -->
+      <input type="hidden" name="realname" v-model="realname">
       <!-- 设备类型 -->
       <input type="hidden" name="car_type_id" v-model="macTypeVal">
       <!-- 工作地点 -->
-      <input type="hidden" name="address_id" v-model="addVal">
+      <input type="hidden" name="address_id" v-model="addVal[2]">
       <!-- 可接受的工作范围 -->
       <input type="hidden" name="location" v-model="anotherAddVal">
       <!-- 驾龄 -->
       <input type="hidden" name="working_age" v-model="driveAge">
       <!-- 操作方向 -->
       <input type="hidden" name="mode" v-model="operate">
-      <!-- 月薪 -->
-      <input type="hidden" name="base_salary" :value="JSON.parse(this.salary[0])[0]">
-      <input type="hidden" name="max_salary" :value="JSON.parse(this.salary[0])[1]">
       <!-- 联系电话 -->
       <input type="hidden" name="mobile" v-model="phone">
       <!-- 工作技能 -->
@@ -98,6 +104,7 @@
 <script>
 import {
   XAddress,
+  ChinaAddressV4Data,
   PopupPicker,
   Selector,
   Group,
@@ -119,7 +126,7 @@ import location from "@/data/location.json"
 export default {
   data() {
     return {
-      addressData: provinceData,
+      addressData: ChinaAddressV4Data,
       addVal: [],
       anotherAddVal: [],
       anotherAddList: location,
@@ -143,6 +150,7 @@ export default {
       salary: [],
       phone: "",
       description: "",
+      realname: "",
       redDot: "<span style='color:red;'>*</span>",
 
       showExample: false,
@@ -179,7 +187,8 @@ export default {
         "005": "请选择月薪",
         "006": "请填写联系电话",
         "007": "请填写正确的电话格式",
-        "008": "请选择驾龄"
+        "008": "请选择驾龄",
+        "009": "请填写姓名"
       };
       return infoMap[key];
     },
@@ -240,15 +249,25 @@ export default {
         });
         return false;
       }
+      if (this.realname == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("009"),
+          type: "text"
+        });
+        return false;
+      }
       return true;
     },
     submitResume() {
       if (this.validatePubInfo()) {
         //前端校验通过
-        this.axios.post(this.editType, new FormData(this.$refs.formInfo)).then((res) => {
+        let formInfo = new FormData(this.$refs.formInfo)
+        formInfo.append("base_salary", JSON.parse(this.salary[0])[0])
+        formInfo.append("max_salary", JSON.parse(this.salary[0])[1])
+        this.axios.post(this.editType, formInfo).then((res) => {
           //todo 后端返回错误需处理
           console.log(res)
-          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
         });
       } else {
         //前端校验不通过
@@ -268,6 +287,7 @@ export default {
     getHisInfo(){
       this.axios.post("/api/resume/detail")
       .then((res) => {
+        console.log(res)
         if(res.data.data.car_type_id){
           this.editType = "/api/resume/update"
           this.setHisInfo(res.data.data)
@@ -289,7 +309,7 @@ export default {
         }
       })
       this.macTypeVal = [data.car_type_id]
-      this.addVal = [data.address_id]
+      this.addVal = this.getAddList(data.address_id)
       this.anotherAddVal = [data.location]
       this.driveAge = [data.working_age]
       this.operate = [data.mode]
@@ -301,6 +321,23 @@ export default {
       this.workContent = this.getSkillValue(data.skills)
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
+      this.realname = data.realname
+      document.querySelector(".prev").src = data.image
+    },
+    fileChange(e){
+      let file = document.querySelector(".upload").files[0]
+      let reader = new FileReader()
+      reader.onload = function(e){
+        document.querySelector(".prev").src = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    getAddList(target){
+      let res = []
+      res.push(target.substring(0, 2) + "0000")
+      res.push(target.substring(0, 4) + "00")
+      res.push(target)
+      return res
     }
   },
   mounted(){
@@ -409,5 +446,21 @@ export default {
 .close {
   margin-top: 0.88rem;
   width: 0.6rem;
+}
+.uploadWrap{
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  .prev{
+    width: 100%;
+  }
+  .upload{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
 }
 </style>

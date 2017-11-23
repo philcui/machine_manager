@@ -21,11 +21,11 @@
     <div class="renzheng">
       <div class="idcard_wrap wrap">
         <a href="../idcardauth/index.html" class="item item-left"><img src="./img/id_card.png" alt="">身份证认证</a>
-        <span class="item unauth"><img src="./img/unauth.png" alt="">未认证</span>
+        <span class="item unauth">{{info.status & 4 ? "已认证" : "未认证"}}</span>
       </div>
       <div class="opcard_wrap wrap">
         <a href="../opcardauth/index.html" class="item item-left"><img src="./img/op_card.png" alt="">操作证认证</a>
-        <span class="item"><img src="./img/authed.png" alt="">已认证</span>
+        <span class="item">{{info.status & 8 ? "已认证" : "未认证"}}</span>
       </div>
     </div>
     <div class="menu">
@@ -70,11 +70,10 @@ export default {
     MenuCell,
   },
   mounted() {
-    this.percent = 90;
-
     this.axios.post("/api/user/profile").then(res => {
-      console.log(res);
-      this.info = res.data.data;
+      console.log(res)
+      this.info = res.data.data
+      this.percent = this.info.progress
     });
   }
 };

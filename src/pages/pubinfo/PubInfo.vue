@@ -14,16 +14,16 @@
         show-name 
         placeholder="请选择"> 
       </popup-picker>
-      <popup-picker 
+      <!-- <popup-picker 
         :title="redDot + '工作地点'" 
         :data="addressData" 
         v-model="addVal" show-name
         placeholder="请选择"> 
-      </popup-picker>
-      <!-- <x-address  
+      </popup-picker> -->
+      <x-address  
         :title="redDot + '期望地点'" v-model="addVal" 
         :list="addressData" placeholder="请选择">
-      </x-address> -->
+      </x-address>
       <div class="mycell addTip">
         提示：为了更好的服务大家，目前只开通11个省份的招聘服务，其他省份请
         <a href="">点此发布</a>
@@ -64,7 +64,7 @@
 <script>
 import {
   XAddress,
-  // ChinaAddressV4Data,
+  ChinaAddressV4Data,
   PopupPicker,
   Selector,
   Group,
@@ -83,7 +83,7 @@ import salaryList from "@/data/salary.json";
 export default {
   data() {
     return {
-      addressData: provinceData,
+      addressData: ChinaAddressV4Data,
       addVal: [],
       macTypeData: macTypeData,
       macTypeVal: [],
@@ -184,7 +184,7 @@ export default {
         //前端校验通过
         this.axios.post("/api/job/add", this.qs.stringify({
           car_type_id: this.macTypeVal[0],
-          address_id: this.addVal[0],
+          address_id: this.addVal[2],
           mode: this.operate[0],
           benefit_type: this.eat[0],
           base_salary: JSON.parse(this.salary[0])[0],
@@ -197,7 +197,7 @@ export default {
         .then((res) => {
           //todo 后端返回错误需处理
           console.log(res)
-          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
         });
       } else {
         //前端校验不通过

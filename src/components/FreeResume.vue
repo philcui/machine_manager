@@ -1,6 +1,6 @@
 <template>
   <div class="freeResume">
-    <a class="inner">
+    <a href="../pubresume/index.html" class="inner">
       免费制作我的求职简历
       <img class="goResume" src="../assets/go_resume.png" alt="">
     </a>

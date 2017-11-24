@@ -9,11 +9,16 @@
       <span>地点：{{topObj.address}}</span>
     </div>
     <img class="jipin" src="./img/jipin.png" alt="">
-  </a>  
+  </a>
 </template>
 
 <script>
 import Tag from '@/components/Tag.vue'
+import car_type from "@/data/car_type.json"
+import mode_type from "@/data/mode_type.json"
+import location from "@/data/location.json"
+import benefit from "@/data/benefit.json"
+import getName from "@/utils/getName.js"
 export default {
   props:{
     topObj: Object
@@ -24,14 +29,14 @@ export default {
   methods: {
     getTags(){
       let tags = []
-      if(this.topObj.car_type){
-        tags.push(this.topObj.car_type)
+      if(this.topObj.car_type_id){
+        tags.push(getName(car_type[0], this.topObj.car_type_id))
       }
-      if(this.topObj.operating_mode){
-        tags.push(this.topObj.operating_mode)
+      if(this.topObj.mode){
+        tags.push(getName(mode_type[0], this.topObj.mode))
       }
       if(this.topObj.benefit){
-        tags.push(this.topObj.benefit)
+        tags.push(getName(benefit[0], this.topObj.benefit))
       }
       return tags
     },
@@ -79,6 +84,6 @@ export default {
       right: 0.2rem;
       top: 0;
       width: 0.48rem;
-    } 
+    }
   }
 </style>

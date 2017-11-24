@@ -8,6 +8,7 @@ import setRem from '@/utils/setRem.js'
 import Cookie from 'vue-cookie'
 import qs from 'qs'
 import axios from '@/utils/http.js'
+import getName from "@/utils/getName.js"
 import  { ToastPlugin } from 'vux'
 import  { LoadingPlugin } from 'vux'
 

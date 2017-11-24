@@ -4,7 +4,7 @@
       <img src="../assets/share.png" alt="">
       <span>分享</span>
     </div>
-    <div class="box shareContainer" v-if="isShowCollect">
+    <div class="box shareContainer" v-if="isShowCollect" @click="favItem()">
       <img src="../assets/collect.png" alt="">
       <span>收藏</span>
     </div>
@@ -14,18 +14,24 @@
     <div class="box mainContainer">
       <img src="../assets/icon.png" alt="">
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
 export default {
   props:{
     mobile: {
-      type: Number
+      type: String
     },
     isShowCollect: {
       default: false
     },
+    item_id: {
+      type: String
+    },
+    item_type: {
+      type: String
+    }
   },
   computed: {
     mobileHref(){
@@ -38,7 +44,13 @@ export default {
     }
   },
   methods:{
-
+    favItem(){
+      this.axios
+        .get("/api/member-fav/add?type="+this.item_type+"&id="+this.item_id)
+          .then(res => {
+            console.log(res)
+          });
+    }
   }
 };
 </script>

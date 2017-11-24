@@ -11,21 +11,21 @@
       </div>
     </div>
     <div class="info info2">
-      <pre-cell title="月薪" :content='info.base_salary'></pre-cell>
+      <pre-cell title="月薪" :content='info.salary'></pre-cell>
       <pre-cell title="设备类型" :content='info.car_type'></pre-cell>
       <pre-cell title="工作地点" :content='info.address'></pre-cell>
     </div>
     <div class="info info3">
       <pre-cell title="操作方向" :content='info.operating_mode'></pre-cell>
       <pre-cell title="吃住" :content='info.benefit'></pre-cell>
-      <pre-cell title="工作内容" :content='info.skills'></pre-cell>  
+      <pre-cell title="工作内容" :content='info.skills'></pre-cell>
       <div class="workDetail">{{info.description}}</div>
     </div>
     <one-key-share v-if="false"></one-key-share>
     <focus-wechat v-if="false"></focus-wechat>
     <free-resume v-if="true"></free-resume>
-    <info-bottom :mobile="info.mobile" :isShowCollect='true'></info-bottom>
-  </div>  
+    <info-bottom :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+  </div>
 </template>
 
 <script>
@@ -35,6 +35,10 @@ import FocusWechat from "../../components/FocusWechat.vue";
 import FreeResume from "../../components/FreeResume.vue";
 import getUrlKey from '@/utils/getUrlKey.js'
 import InfoBottom from '@/components/InfoBottom.vue'
+import car_type from "@/data/car_type.json"
+import mode_type from "@/data/mode_type.json"
+import benefit from "@/data/benefit.json"
+import getName from "@/utils/getName.js"
 //import share from '@/utils/share.js'
 export default {
   data() {
@@ -53,6 +57,11 @@ export default {
     this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey('id')}))
     .then(res => {
       this.info = res.data.data
+      if(this.info){
+        this.info.car_type = getName(car_type[0], this.info.car_type_id);
+        this.info.operating_mode = getName(mode_type[0], this.info.mode);
+        this.info.benefit = getName(benefit[0], this.info.benefit)
+      }
       console.log(res);
     });
   }

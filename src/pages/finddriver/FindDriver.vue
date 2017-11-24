@@ -4,32 +4,32 @@
       <!-- <div @click="changeShowAddress" class="filterItem address">
         {{addName}}
         <img class="arrow" src="./img/arrowDown.png" alt="">
-        <x-address 
-          style="display:none;" 
-          title="title" v-model="addVal" 
-          :list="addressData" placeholder="请选择地址" 
+        <x-address
+          style="display:none;"
+          title="title" v-model="addVal"
+          :list="addressData" placeholder="请选择地址"
           :show.sync="showAddress">
         </x-address>
       </div> -->
        <div @click="changeShowAddress" class="filterItem address">
         {{addName}}
         <img class="arrow" src="./img/arrowDown.png" alt="">
-        <popup-picker 
+        <popup-picker
           style="display:none;"
-          title="title" 
-          :data="addressData" 
-          v-model="addVal" 
+          title="title"
+          :data="addressData"
+          v-model="addVal"
           :show.sync="showAddress">
         </popup-picker>
       </div>
       <div @click="changeShowMacType" class="filterItem machineType">
         {{macTypeName}}
         <img class="arrow" src="./img/arrowDown.png" alt="">
-        <popup-picker 
+        <popup-picker
           style="display:none;"
-          title="title" 
-          :data="macTypeData" 
-          v-model="macTypeVal" 
+          title="title"
+          :data="macTypeData"
+          v-model="macTypeVal"
           :show.sync="showMacType">
         </popup-picker>
       </div>
@@ -52,7 +52,7 @@
       <a href="../pubresume/index.html" class="button">发布机手求职</a>
     </div>
     <img src="./img/publish.png" class="publish" @click="showDialog=true">
-    
+
     <x-dialog v-model="showDialog" class="dialog-trans" :dialog-style="{'background-color': 'transparent', 'max-width': '100%'}">
       <div class="dia-content">
         <div class="dia_content_line" style="border-bottom: 1px solid #707070;">
@@ -68,7 +68,7 @@
         <img class="close" src="../../assets/close.png" alt="">
       </div>
     </x-dialog>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -166,7 +166,7 @@ export default {
     },
     loadAds() {
       this.axios
-        .post("/api/job/list", this.getFilter({ limit: 2 }))
+        .post("/api/job/ads-list", this.getFilter({ limit: 2 }))
         .then(res => {
           this.topList = res.data.data;
         });

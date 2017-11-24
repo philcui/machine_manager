@@ -2,46 +2,51 @@
   <div id="app">
     <div class="tab">
       <div @click="selectTab(1)" :class="getClass(1)">职位收藏</div>
-      <div @click="selectTab(2)" :class="getClass(2)">二手机收藏</div>
+      <!--div @click="selectTab(2)" :class="getClass(2)">二手机收藏</div-->
     </div>
     <div class="jobCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(1)">
       <div class="jobItem">
         <div class="left">
-          <img :src="item.img" alt="">
-          <div>{{item.name}}</div>
+          <img :src="require('./img/tx.png')" alt="">
+          <div>{{item.realname}}</div>
         </div>
         <div class="center">
-          <p>{{item.type}}</p>
-          <p>{{item.salary}}</p>
+          <p>{{getCarTypeName(item.car_type_id)}}</p>
+          <p>{{item.salary}}元/月</p>
           <p>{{item.address}}</p>
         </div>
         <div class="right">
-          <div class="time">{{item.time}}</div>
-          <div class="cancelBtn">取消</div>
+          <div class="time">{{item.ctime}}</div>
+          <div class="cancelBtn" @click="deleteFav(item.fav_id)">取消</div>
         </div>
       </div>
     </div>
-    
-    <div class="jobCollect machineCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(2)">
+
+    <!--div class="jobCollect machineCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(2)">
       <div class="jobItem">
         <div class="left">
-          <img :src="item.img" alt="">
-          <div>{{item.name}}</div>
+          <img :src="require('./img/tx.png')" alt="">
+          <div>{{item.realname}}</div>
         </div>
         <div class="center">
-          <p>{{item.type}}</p>
-          <p>{{item.salary}}</p>
+          <p>{{getCarTypeName(item.car_type_id)}}</p>
+          <p>{{item.salary}}元/月</p>
         </div>
         <div class="right">
-          <div class="time">{{item.time}}</div>
+          <div class="time">{{item.ctime}}</div>
           <div class="cancelBtn">取消</div>
         </div>
       </div>
-    </div>
+    </div-->
   </div>
 </template>
 
 <script>
+import car_type from "@/data/car_type.json"
+import mode_type from "@/data/mode_type.json"
+import benefit from "@/data/benefit.json"
+import getName from "@/utils/getName.js"
+
 export default {
   data(){
     return {
@@ -99,6 +104,17 @@ export default {
     }
   },
   methods:{
+    getCarTypeName (key){
+      return getName(car_type[0], key);
+    },
+    deleteFav(fav_id){
+      this.isLoading = true;
+      this.axios.get("/api/member-fav/delete?fav_id="+fav_id).then(res => {
+        this.isLoading = false;
+        console.log(res);
+        this.loadData();
+      });
+    },
     getClass(index){
       return {
         active: index == this.activeIndex
@@ -110,12 +126,21 @@ export default {
     showBindingActive(index){
       return index == this.activeIndex ? true : false
     },
+    loadData() {
+      // 加载，加载更多
+      this.isLoading = true;
+      this.axios.post("/api/member-fav/list?type=1").then(res => {
+        this.isLoading = false;
+        this.jobList = res.data.data;
+        console.log(res);
+      });
+    }
   },
   components:{
 
   },
   mounted(){
-   
+    this.loadData();
   }
 }
 </script>

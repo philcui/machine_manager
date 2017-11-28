@@ -95,7 +95,7 @@ export default {
     justify-content: space-between;
     .report {
       color: #686868;
-      font-size: 0.2rem;
+      font-size: 0.3rem;
       a {
         color: red;
       }

@@ -136,6 +136,7 @@ import skillList from "@/data/skills.json"
 import workingAge from "@/data/working_age.json"
 import salaryList from "@/data/salary.json"
 import location from "@/data/location.json"
+import bond from "@/data/bond.json"
 export default {
   data() {
     return {
@@ -169,24 +170,7 @@ export default {
       showExample: false,
       editType: "/api/resume/add",
       bondSalary: "",
-      bondList: [
-        {
-          key: "不压",
-          value: "1",
-        },
-        {
-          key: "压半个月",
-          value: "2",
-        },
-        {
-          key: "压一个月",
-          value: "3",
-        },
-        {
-          key: "面议",
-          value: "4",
-        }
-      ]
+      bondList: bond,
     };
   },
   components: {
@@ -302,7 +286,14 @@ export default {
         this.axios.post(this.editType, formInfo).then((res) => {
           //todo 后端返回错误需处理
           console.log(res)
-          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          this.$vux.toast.show({
+            type: "success",
+            text: "提交成功"
+          })
+          setTimeout(() => {
+            window.location.href = "../resumepreview/index.html?id=" + res.data.data.id
+          }, 1000)
+          //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
         });
       } else {
         //前端校验不通过

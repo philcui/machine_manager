@@ -7,7 +7,7 @@
       </div>
     </div>
     <group gutter='0'>
-      <x-input :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
+      <x-input :title="redDot + '姓名'" placeholder="请输入" v-model="realname" text-align='right'></x-input>
       <popup-picker 
         :title="redDot + '设备类型'" 
         :data="macTypeData" 
@@ -67,7 +67,7 @@
           placeholder="可以填写工作要求，福利待遇，工资结算，特殊要求等等，60字以内"></textarea>
         </div>
       </div>
-      <selector title="是否愿意付费找驾驶员" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
+      <!-- <selector title="是否愿意付费找驾驶员" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector> -->
     </group>
     <a href="" @click.prevent="submitPubInfo" class="submit">提交</a>
   </div>
@@ -92,6 +92,7 @@ import skillList from "@/data/skills.json"
 //import skillList from "@/components/SkillList.js"
 import provinceData from "@/data/prov.json"
 import salaryList from "@/data/salary.json"
+import bond from "@/data/bond.json"
 import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
@@ -105,7 +106,7 @@ export default {
       operateList: [
         [{ name: "左右旋转(正手)", value: "1" }, { name: "上下旋转(反手)", value: "2" }]
       ],
-      eat: ["1"],
+      eat: [],
       eatList: benefit,
       isLikePay: 1,
       isLikePayList: [{ key: 1, value: "是" }, { key: 2, value: "否" }],
@@ -117,24 +118,7 @@ export default {
       description: "",
       redDot: "<span style='color:red;'>*</span>",
       bondSalary: "",
-      bondList: [
-        {
-          key: "不压",
-          value: "1",
-        },
-        {
-          key: "压半个月",
-          value: "2",
-        },
-        {
-          key: "压一个月",
-          value: "3",
-        },
-        {
-          key: "面议",
-          value: "4",
-        }
-      ],
+      bondList: bond,
       type: 0,
     };
   },
@@ -231,7 +215,14 @@ export default {
           .then((res) => {
             //todo 后端返回错误需处理
             console.log(res)
-            window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+            this.$vux.toast.show({
+              type: "success",
+              text: "提交成功"
+            })
+            setTimeout(() => {
+              window.location.href = "../workdetail/index.html?id=" + res.data.data.id
+            }, 1000)
+            //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
           });
         }else{
           //新增提交
@@ -239,7 +230,10 @@ export default {
           .then((res) => {
             //todo 后端返回错误需处理
             console.log(res)
-            window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+            setTimeout(() => {
+              window.location.href = "../workdetail/index.html?id=" + res.data.data.id
+            }, 1000)
+            //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
           });
         }
       } else {

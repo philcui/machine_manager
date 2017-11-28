@@ -272,6 +272,8 @@ export default {
   }
   .locate {
     width: 1.5rem;
+    color: #7d7d7d;
+    font-size: 0.21rem;
     img {
       width: 0.2rem;
       margin-right: 10px;

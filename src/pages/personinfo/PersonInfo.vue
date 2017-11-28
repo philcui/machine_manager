@@ -12,7 +12,7 @@
       <x-address title="地址" v-model="address" :list="addressData" ></x-address>
     </group>
     <group>
-      <cell title="身份证认证">{{idcardPassed}}</cell>
+      <cell @click.native="gotoAuth" title="身份证认证">{{idcardPassed}}</cell>
       <cell title="自我介绍"></cell>
       <x-textarea placeholder="介绍自己的实力、信誉等等" v-model="introduce"></x-textarea>
     </group>
@@ -97,6 +97,9 @@ export default {
       res.push(target.substring(0, 4) + "00");
       res.push(target);
       return res;
+    },
+    gotoAuth(){
+      window.location.href = "../idcardauth/index.html"
     }
   },
   components: {

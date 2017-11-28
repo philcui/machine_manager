@@ -191,12 +191,12 @@ export default {
     position: absolute;
     left: 0.64rem;
     bottom: 0.32rem;
+    font-size: 0.3rem;
     .title{
       color: #1b1b1b;
-      font-size: 0.2rem;
     }
     p{
-      font-size: 0.16rem;
+      font-size: 0.3rem;
       color: #737373;
       a{
         color: @theme-color;

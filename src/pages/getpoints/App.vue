@@ -7,25 +7,25 @@
       </div>
     </div>
     <div class="center">
-      <div class="cell personInfo">
+      <a href="../personinfo/index.html" class="cell personInfo">
         <img src="./img/person_info.png" alt="">
         <div>完善个人资料</div>
         <div>+20积分</div>
-        <a href="../personinfo/index.html" :class="getBtnClass(isInfoComplete)">{{isInfoComplete ? "已完成" : "去完成"}}</a>
-      </div>
-      <div class="cell idcard">
+        <a :class="getBtnClass(isInfoComplete)">{{isInfoComplete ? "已完成" : "去完成"}}</a>
+      </a>
+      <a href="../idcardauth/index.html" class="cell idcard">
         <img src="./img/id_card.png" alt="">
         <div>完成实名认证</div>
         <div>+20积分</div>
-        <a href="../idcardauth/index.html" :class="getBtnClass(isIdCardComplete)">{{isIdCardComplete ? "已完成" : "去完成"}}</a>
-      </div>
+        <a :class="getBtnClass(isIdCardComplete)">{{isIdCardComplete ? "已完成" : "去完成"}}</a>
+      </a>
     </div>
-    <div class="bottom">
+    <a href="../invitepage/index.html" class="bottom">
       <img src="./img/friends.png" alt="">
       <div>邀请好友注册</div>
       <div>+20积分</div>
-      <a href="../invitepage/index.html" class="btn uncomplete">去分享</a>
-    </div>
+      <a class="btn uncomplete">去分享</a>
+    </a>
   </div>
 </template>
 

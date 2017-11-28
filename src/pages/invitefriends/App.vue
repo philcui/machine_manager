@@ -6,9 +6,8 @@
     <a href="../invitepage/index.html" class="inviteBottom"></a>
 
     <x-dialog v-model="showMyInvite" :dialog-style="{'background-color': 'transparent'}">
-      <div class="contentWrap">
-        <div class="num">{{count}}</div>
-      </div>
+      <img class="invitebg" src="./img/myinvite.jpg" alt="">
+      <div class="num_wrap">{{count}}</div>
       <div @click="showMyInvite=false">
         <img class="close" src="../../assets/close.png" alt="">
       </div>
@@ -30,18 +29,15 @@ export default {
     return {
       showMyInvite: false,
       showGift: false,
-      count: 0,
+      count: 0
     };
   },
-  methods: {
-
-  },
-  mounted(){
-    this.axios.post("/api/qrcode/member-total-scan")
-    .then((res) => {
-      console.log(res)
-      this.count = res.data.data.count
-    })
+  methods: {},
+  mounted() {
+    this.axios.post("/api/qrcode/member-total-scan").then(res => {
+      console.log(res);
+      this.count = res.data.data.count;
+    });
   },
   components: {
     XDialog
@@ -58,7 +54,7 @@ export default {
   background-size: cover;
   height: 16.59rem;
   position: relative;
-  a{
+  a {
     position: absolute;
     display: block;
   }
@@ -86,24 +82,28 @@ export default {
     width: 5.79rem;
     height: 0.9rem;
   }
-  .myinvite{
+  .myinvite {
     height: 7.75rem;
   }
-  .contentWrap{
-    height: 7.75rem;
+  .invitebg {
     width: 4.74rem;
-    background: url("./img/myinvite.jpg") center center no-repeat;
-    background-size: cover;
     position: relative;
-    .num{
-      position: absolute;
-      top: 1.44rem;
-      left: 2.05rem;
-      font-size: 0.3rem;
-      color: #e56341;
-    }
   }
-  .toreal{
+  .num_wrap{
+    background: url("./img/num_bg.png") center center no-repeat;
+    background-size: cover;
+    width: 1.08rem;
+    height: 2.13rem;
+    position: absolute;
+    top: 1.07rem;
+    left: 50%;
+    margin-left: -0.54rem;
+    text-align: center;
+    font-size: 0.3rem;
+    color: #e56341;
+    padding-top: 0.35rem;
+  }
+  .toreal {
     width: 4.8rem;
   }
 }

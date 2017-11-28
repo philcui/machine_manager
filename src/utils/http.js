@@ -36,7 +36,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     vue.$vux.loading.hide()
-    if(response.data.code != 200){
+    if(response.data.code && response.data.code != 200){
       vue.$vux.toast.show({
         type: 'warn',
         text: response.data.msg + JSON.stringify(response.data.data)

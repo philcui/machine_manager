@@ -1,8 +1,8 @@
 <template>
   <div class="report">
     <group gutter='0'>
-      <cell title="标题" value='求租150挖掘机'></cell>
-      <cell title="联系方式" value='18710843069'></cell>
+      <x-input title="标题" placeholder="请输入" v-model="title" text-align='right'></x-input>
+      <x-input title="联系方式" placeholder="请输入" v-model="phone" text-align='right'></x-input>
     </group>
     <group>
       <cell title="举报内容"></cell>
@@ -15,15 +15,15 @@
         </checker-item>
       </checker>
       <div class="reportContent">
-        <textarea name="" id="" cols="30" rows="10" placeholder="请填写举报内容"></textarea>
+        <textarea v-model="content" name="" id="" cols="30" rows="10" placeholder="请填写举报内容"></textarea>
       </div>
     </group>
-    <a class="submit" href="../result/index.html?restype=report">提交</a> 
+    <a @click="submitReport" class="submit">提交</a> 
   </div>  
 </template>
 
 <script>
-import { Cell, Group, Checker, CheckerItem } from 'vux'
+import { Cell, Group, Checker, CheckerItem, XInput} from 'vux'
 import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
@@ -34,6 +34,9 @@ export default {
         { key: "与描述不符", value: "2" },
         { key: "无法取得联系", value: "3" }
       ],
+      title: "",
+      phone: "",
+      content: "",
       info: [],
     };
   },
@@ -41,16 +44,72 @@ export default {
     Cell,
     Group,
     Checker,
-    CheckerItem
+    CheckerItem,
+    XInput,
   },
   methods: {
     getInfo(id){
-      return this.axios.get("/api/job/detail", this.qs.stringify({id: id}))
+      return this.axios.post("/api/job/detail", this.qs.stringify({id: id}))
       .then((res) => {
         console.log(res)
         this.info = res.data.data
       })
-    }
+    },
+     validatePubInfo() {
+      if (this.title == "") {
+        this.$vux.toast.show({
+          text: "请输入标题",
+          type: "text"
+        });
+        return false;
+      }
+      if (this.phone == "") {
+        this.$vux.toast.show({
+          text: "请输入联系方式",
+          type: "text"
+        });
+        return false;
+      }
+      if (!/^1[34578]\d{9}$/.test(this.phone)) {
+        this.$vux.toast.show({
+          text: "请输入正确格式的电话号码",
+          type: "text"
+        });
+        return false;
+      }
+      if (this.content == "") {
+        this.$vux.toast.show({
+          text: "请输入举报内容", 
+          type: "text"
+        });
+        return false;
+      }
+      return true;
+    },
+    submitReport(){
+      if(this.validatePubInfo()){
+        //前端校验通过
+        this.axios.post("/api/default/add-report", this.qs.stringify({
+          title: this.title,
+          phone: this.phone,
+          content: this.content,
+          category: this.reportType,
+          item_id: this.info.id,
+        }))
+        .then((res) => {
+          console.log(res)
+          this.$vux.toast.show({
+            type: "success",
+            text: "提交成功"
+          })
+          setTimeout(() => {
+            history.back()
+          }, 1000)
+        })
+      }else{
+
+      }
+    },
   },
   mounted(){
     this.getInfo(getUrlKey("id"))

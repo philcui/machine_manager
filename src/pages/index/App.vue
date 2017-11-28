@@ -33,7 +33,7 @@
 
     <x-dialog @on-show='initReg' v-model="showReg" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="regContent">
-        <a href="" class="huangou"><img src="./img/huangou.png" alt=""></a>
+        <!-- <a href="" class="huangou"><img src="./img/huangou.png" alt=""></a> -->
         <div class="info">
           <p class="label"><span>* </span>手机号码</p>
           <div class="phoneLine">
@@ -259,7 +259,7 @@ export default {
         });
         return false;
       }
-      if (this.regInfo.personType == "") {
+      if (this.regInfo.personType === "") {
         this.$vux.toast.show({
           text: this.getErrorInfo("005"),
           type: "text"
@@ -302,6 +302,7 @@ export default {
     getAccountInfo(){
       this.axios.get("/api/user/my").then(res => {
         console.log(res);
+        //this.showReg = true
         this.showReg = res.data.data.status & 2 ? false : true
       });
     },
@@ -338,7 +339,7 @@ export default {
 
 .regContent {
   //width: 5.54rem;
-  height: 6.46rem;
+  min-height: 6.96rem;
   background: url(./img/reg_bg.jpg) no-repeat center center;
   background-size: cover;
   position: relative;
@@ -390,7 +391,7 @@ export default {
       }
     }
     .codeLine {
-      margin-top: 0.18rem;
+      margin-top: 0.30rem;
       box-sizing: border-box;
       overflow: hidden;
       .codeInput {
@@ -424,7 +425,7 @@ export default {
       }
     }
     .selectLine {
-      margin-top: 0.18rem;
+      margin-top: 0.30rem;
       height: 0.55rem;
       border: 1px solid #bfbbab;
       border-radius: 0.05rem;
@@ -441,7 +442,7 @@ export default {
     }
   }
   .submit {
-    margin: 0.1rem auto;
+    margin: 0.2rem auto;
     height: 0.66rem;
     width: 3.45rem;
     text-align: center;

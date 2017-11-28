@@ -94,29 +94,30 @@ export default {
           url: "./finddriver/index.html"
         },
         { imgSrc: require("./img/guzhang.png"), title: "故障问答" },
+        { imgSrc: require("./img/more.png"), title: "更多精彩", url: "./explore/index.html"},
         { imgSrc: require("./img/qiuzu.png"), title: "设备求租" },
         { imgSrc: require("./img/ershou.png"), title: "二手机" },
-        { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
-        { imgSrc: require("./img/banche.png"), title: "板车托运" }
+        // { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
+        // { imgSrc: require("./img/banche.png"), title: "板车托运" }
       ],
       jiyouList: [
         {
           imgSrc: require("./img/video.png"),
           tag: "精彩视频",
           title: "每天更新，最懂机友的挖机视频",
-          text: "拥有这样一台挖机就能娶三个老婆"
+          content: "拥有这样一台挖机就能娶三个老婆"
         },
         {
           imgSrc: require("./img/imgtest.jpg"),
           tag: "机友交流",
           title: "大神们，帮我看下值多少钱，卡特320",
-          text: "刚刚在工地包完月，工况非常好，行走有力，油、水温不高"
+          content: "刚刚在工地包完月，工况非常好，行走有力，油、水温不高"
         },
         {
           imgSrc: require("./img/imgtest.jpg"),
           tag: "机友交流",
           title: "大神们，帮我看下值多少钱，卡特320",
-          text: "刚刚在工地包完月，工况非常好，行走有力，油、水温不高"
+          content: "刚刚在工地包完月，工况非常好，行走有力，油、水温不高"
         }
       ],
       pubNotice: false,
@@ -284,17 +285,31 @@ export default {
       });
       this.isSending = false;
       clearTimeout(this.timer);
-    }
+    },
+    getArtical(){
+      this.axios.post("/api/default/articles")
+      .then((res) => {
+        console.log(res)
+        this.jiyouList = res.data.data
+      })
+    },
+    setCookie(){
+      //模拟登录，写入cookie
+      //this.cookie.set('auth_cookie', tmp)
+      document.cookie =
+        "auth_cookie=e4336578cddb05522fc1a41735ce72f92c211d7a7cff9798febc5947e3272b93a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A36%3A%22b53e2ecf29f19ae2e1c22b3a8942f95f%23%23%233%22%3B%7D";
+    },
+    getAccountInfo(){
+      this.axios.get("/api/user/my").then(res => {
+        console.log(res);
+        this.showReg = res.data.data.status & 2 ? false : true
+      });
+    },
   },
   mounted() {
-    //模拟登录，写入cookie
-    //this.cookie.set('auth_cookie', tmp)
-    document.cookie =
-      "auth_cookie=e4336578cddb05522fc1a41735ce72f92c211d7a7cff9798febc5947e3272b93a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A36%3A%22b53e2ecf29f19ae2e1c22b3a8942f95f%23%23%233%22%3B%7D";
-    this.axios.get("/api/user/my").then(res => {
-      console.log(res);
-      this.showReg = res.data.data.status & 2 ? false : true
-    });
+    this.setCookie()
+    this.getAccountInfo()
+    this.getArtical()
   }
 };
 </script>

@@ -1,14 +1,14 @@
 <template>
-  <div class="jiyouItem">
+  <a :href="itemData.url" class="jiyouItem">
     <div class="leftContent">
       <img :src="itemData.imgSrc" alt="" class="leftImg">
     </div>
     <div class="rightContent">
-      <div class="tag">{{itemData.tag}}</div>
-      <div class="title">{{itemData.title}}</div>
-      <div class="text">{{itemData.text}}</div>
+      <div class="tag tun-muti">{{itemData.tag}}</div>
+      <div class="title tun-muti">{{itemData.title}}</div>
+      <div class="text tun-muti">{{itemData.content}}</div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -27,6 +27,7 @@ export default {
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid #949494;
+  color: #141414;
   .leftContent {
     width: 1.66rem;
     text-align: center;

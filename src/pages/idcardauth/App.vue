@@ -90,8 +90,11 @@ export default {
           console.log(res)
           this.$vux.toast.show({
             type: "success",
-            text: res.data.msg
+            text: "提交成功,请耐心等待审核"
           })
+          setTimeout(() => {
+            history.back()
+          }, 1000)
         })
       }else{
 

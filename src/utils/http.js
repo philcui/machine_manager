@@ -36,10 +36,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     vue.$vux.loading.hide()
-    // vue.$vux.toast.show({
-    //   type: 'warn',
-    //   text: response.data.msg
-    // })
+    if(response.data.code != 200){
+      vue.$vux.toast.show({
+        type: 'warn',
+        text: response.data.msg + JSON.stringify(response.data.data)
+      })
+      return Promise.reject(response)
+    }
     return response
   },
   error => {

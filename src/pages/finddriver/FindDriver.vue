@@ -48,8 +48,14 @@
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <div class="hrbottom">
-      <a href="../pubinfo/index.html" class="left button">发布机主招聘</a>
-      <a href="../pubresume/index.html" class="button">发布机手求职</a>
+      <div class="btnpu left">
+        <img src="./img/icon_owner.png" alt="">
+        <a href="../pubinfo/index.html" class="button">发布机主招聘</a>
+      </div>
+      <div class="btnpu">
+        <img src="./img/icon_driver.png" alt="">
+        <a href="../pubresume/index.html" class="button">发布机手求职</a>
+      </div>
     </div>
     <img src="./img/publish.png" class="publish" @click="showDialog=true">
 
@@ -295,17 +301,25 @@ export default {
   bottom: 0;
   width: 100%;
   z-index: 10;
+  .btnpu{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0.78rem;
+    background-color: @theme-color;
+    img{
+      height: 0.34rem;
+      padding-right: 0.14rem;
+    }
+  }
   .left {
     border-right: 1px solid white;
   }
   .button {
     display: block;
-    height: 0.78rem;
-    line-height: 0.78rem;
-    flex: 1;
-    background-color: @theme-color;
-    color: white;
     text-align: center;
+    color: white;
   }
 }
 .publish {

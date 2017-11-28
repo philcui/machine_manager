@@ -136,8 +136,13 @@ export default {
       width: 3.44rem;
       height: 1.94rem;
       position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img{
-        width: 100%;
+        height: 100%;
+        max-width: 100%;
       }
       .upload{
         position: absolute;

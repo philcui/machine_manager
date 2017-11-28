@@ -1,6 +1,6 @@
 <template>
   <div class="infoBottom">
-    <div class="box shareContainer">
+    <div @click="shareTip" class="box shareContainer">
       <img src="../assets/share.png" alt="">
       <span>分享</span>
     </div>
@@ -11,7 +11,7 @@
     <div class="box concatContainer">
       <img src="../assets/call.png" alt=""><a :href="mobileHref">立即联系</a>
     </div>
-    <div class="box mainContainer">
+    <div class="box mainContainer" @click="goMain">
       <img src="../assets/icon.png" alt="">
     </div>
   </div>
@@ -30,7 +30,7 @@ export default {
       type: String
     },
     item_type: {
-      type: String
+      
     }
   },
   computed: {
@@ -49,8 +49,19 @@ export default {
         .get("/api/member-fav/add?type="+this.item_type+"&id="+this.item_id)
           .then(res => {
             console.log(res)
+            //todo 如何避免重复收藏
+            this.$vux.toast.show({
+              text: "收藏成功",
+              type: "success"
+            });
           });
-    }
+    },
+    goMain(){
+      window.location.href = "../index.html"
+    },
+    shareTip(){
+      alert("请点击右上角分享按钮分享")
+    },
   }
 };
 </script>
@@ -62,6 +73,7 @@ export default {
   display: flex;
   position: fixed;
   bottom: 0;
+  border-top: 1px solid @theme-color;
   .box {
     text-align: center;
     img {

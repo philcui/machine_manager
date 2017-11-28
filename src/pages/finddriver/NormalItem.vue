@@ -1,17 +1,17 @@
 <template>
   <a class="info" :href="gethref()">
     <div class="item salary">
-      <img src="./img/money_strong.png" alt="">
-      <span class="moneyTitle">预计收入：{{normalObj.salary}}元/月</span>
+      <!-- <img src="./img/money_strong.png" alt=""> -->
+      <span class="moneyTitle">工资：{{normalObj.salary}}元/月</span>
       <tag v-if="normalObj.car_type" :tagName='normalObj.car_type'></tag>
     </div>
     <div class="item address">
-      <img src="./img/car.png" alt="">
+      <!-- <img src="./img/car.png" alt=""> -->
       <span class="label">地点：</span>
       <span class="text">{{normalObj.address}}</span>
     </div>
     <div class="item date">
-      <img src="./img/time.png" alt="">
+      <!-- <img src="./img/time.png" alt=""> -->
       <span class="label">时间：</span>
       <span class="text">{{normalObj.ctime}}</span>
     </div>
@@ -61,7 +61,8 @@ export default {
     .salary{
       border-bottom: 1px solid #e4e4e4;
       .moneyTitle{
-        color: #ff0000;
+        color: @theme-color;
+        font-weight: bold;
       }
     }
     .address{
@@ -73,14 +74,14 @@ export default {
       display: block;
       width: 0.7rem;
       height: 0.7rem;
-      background-color: @theme-color;
-      color: white;
+      color: @theme-color;
       border-radius: 50%;
       position: absolute;
       bottom: 0.35rem;
       right: 0.44rem;
       text-align: center;
       line-height: 0.7rem;
+      border: 1px solid @theme-color;
     }
   }
 </style>

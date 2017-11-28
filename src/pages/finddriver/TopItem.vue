@@ -1,8 +1,8 @@
 <template>
   <a class="topItem" :href="gethref()">
     <div class="line1">
-      <img class="money" src="./img/money.png" alt="">
-      <span class="number">月薪：{{topObj.salary}}元/月</span>
+      <!-- <img class="money" src="./img/money.png" alt=""> -->
+      <span class="number">工资：{{topObj.salary}}元/月</span>
       <tag v-for="(item, index) in getTags()" :key="index" :tagName='item'></tag>
     </div>
     <div class="line2">
@@ -35,9 +35,9 @@ export default {
       if(this.topObj.mode){
         tags.push(getName(mode_type[0], this.topObj.mode))
       }
-      if(this.topObj.benefit){
-        tags.push(getName(benefit[0], this.topObj.benefit))
-      }
+      // if(this.topObj.benefit){
+      //   tags.push(getName(benefit[0], this.topObj.benefit))
+      // }
       return tags
     },
     gethref(){
@@ -62,6 +62,7 @@ export default {
       height: 0.53rem;
       line-height: 0.53rem;
       border-bottom: 1px solid #e4e4e4;
+      overflow: hidden;
       .money{
         width: 0.30rem;
         margin-right: 0.1rem;
@@ -69,11 +70,13 @@ export default {
       .number{
         margin-right: 0.2rem;
         color: @theme-color;
+        font-weight: bold;
       }
     }
     .line2{
       height: 0.62rem;
       line-height: 0.62rem;
+      overflow: hidden;
       span{
         color: @second-color;
       }

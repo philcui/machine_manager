@@ -7,6 +7,7 @@
       </div>
     </div>
     <group gutter='0'>
+      <x-input :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
       <popup-picker 
         :title="redDot + '设备类型'" 
         :data="macTypeData" 
@@ -83,17 +84,19 @@ import {
   Cell,
   Checker,
   CheckerItem
-} from "vux";
-//import macTypeData from "@/components/macType.js";
-import macTypeData from "@/data/car_type.json";
-import benefit from "@/data/benefit.json";
-import skillList from "@/data/skills.json";
-//import skillList from "@/components/SkillList.js";
-import provinceData from "@/data/prov.json";
-import salaryList from "@/data/salary.json";
+} from "vux"
+//import macTypeData from "@/components/macType.js"
+import macTypeData from "@/data/car_type.json"
+import benefit from "@/data/benefit.json"
+import skillList from "@/data/skills.json"
+//import skillList from "@/components/SkillList.js"
+import provinceData from "@/data/prov.json"
+import salaryList from "@/data/salary.json"
+import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
     return {
+      realname: "",
       addressData: ChinaAddressV4Data,
       addVal: [],
       macTypeData: macTypeData,
@@ -102,10 +105,10 @@ export default {
       operateList: [
         [{ name: "左右旋转(正手)", value: "1" }, { name: "上下旋转(反手)", value: "2" }]
       ],
-      eat: [],
+      eat: ["1"],
       eatList: benefit,
-      isLikePay: "",
-      isLikePayList: [{ key: true, value: "是" }, { key: false, value: "否" }],
+      isLikePay: 1,
+      isLikePayList: [{ key: 1, value: "是" }, { key: 2, value: "否" }],
       skillList: skillList,
       workContent: [],
       salaryList: salaryList,
@@ -117,21 +120,22 @@ export default {
       bondList: [
         {
           key: "不压",
-          value: 1,
+          value: "1",
         },
         {
           key: "压半个月",
-          value: 2,
+          value: "2",
         },
         {
           key: "压一个月",
-          value: 3,
+          value: "3",
         },
         {
           key: "面议",
-          value: 4,
+          value: "4",
         }
-      ]
+      ],
+      type: 0,
     };
   },
   components: {
@@ -153,7 +157,8 @@ export default {
         "004": "请选择吃住方式",
         "005": "请选择月薪",
         "006": "请填写联系电话",
-        "007": "请填写正确的电话格式"
+        "007": "请填写正确的电话格式",
+        "008": "请填写姓名",
       };
       return infoMap[key];
     },
@@ -207,12 +212,43 @@ export default {
         });
         return false;
       }
+      if (this.realname == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("008"),
+          type: "text"
+        });
+        return false;
+      }
       return true;
     },
     submitPubInfo() {
       if (this.validatePubInfo()) {
         //前端校验通过
-        this.axios.post("/api/job/add", this.qs.stringify({
+        if(this.type){
+          //修改提交
+          let id = getUrlKey("id")
+          this.axios.post("/api/job/update-member-job/?id=" + id, this.getFormInfo())
+          .then((res) => {
+            //todo 后端返回错误需处理
+            console.log(res)
+            window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          });
+        }else{
+          //新增提交
+          this.axios.post("/api/job/add", this.getFormInfo())
+          .then((res) => {
+            //todo 后端返回错误需处理
+            console.log(res)
+            window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
+          });
+        }
+      } else {
+        //前端校验不通过
+      }
+    },
+    getFormInfo(){
+      return this.qs.stringify({
+          realname: this.realname,
           car_type_id: this.macTypeVal[0],
           address_id: this.addVal[2],
           mode: this.operate[0],
@@ -224,41 +260,30 @@ export default {
           bond: this.bondSalary,
           description: this.description,
           will_pay: this.isLikePay,
-        }))
-        .then((res) => {
-          //todo 后端返回错误需处理
-          console.log(res)
-          window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
-        });
-      } else {
-        //前端校验不通过
-      }
+        })
     },
     getResInfo(res){
       return {
           content1: "发布招聘信息成功",
           content2: "我们会尽审核",
-          button1: "发布成功",
+          button1: "查看发布信息",
           button2: "返回首页",
-          url1: "../index.html",
+          url1: "../workdetail/index.html?id=" + res.data.data.id,
           url2: "../index.html",
           title: "发布招聘信息成功"
       }
     },
     getHisInfo(){
-      this.axios.post("/api/resume/detail")
+      this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey("id")}))
       .then((res) => {
         console.log(res)
-        if(res.data.data.car_type_id){
-          this.editType = "/api/resume/update"
-          this.setHisInfo(res.data.data)
-        }
+        this.setHisInfo(res.data.data)
       })
     },
-    getSkillValue(keys){
+    getSkillValue(keys, list){
       keys = keys.split(' ')
       return keys.map((x, index) => {
-        return this.skillList.find((item, index) => {
+        return list.find((item, index) => {
           return item.key == x
         }).value
       })
@@ -274,16 +299,17 @@ export default {
       this.anotherAddVal = [data.location]
       this.driveAge = [data.working_age]
       this.operate = [data.mode]
+      this.eat = [data.benefit_type]
       //todo 薪资form初始无值时有报错 这里的接口定义与前端不吻合导致
       this.salary = [JSON.stringify([parseInt(data.base_salary), parseInt(data.max_salary)])]
       this.phone = data.mobile
       this.description = data.description
       //todo 这里的接口返回的是数值不是id导致前端双层遍历查找
-      this.workContent = this.getSkillValue(data.skills)
+      this.workContent = this.getSkillValue(data.skills, this.skillList)
+      this.bondSalary = data.bond
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
       this.realname = data.realname
-      document.querySelector(".prev").src = data.image
     },
     getAddList(target){
       let res = []
@@ -297,16 +323,33 @@ export default {
     skills_name() {
       let names = [];
       this.workContent.forEach((item, index, arr) => {
-        names.push(this.skillList[index].key);
+        names.push(this.skillList.find((it) => {return it.value == item}).key);
       });
       return names;
     },
   },
   mounted(){
     //修改发布的招聘信息
-    let type = ""
-    if(type == 'change'){
+    this.type = getUrlKey("type")
+    if(this.type == 1){
+      //编辑已发布的信息
       this.getHisInfo()
+    }else{
+      //新发布
+      this.axios.get("/api/user/my")
+      .then((res) => {
+        //这里存在大量赋值操作，后续可以和后台数据字段做整理
+        console.log(res.data.data)
+        let data  = res.data.data
+        this.realname = data.realname
+        this.phone = data.mobile
+      })
+      this.axios.post("/api/default/guess-address")
+      .then((res) => {
+        //todo 这里设计有矛盾，到底以用户已经填写的还是当前定位的为准
+        console.log(res)
+        this.addVal = this.getAddList(res.data.data.id.toString())
+      })
     }
   }
 };
@@ -376,20 +419,6 @@ export default {
     font-size: 0.32rem;
     margin-top: 0.2rem;
   }
-}
-.work-item {
-  border: 1px solid #d1d5d0;
-  min-width: 0.82rem;
-  margin-right: 0.36rem;
-  margin-bottom: 0.1rem;
-  font-size: 0.21rem;
-  text-align: center;
-  height: 0.35rem;
-  line-height: 0.35rem;
-}
-.work-item-selected {
-  background-color: @theme-color;
-  color: white;
 }
 .checker_content {
   padding-left: 0.22rem;

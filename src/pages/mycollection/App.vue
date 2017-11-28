@@ -4,7 +4,7 @@
       <div @click="selectTab(1)" :class="getClass(1)">职位收藏</div>
       <!--div @click="selectTab(2)" :class="getClass(2)">二手机收藏</div-->
     </div>
-    <div class="jobCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(1)">
+    <div @click="gotoFavDetail(item.id)" class="jobCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(1)">
       <div class="jobItem">
         <div class="left">
           <img :src="require('./img/tx.png')" alt="">
@@ -17,7 +17,7 @@
         </div>
         <div class="right">
           <div class="time">{{item.ctime}}</div>
-          <div class="cancelBtn" @click="deleteFav(item.fav_id)">取消</div>
+          <div class="cancelBtn" @click.stop="deleteFav(item.fav_id)">取消</div>
         </div>
       </div>
     </div>
@@ -51,56 +51,7 @@ export default {
   data(){
     return {
       activeIndex: 1,
-      jobList: [
-        {
-          img: require('./img/tx.png'),
-          name: '李峰',
-          type: '大挖',
-          salary: '6000元/月',
-          address: '江苏省南京市大观路',
-          time: '10-25',
-        },
-        {
-          img: require('./img/tx.png'),
-          name: '李峰',
-          type: '大挖',
-          salary: '6000元/月',
-          address: '江苏省南京市大观路',
-          time: '10-25',
-        },
-        {
-          img: require('./img/tx.png'),
-          name: '李峰',
-          type: '大挖',
-          salary: '6000元/月',
-          address: '江苏省南京市大观路',
-          time: '10-25',
-        },
-        {
-          img: require('./img/tx.png'),
-          name: '李峰',
-          type: '大挖',
-          salary: '6000元/月',
-          address: '江苏省南京市大观路',
-          time: '10-25',
-        },
-        {
-          img: require('./img/tx.png'),
-          name: '李峰',
-          type: '大挖',
-          salary: '6000元/月',
-          address: '江苏省南京市大观路',
-          time: '10-25',
-        },
-        {
-          img: require('./img/tx.png'),
-          name: '李峰',
-          type: '大挖',
-          salary: '6000元/月',
-          address: '江苏省南京市大观路',
-          time: '10-25',
-        },
-      ]
+      jobList: [],
     }
   },
   methods:{
@@ -108,11 +59,16 @@ export default {
       return getName(car_type[0], key);
     },
     deleteFav(fav_id){
-      this.isLoading = true;
       this.axios.get("/api/member-fav/delete?fav_id="+fav_id).then(res => {
-        this.isLoading = false;
         console.log(res);
-        this.loadData();
+        this.$vux.toast.show({
+          type: "success",
+          text: "删除成功"
+        });
+        //todo 应该是重新加载
+        setTimeout(() => {
+          this.loadData();
+        }, 1000)
       });
     },
     getClass(index){
@@ -134,7 +90,10 @@ export default {
         this.jobList = res.data.data;
         console.log(res);
       });
-    }
+    },
+    gotoFavDetail(id) {
+      window.location.href = "../workdetail/index.html?id=" + id + '&' + "type=1"
+    },
   },
   components:{
 
@@ -179,9 +138,13 @@ export default {
       color: #313131;
       .left{
         height: 100%;
-        width: 0.9rem;
+        width: 1rem;
         text-align: center;
         margin-right: 0.4rem;
+        div{
+          font-size: 0.16rem;
+          overflow: hidden;
+        }
         img{
           height: 0.84rem;
           width: 0.84rem;

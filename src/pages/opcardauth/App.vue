@@ -73,11 +73,13 @@ export default {
       border: 1px solid white;
       background-color: @theme-color;
       position: relative;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       img {
-        width: 85%;
+        height: 85%;
+        max-width: 100%;
       }
       .upload {
         position: absolute;

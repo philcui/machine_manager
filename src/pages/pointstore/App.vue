@@ -3,7 +3,7 @@
     <div class="head">
       <img src="./img/money.png" alt="">
       <div class="point_wrap">
-        已有积分<span>23580</span>
+        已有积分<span>{{info.point}}</span>
       </div>
     </div>
     <div class="giftList">
@@ -48,6 +48,9 @@ export default {
           point: 26000
         },
       ],
+      info: {
+
+      },
     }
   },
   methods:{
@@ -55,6 +58,12 @@ export default {
   },
   components:{
 
+  },
+  mounted(){
+    this.axios.post("/api/user/profile").then(res => {
+      console.log(res)
+      this.info = res.data.data
+    });
   }
 }
 </script>

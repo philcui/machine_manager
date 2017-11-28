@@ -172,19 +172,19 @@ export default {
       bondList: [
         {
           key: "不压",
-          value: 1,
+          value: "1",
         },
         {
           key: "压半个月",
-          value: 2,
+          value: "2",
         },
         {
           key: "压一个月",
-          value: 3,
+          value: "3",
         },
         {
           key: "面议",
-          value: 4,
+          value: "4",
         }
       ]
     };
@@ -204,7 +204,7 @@ export default {
     skills_name() {
       let names = [];
       this.workContent.forEach((item, index, arr) => {
-        names.push(this.skillList[index].key);
+        names.push(this.skillList.find((it) => {return it.value == item}).key);
       });
       return names;
     },
@@ -296,6 +296,9 @@ export default {
         let formInfo = new FormData(this.$refs.formInfo)
         formInfo.append("base_salary", JSON.parse(this.salary[0])[0])
         formInfo.append("max_salary", JSON.parse(this.salary[0])[1])
+        if(!document.querySelector(".upload").value){
+          formInfo.delete('image')
+        }
         this.axios.post(this.editType, formInfo).then((res) => {
           //todo 后端返回错误需处理
           console.log(res)
@@ -308,11 +311,11 @@ export default {
     getResInfo(res){
       return {
           content1: "简历提交成功",
-          content2: "正在跳转至我的简历",
-          button1: "点击返回应聘界面",
-          button2: "点击查看我的简历",
-          url1: "../index.html",
-          url2: "../resumepreview/index.html",
+          content2: "请选择",
+          button1: "点击查看我的简历",
+          button2: "返回首页",
+          url1: "../resumepreview/index.html?id=" + res.data.data.id,
+          url2: "../index.html",
           title: "简历提交成功"
       }
     },
@@ -326,10 +329,10 @@ export default {
         }
       })
     },
-    getSkillValue(keys){
+    getSkillValue(keys, list){
       keys = keys.split(' ')
       return keys.map((x, index) => {
-        return this.skillList.find((item, index) => {
+        return list.find((item, index) => {
           return item.key == x
         }).value
       })
@@ -350,7 +353,8 @@ export default {
       this.phone = data.mobile
       this.description = data.description
       //todo 这里的接口返回的是数值不是id导致前端双层遍历查找
-      this.workContent = this.getSkillValue(data.skills)
+      this.workContent = this.getSkillValue(data.skills, this.skillList)
+      this.bondSalary = data.bond
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
       this.realname = data.realname
@@ -457,20 +461,6 @@ export default {
 .skillcell {
   padding-right: 0 !important;
 }
-.work-item {
-  border: 1px solid #d1d5d0;
-  min-width: 0.82rem;
-  margin-right: 0.36rem;
-  margin-bottom: 0.1rem;
-  font-size: 0.21rem;
-  text-align: center;
-  height: 0.35rem;
-  line-height: 0.35rem;
-}
-.work-item-selected {
-  background-color: @theme-color;
-  color: white;
-}
 .img-box {
   height: 7.46rem;
   overflow: hidden;
@@ -481,10 +471,10 @@ export default {
 }
 .uploadWrap{
   position: relative;
-  width: 1rem;
+  width: 4rem;
   height: 1rem;
   .prev{
-    width: 100%;
+    height: 100%;
   }
   .upload{
     position: absolute;

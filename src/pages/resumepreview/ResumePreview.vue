@@ -57,12 +57,18 @@
       </p>
       <p class="jieshao_info">{{info.description}}</p>
     </div>
-    <info-bottom></info-bottom>
+    <one-key-share v-if="type == 1"></one-key-share>
+    <focus-wechat v-if="type == 0"></focus-wechat>
+    <free-resume v-if="false"></free-resume>
+    <info-bottom v-if="type == 1" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>  
 </template>
 
 <script>
 import InfoBottom from '@/components/InfoBottom.vue'
+import OneKeyShare from "../../components/OneKeyShare.vue";
+import FocusWechat from "../../components/FocusWechat.vue";
+import FreeResume from "../../components/FreeResume.vue";
 import car_type from "@/data/car_type.json"
 import mode_type from "@/data/mode_type.json"
 import salary from "@/data/salary.json"
@@ -78,10 +84,14 @@ export default {
       working_age: working_age,
       salary: salary,
       location: location,
+      type: 0,
     };
   },
   components:{
-    InfoBottom
+    InfoBottom,
+    OneKeyShare,
+    FocusWechat,
+    FreeResume,
   },
   methods: {
     getName: getName
@@ -91,6 +101,12 @@ export default {
     .then((res) => {
       console.log(res)
       this.info  = res.data.data
+    })
+
+    this.axios.get("/api/user/my")
+    .then((res) => {
+      console.log(res)
+      this.type = res.data.data.status & 1 
     })
   },
 };
@@ -127,6 +143,8 @@ export default {
         .name{
           float: left;
           font-size: 0.36rem;
+          max-width: 1rem;
+          overflow: hidden;
         }
         .renzheng{
           float: left;
@@ -176,9 +194,12 @@ export default {
     }
     .list{
       padding: 0.18rem;
+      .text{
+        
+      }
     }
     .item{
-      height: 0.44rem;
+      min-height: 0.44rem;
       line-height: 0.44rem;
       font-size: 0.24rem;
     }

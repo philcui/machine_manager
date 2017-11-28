@@ -36,6 +36,10 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     vue.$vux.loading.hide()
+    // vue.$vux.toast.show({
+    //   type: 'warn',
+    //   text: response.data.msg
+    // })
     return response
   },
   error => {

@@ -1,98 +1,126 @@
 <template>
   <div id="app">
     <div class="listWrap">
-      <div class="hisItem" v-for="(item, index) in mock_data" :key="index">
+      <div @click="gotoPubDetail(item.id)" class="hisItem" v-for="(item, index) in publist" :key="index">
         <div class="left">
-          <img class="tu" :src="getIcon(item.type)" alt="">
-          <div class="title">{{getTitle(item.type)}}</div>
+          <img class="tu" :src="getIcon('pin')" alt="">
+          <div class="title">{{getTitle('pin')}}</div>
         </div>
         <div class="right">
           <div class="rightTop">
             <div class="info">
-              {{item.info}}
+              <p>发布时间：{{moment(item.ctime).format("YYYY-MM-DD")}}</p>
+              <p>工作地点：{{item.address}}</p>
             </div>
             <div class="time">
-              {{item.time}}
+              {{moment(item.ctime).format("YYYY-MM-DD")}}
             </div>
           </div>
           <div class="rightBottom">
-            <div class="btn deleteBtn">删除</div>
-            <div class="btn editBtn">编辑</div>
-            <div class="btn refreshBtn">刷新</div>
+            <div @click.stop="delPubInfo(item.id)" class="btn deleteBtn">删除</div>
+            <div @click.stop="editPubInfo(item.id)" class="btn editBtn">编辑</div>
+            <div @click.stop="refreshPubInfo(item.id)" class="btn refreshBtn">刷新</div>
           </div>
         </div>
       </div>
     </div>
+    <div @click="loadData" class="loadMore">查看更多</div>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      mock_data: [
-        {
-          type: 'zu',
-          time: '2017-5-1',
-          info: 'hahahhahahahhahhaddddddddddddddddddd'
-        },
-        {
-          type: 'pin',
-          time: '2017-5-1',
-          info: 'hahahhahahahhahhaddddddddddddddddddd'
-        },
-        {
-          type: 'pei',
-          time: '2017-5-1',
-          info: 'hahahhahahahhahhaddddddddddddddddddd'
-        },
-        {
-          type: 'ji',
-          time: '2017-5-1',
-          info: 'hahahhahahahhahhaddddddddddddddddddd'
-        },
-      ],
+      publist: [],
+      nowPage: 0,
       hisTypeData: {
-        zu : {
-          icon: require('./img/zu.png'),
-          title: '求租设备',
+        zu: {
+          icon: require("./img/zu.png"),
+          title: "求租设备"
         },
-        pin : {
-          icon: require('./img/pin.png'),
-          title: '招聘机手',
+        pin: {
+          icon: require("./img/pin.png"),
+          title: "招聘机手"
         },
-        pei : {
-          icon: require('./img/pei.png'),
-          title: '买配件',
+        pei: {
+          icon: require("./img/pei.png"),
+          title: "买配件"
         },
-        ji : {
-          icon: require('./img/ji.png'),
-          title: '求购二手机',
-        },
-      },
-    }
+        ji: {
+          icon: require("./img/ji.png"),
+          title: "求购二手机"
+        }
+      }
+    };
   },
-  methods:{
-    getTitle(type){
-      return this.hisTypeData[type].title
+  methods: {
+    getTitle(type) {
+      return this.hisTypeData[type].title;
     },
-    getIcon(type){
-      return this.hisTypeData[type].icon
+    getIcon(type) {
+      return this.hisTypeData[type].icon;
+    },
+    gotoPubDetail(id) {
+      window.location.href = "../workdetail/index.html?id=" + id
+    },
+    editPubInfo(id) {
+      window.location.href = "../pubinfo/index.html?id=" + id + '&' + "type=1";
+    },
+    delPubInfo(id) {
+      if (confirm("确认删除？删除后将无法恢复")) {
+        this.axios.get("/api/job/delete-member-job/?id=" + id).then(res => {
+          console.log(res);
+          this.$vux.toast.show({
+            type: "success",
+            text: "删除成功"
+          });
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
+        });
+      } else {
+      }
+    },
+    refreshPubInfo(id) {
+      this.axios.get("/api/job/update-member-job/?id=" + id).then(res => {
+        console.log(res);
+        this.$vux.toast.show({
+          type: "success",
+          text: "刷新成功"
+        });
+      });
+    },
+    loadData(){
+      this.axios.post("/api/job/member-job-list", this.qs.stringify({page: this.nowPage}))
+      .then(res => {
+        console.log(res);
+        if(res.data.data.length){
+          this.nowPage++
+          this.publist = this.publist.concat(res.data.data)
+        }else{
+          this.$vux.toast.show({
+            type: "text",
+            text: "没有了"
+          });
+        }
+      })
     },
   },
-  components:{
-
+  components: {},
+  mounted() {
+    this.loadData()
   }
-}
+};
 </script>
 
 <style lang='less'>
-@import '~vux/src/styles/reset.less';
-@import '../../style/base.less';
+@import "~vux/src/styles/reset.less";
+@import "../../style/base.less";
 
-#app{
-  .listWrap{
-    .hisItem{
+#app {
+  .listWrap {
+    .hisItem {
       display: flex;
       height: 1.7rem;
       padding-top: 0.27rem;
@@ -100,32 +128,32 @@ export default {
       background-color: white;
       border-top: 1px solid #dcdcdd;
       border-bottom: 1px solid #dcdcdd;
-      .left{
+      .left {
         display: flex;
         height: 100%;
         align-items: center;
         flex-direction: column;
         padding-left: 0.3rem;
         padding-right: 0.3rem;
-        .tu{
+        .tu {
           width: 0.8rem;
           height: 0.8rem;
         }
-        .title{
+        .title {
           font-size: 0.173rem;
         }
       }
-      .right{
+      .right {
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         flex: 1;
-        .rightTop{
+        .rightTop {
           height: 0.8rem;
           display: flex;
           margin-bottom: 0.08rem;
-          .info{
+          .info {
             font-size: 0.226rem;
             width: 3.78rem;
             font-size: 0.226rem;
@@ -133,7 +161,7 @@ export default {
             word-wrap: break-word;
             overflow: hidden;
           }
-          .time{
+          .time {
             flex: 1;
             font-size: 0.173rem;
             height: 0.8rem;
@@ -142,13 +170,13 @@ export default {
             border-left: 1px solid #959595;
           }
         }
-        .rightBottom{
+        .rightBottom {
           display: flex;
           flex: 1;
           justify-content: space-around;
           align-items: center;
           border-top: 1px solid #535353;
-          .btn{
+          .btn {
             width: 0.7rem;
             border: 1px solid #959595;
             color: @theme-color;
@@ -160,6 +188,12 @@ export default {
         }
       }
     }
+  }
+  .loadMore{
+    text-align: center;
+    line-height: 0.6rem;
+    line-height: 0.6rem;
+    color: @theme-color;
   }
 }
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div class="detail">
     <div class="info info1">
-      <img class="avatar" src="../../assets/avatar.png" alt="">
-      <div class="right">
-        <p class="name">{{info.realname}}</p>
-        <p class="time">{{info.ctime}}</p>
-      </div>
+      <!-- <img class="avatar" src="../../assets/avatar.png" alt=""> -->
       <div class="report">
-        如遇虚假信息，请<a href="../report/index.html">立即举报</a>
+        如遇虚假信息，请<a href="../report/index.html">点此举报</a>
+      </div>
+      <div class="right">
+        <!-- <p class="name">{{info.realname}}</p> -->
+        {{info.ctime}}
       </div>
     </div>
     <div class="info info2">
@@ -19,12 +19,13 @@
       <pre-cell title="操作方向" :content='info.operating_mode'></pre-cell>
       <pre-cell title="吃住" :content='info.benefit'></pre-cell>
       <pre-cell title="工作内容" :content='info.skills'></pre-cell>
+      <pre-cell title="工作介绍"></pre-cell>
       <div class="workDetail">{{info.description}}</div>
     </div>
-    <one-key-share v-if="false"></one-key-share>
-    <focus-wechat v-if="false"></focus-wechat>
-    <free-resume v-if="true"></free-resume>
-    <info-bottom :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <one-key-share v-if="type == 1"></one-key-share>
+    <focus-wechat v-if="type == 0"></focus-wechat>
+    <free-resume v-if="false"></free-resume>
+    <info-bottom v-if="type == 1" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>
 </template>
 
@@ -44,6 +45,7 @@ export default {
   data() {
     return {
       info: {},
+      type: 0,
     };
   },
   components: {
@@ -54,6 +56,7 @@ export default {
     InfoBottom,
   },
   mounted() {
+    //todo 地址有问题
     this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey('id')}))
     .then(res => {
       this.info = res.data.data
@@ -64,6 +67,11 @@ export default {
       }
       console.log(res);
     });
+    this.axios.get("/api/user/my")
+    .then((res) => {
+      console.log(res)
+      this.type = res.data.data.status & 1 
+    })
   }
 };
 </script>
@@ -76,21 +84,20 @@ export default {
   flex-direction: column;
   .info {
     padding-left: 0.25rem;
+    padding-right: 0.25rem;
     background-color: white;
   }
   .info1 {
-    height: 1.3rem;
     display: flex;
     align-items: center;
     position: relative;
+    height: 0.6rem;
+    justify-content: space-between;
     .report {
-      position: absolute;
-      top: 0.2rem;
-      right: 0.2rem;
       color: #686868;
       font-size: 0.2rem;
       a {
-        color: @theme-color;
+        color: red;
       }
     }
     .avatar {
@@ -98,18 +105,8 @@ export default {
       margin-right: 0.22rem;
     }
     .right {
-      height: 0.82rem;
-      p {
-        line-height: 0.4rem;
-      }
-      .name {
-        color: #626262;
-        font-size: 0.24rem;
-      }
-      .time {
-        color: #a0a0a0;
-        font-size: 0.21rem;
-      }
+      color: #a0a0a0;
+      font-size: 0.21rem;
     }
   }
   .info2 {

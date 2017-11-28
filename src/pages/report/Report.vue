@@ -70,20 +70,6 @@ export default {
     }
   }
 }
-.work-item {
-  border: 1px solid #d1d5d0;
-  min-width: 0.82rem;
-  margin-right: 0.36rem;
-  margin-bottom: 0.1rem;
-  font-size: 0.21rem;
-  text-align: center;
-  height: 0.35rem;
-  line-height: 0.35rem;
-}
-.work-item-selected {
-  background-color: @theme-color;
-  color: white;
-}
 .checker {
   padding-left: 0.26rem;
 }

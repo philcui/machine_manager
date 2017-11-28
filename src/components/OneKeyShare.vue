@@ -1,13 +1,17 @@
 <template>
   <div class="oneKeyShare">
     <p class="tip">分享到朋友圈，赚积分，可以让更多业务找到你</p>
-    <a class="shareButton">一键分享</a>
+    <a @click="shareTip" class="shareButton">一键分享</a>
   </div>  
 </template>
 
 <script>
 export default {
-
+  methods:{
+    shareTip(){
+      alert("请点击右上角分享按钮分享")
+    }
+  }
 }
 </script>
 

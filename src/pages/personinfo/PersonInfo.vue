@@ -70,7 +70,9 @@ export default {
         formdata.append("mobile", this.phone);
         formdata.append("address_id", this.address[2]);
         formdata.append("description", this.introduce);
-        formdata.append("avatar", document.querySelector(".upload").files[0])
+        if(document.querySelector(".upload").value){
+          formdata.append("avatar", document.querySelector(".upload").files[0])
+        }
         this.axios.post("/api/user/update-profile", formdata).then(res => {
           console.log(res);
           this.$vux.toast.show({
@@ -126,8 +128,13 @@ export default {
     position: relative;
     width: 1.13rem;
     height: 1.13rem;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
     .prev {
-      width: 100%;
+      max-width: 100%;
+      height: 100%;
     }
     .upload {
       position: absolute;

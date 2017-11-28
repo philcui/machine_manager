@@ -330,6 +330,9 @@ export default {
       })
     },
     getSkillValue(keys, list){
+      if(keys == ""){
+        return ""
+      }
       keys = keys.split(' ')
       return keys.map((x, index) => {
         return list.find((item, index) => {

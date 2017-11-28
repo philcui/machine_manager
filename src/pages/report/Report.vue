@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { Cell, Group, Checker, CheckerItem } from 'vux';
+import { Cell, Group, Checker, CheckerItem } from 'vux'
+import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
     return {
@@ -32,7 +33,8 @@ export default {
         { key: "虚假信息", value: "1" },
         { key: "与描述不符", value: "2" },
         { key: "无法取得联系", value: "3" }
-      ]
+      ],
+      info: [],
     };
   },
   components: {
@@ -40,6 +42,18 @@ export default {
     Group,
     Checker,
     CheckerItem
+  },
+  methods: {
+    getInfo(id){
+      return this.axios.get("/api/job/detail", this.qs.stringify({id: id}))
+      .then((res) => {
+        console.log(res)
+        this.info = res.data.data
+      })
+    }
+  },
+  mounted(){
+    this.getInfo(getUrlKey("id"))
   }
 };
 </script>

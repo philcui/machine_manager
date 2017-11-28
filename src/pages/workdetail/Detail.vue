@@ -3,7 +3,7 @@
     <div class="info info1">
       <!-- <img class="avatar" src="../../assets/avatar.png" alt=""> -->
       <div class="report">
-        如遇虚假信息，请<a href="../report/index.html">点此举报</a>
+        如遇虚假信息，请<a :href="'../report/index.html?id=' + info.id">点此举报</a>
       </div>
       <div class="right">
         <!-- <p class="name">{{info.realname}}</p> -->

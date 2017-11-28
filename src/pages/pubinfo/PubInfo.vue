@@ -281,6 +281,9 @@ export default {
       })
     },
     getSkillValue(keys, list){
+      if(keys == ""){
+        return ""
+      }
       keys = keys.split(' ')
       return keys.map((x, index) => {
         return list.find((item, index) => {
@@ -299,7 +302,7 @@ export default {
       this.anotherAddVal = [data.location]
       this.driveAge = [data.working_age]
       this.operate = [data.mode]
-      this.eat = [data.benefit_type]
+      this.eat = [data.benefit]
       //todo 薪资form初始无值时有报错 这里的接口定义与前端不吻合导致
       this.salary = [JSON.stringify([parseInt(data.base_salary), parseInt(data.max_salary)])]
       this.phone = data.mobile

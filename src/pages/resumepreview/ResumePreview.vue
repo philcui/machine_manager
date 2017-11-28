@@ -58,8 +58,8 @@
       <p class="jieshao_info">{{info.description}}</p>
     </div>
     <one-key-share v-if="type == 1"></one-key-share>
-    <focus-wechat v-if="type == 0"></focus-wechat>
-    <free-resume v-if="false"></free-resume>
+    <focus-wechat v-if="false"></focus-wechat>
+    <free-resume v-if="type == 0"></free-resume>
     <info-bottom v-if="type == 1" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>  
 </template>

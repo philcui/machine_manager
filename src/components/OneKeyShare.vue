@@ -2,15 +2,28 @@
   <div class="oneKeyShare">
     <p class="tip">分享到朋友圈，赚积分，可以让更多业务找到你</p>
     <a @click="shareTip" class="shareButton">一键分享</a>
+    <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
   </div>  
 </template>
 
 <script>
+import ShareGuide from "@/components/ShareGuide.vue"
 export default {
+  data(){
+    return {
+      showTip: false
+    }
+  },
   methods:{
     shareTip(){
-      alert("请点击右上角分享按钮分享")
+      this.showTip = true
+    },
+    closeGuide(){
+      this.showTip = false;
     }
+  },
+  components: {
+    ShareGuide,
   }
 }
 </script>

@@ -40,7 +40,7 @@ import car_type from "@/data/car_type.json"
 import mode_type from "@/data/mode_type.json"
 import benefit from "@/data/benefit.json"
 import getName from "@/utils/getName.js"
-//import share from '@/utils/share.js'
+import share from '@/utils/share.js'
 export default {
   data() {
     return {
@@ -59,13 +59,19 @@ export default {
     //todo 地址有问题
     this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey('id')}))
     .then(res => {
+      console.log(res)
       this.info = res.data.data
       if(this.info){
         this.info.car_type = getName(car_type[0], this.info.car_type_id);
         this.info.operating_mode = getName(mode_type[0], this.info.mode);
         this.info.benefit = getName(benefit[0], this.info.benefit)
       }
-      console.log(res);
+      share({
+        title: this.info.address,
+        img: "../../../static/imgtest.jpg",
+        desc: this.info.description,
+        link: window.location.href,
+      })
     });
     this.axios.get("/api/user/my")
     .then((res) => {

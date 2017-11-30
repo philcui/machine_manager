@@ -75,6 +75,7 @@ import salary from "@/data/salary.json"
 import working_age from "@/data/working_age.json"
 import location from "@/data/location.json"
 import getName from "@/utils/getName.js"
+import share from '@/utils/share.js'
 export default {
   data() {
     return {
@@ -105,6 +106,12 @@ export default {
     .then((res) => {
       console.log(res)
       this.info  = res.data.data
+      share({
+        title: this.info.address,
+        img: "../../../static/imgtest.jpg",
+        desc: this.info.description,
+        link: window.location.href,
+      })
     })
 
     this.axios.get("/api/user/my")

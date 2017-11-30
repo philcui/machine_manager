@@ -76,6 +76,7 @@ import working_age from "@/data/working_age.json"
 import location from "@/data/location.json"
 import getName from "@/utils/getName.js"
 import share from '@/utils/share.js'
+import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
     return {
@@ -98,11 +99,9 @@ export default {
     getName: getName
   },
   mounted(){
-    this.axios.post("/api/resume/detail" , {
-      params: {
-        ID: 12345
-      }
-    })
+    let id =getUrlKey('id');
+//    console.log(id);
+    this.axios.post("/api/resume/detail?id=" + id)
     .then((res) => {
       console.log(res)
       this.info  = res.data.data

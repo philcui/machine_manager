@@ -57,7 +57,7 @@ export default {
   },
   mounted() {
     //todo 地址有问题
-    this.axios.post("/api/job/detail", this.qs.stringify({id: getUrlKey('id')}))
+    this.axios.get("/api/job/detail?id=" + getUrlKey('id'))
     .then(res => {
       console.log(res)
       this.info = res.data.data
@@ -76,7 +76,7 @@ export default {
     this.axios.get("/api/user/my")
     .then((res) => {
       console.log(res)
-      this.type = res.data.data.status & 1 
+      this.type = res.data.data.status & 1
     })
   }
 };

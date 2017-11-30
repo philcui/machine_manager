@@ -3,11 +3,11 @@
   "msg": "ok",
   "data": {
     "appId": "wx4cff6cb8c6895738",
-    "timestamp": 1509780655,
-    "nonceStr": "AqFc1Navff0GfHwL",
-    "signature": "a30bbf4f09b3648eee5e3cab30f66e8f1b09b220",
-    "string": "jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VD0HUg_S293J8mI29JXacSBIFGdvXGxaacjujjTbiiIkYM7in1lr-glSqTD0jAqMkg&noncestr=AqFc1Navff0GfHwL×tamp=1509780655&url=http:\/\/kucubai.mynatapp.com\/m",
-    "fxurl": "http:\/\/kucubai.mynatapp.com\/m"
+    "timestamp": 1512038369,
+    "nonceStr": "688WBnJIeuBlOesq",
+    "signature": "15f313c098972cbe475867c15d64f12ab0c9aac0",
+    "string": "jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VD0HUg_S293J8mI29JXacSBP6mm9_4N8v-w51YTH_746mP_xZS0UeaK-IoQ6Y5SkGQ&noncestr=688WBnJIeuBlOesq×tamp=1512038369&url=' encodeURIComponent(location.href.split('",
+    "fxurl": "'encodeURIComponentlocation.href.split'"
   },
-  "req_id": "59fd6caf95ccb"
+  "req_id": "5a1fdfe116ced"
 }

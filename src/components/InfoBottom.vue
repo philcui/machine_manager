@@ -14,10 +14,12 @@
     <div class="box mainContainer" @click="goMain">
       <img src="../assets/icon.png" alt="">
     </div>
+    <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
   </div>
 </template>
 
 <script>
+import ShareGuide from "@/components/ShareGuide.vue"
 export default {
   props:{
     mobile: {
@@ -40,7 +42,7 @@ export default {
   },
   data(){
     return {
-
+      showTip: false,
     }
   },
   methods:{
@@ -60,8 +62,14 @@ export default {
       window.location.href = "../index.html"
     },
     shareTip(){
-      alert("请点击右上角分享按钮分享")
+      this.showTip = true
     },
+    closeGuide(){
+      this.showTip = false;
+    }
+  },
+  components:{
+     ShareGuide,
   }
 };
 </script>

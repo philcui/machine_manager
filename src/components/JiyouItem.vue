@@ -1,7 +1,7 @@
 <template>
   <a :href="itemData.url" class="jiyouItem">
     <div class="leftContent">
-      <img :src="itemData.imgSrc" alt="" class="leftImg">
+      <img :src="itemData.image" alt="" class="leftImg">
     </div>
     <div class="rightContent">
       <div class="tag tun-muti">{{itemData.tag}}</div>

@@ -11,7 +11,7 @@
       <div class="tip">
         <img src="./img/icon_op.png" alt="">
         <div class="tipText">如果你没有操作证，想找一家可靠的公司正规办理操作证，请<a href="">点此办理</a></div>
-      </div>  
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       }
       let formdata = new FormData();
       formdata.append("image", document.querySelector(".upload").files[0]);
-      this.axios.post("/api/check/cert-id", formdata).then(res => {
+      this.axios.post("/api/check/add-cert", formdata).then(res => {
         console.log(res);
         this.$vux.toast.show({
           type: "success",

@@ -9,20 +9,20 @@
     <form ref="formInfo" action="/api/resume/add" method="post">
     <group gutter='0'>
       <x-input :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
-      <popup-picker 
-        :title="redDot + '操作设备'" 
-        :data="macTypeData" 
-        v-model="macTypeVal" show-name 
-        placeholder="请选择"> 
+      <popup-picker
+        :title="redDot + '操作设备'"
+        :data="macTypeData"
+        v-model="macTypeVal" show-name
+        placeholder="请选择">
       </popup-picker>
-      <!-- <popup-picker 
-        :title="redDot + '期望地点'" 
-        :data="addressData" 
+      <!-- <popup-picker
+        :title="redDot + '期望地点'"
+        :data="addressData"
         v-model="addVal" show-name
-        placeholder="请选择"> 
+        placeholder="请选择">
       </popup-picker> -->
-      <x-address  
-        :title="redDot + '期望地点'" v-model="addVal" 
+      <x-address
+        :title="redDot + '期望地点'" v-model="addVal"
         :list="addressData" placeholder="请选择">
       </x-address>
       <popup-picker placeholder="请选择" show-name :title="redDot + '其它地区'" :data="anotherAddList" v-model="anotherAddVal"></popup-picker>
@@ -54,9 +54,9 @@
       <div class="mycell skillcell">
         <p>工作技能</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
-          <checker-item 
-            v-for="(item, index) in skillList" 
-            :key="index" 
+          <checker-item
+            v-for="(item, index) in skillList"
+            :key="index"
             :value='item.value'>
             {{item.key}}
           </checker-item>
@@ -65,16 +65,16 @@
       <div class="mycell skillcell">
         <p>是否接受压工资</p>
         <checker class="checker" v-model="bondSalary" default-item-class="work-item" selected-item-class="work-item-selected">
-          <checker-item 
-            v-for="(item, index) in bondList" 
-            :key="index" 
+          <checker-item
+            v-for="(item, index) in bondList"
+            :key="index"
             :value='item.value'>
             {{item.key}}
           </checker-item>
         </checker>
       </div>
       <selector title="操作证" direction='rtl' placeholder="请选择" v-model="zhengshu" :options="zhengshuList"></selector>
-      <selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector>
+      <!--selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector-->
     </group>
       <!-- 姓名 -->
       <input type="hidden" name="realname" v-model="realname">
@@ -99,7 +99,7 @@
       <!-- 操作证 -->
       <input type="hidden" name="certified" v-model="zhengshu">
       <!-- 是否愿意付费 -->
-      <input type="hidden" name="will_pay" v-model="isLikePay">
+      <!--input type="hidden" name="will_pay" v-model="isLikePay/"-->
       <a class="submit" @click.prevent="submitResume" href="../result/index.html?restype=pubresume">提交</a>
     </form>
 

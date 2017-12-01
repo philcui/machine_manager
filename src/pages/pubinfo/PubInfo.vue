@@ -8,21 +8,21 @@
     </div>
     <group gutter='0'>
       <x-input :title="redDot + '姓名'" placeholder="请输入" v-model="realname" text-align='right'></x-input>
-      <popup-picker 
-        :title="redDot + '设备类型'" 
-        :data="macTypeData" 
+      <popup-picker
+        :title="redDot + '设备类型'"
+        :data="macTypeData"
         v-model="macTypeVal"
-        show-name 
-        placeholder="请选择"> 
+        show-name
+        placeholder="请选择">
       </popup-picker>
-      <!-- <popup-picker 
-        :title="redDot + '工作地点'" 
-        :data="addressData" 
+      <!-- <popup-picker
+        :title="redDot + '工作地点'"
+        :data="addressData"
         v-model="addVal" show-name
-        placeholder="请选择"> 
+        placeholder="请选择">
       </popup-picker> -->
-      <x-address  
-        :title="redDot + '期望地点'" v-model="addVal" 
+      <x-address
+        :title="redDot + '期望地点'" v-model="addVal"
         :list="addressData" placeholder="请选择">
       </x-address>
       <!-- <div class="mycell addTip">
@@ -41,9 +41,9 @@
       <div>
         <p class="checker_content">工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
-          <checker-item 
-            v-for="(item, index) in skillList" 
-            :key="index" 
+          <checker-item
+            v-for="(item, index) in skillList"
+            :key="index"
             :value='item.value'>
             {{item.key}}
           </checker-item>
@@ -52,9 +52,9 @@
       <div>
         <p class="checker_content">是否压工资</p>
         <checker class="checker" v-model="bondSalary" default-item-class="work-item" selected-item-class="work-item-selected">
-          <checker-item 
-            v-for="(item, index) in bondList" 
-            :key="index" 
+          <checker-item
+            v-for="(item, index) in bondList"
+            :key="index"
             :value='item.value'>
             {{item.key}}
           </checker-item>
@@ -246,14 +246,14 @@ export default {
           car_type_id: this.macTypeVal[0],
           address_id: this.addVal[2],
           mode: this.operate[0],
-          benefit_type: this.eat[0],
+          benefit: this.eat[0],
           base_salary: JSON.parse(this.salary[0])[0],
           max_salary: JSON.parse(this.salary[0])[1],
           mobile: this.phone,
           skill_list: this.skills_name,
           bond: this.bondSalary,
-          description: this.description,
-          will_pay: this.isLikePay,
+          description: this.description/*,
+          will_pay: this.isLikePay,*/
         })
     },
     getResInfo(res){

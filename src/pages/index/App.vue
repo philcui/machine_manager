@@ -10,14 +10,14 @@
       <jiyou-item v-for="(item, index) in jiyouList" :key="index" :itemData='item'></jiyou-item>
     </div>
     <TabBottom :selectedItem='0'></TabBottom>
-    
+
     <x-dialog v-model="pubNotice" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="noticeDialog">
         <div class="notice-title">
           发布须知
         </div>
         <div class="notice-content">
-          你好，请把故障问题描述清楚，<br/> 
+          你好，请把故障问题描述清楚，<br/>
           最好配上照片，再发布， <br/>
           有利于维修师傅帮你准确诊断。
         </div>
@@ -101,7 +101,7 @@ export default {
         // { imgSrc: require("./img/banche.png"), title: "板车托运" }
       ],
       jiyouList: [
-        {
+        /*{
           imgSrc: require("./img/video.png"),
           tag: "精彩视频",
           title: "每天更新，最懂机友的挖机视频",
@@ -118,21 +118,21 @@ export default {
           tag: "机友交流",
           title: "大神们，帮我看下值多少钱，卡特320",
           content: "刚刚在工地包完月，工况非常好，行走有力，油、水温不高"
-        }
+        }*/
       ],
       pubNotice: false,
       showReg: false,
       whoimList: [
-        { key: "请选择自己的身份", value: "" },
-        { key: "我是驾驶员", value: 0 },
-        { key: "我是机主", value: 1 },
-        { key: "我是自己的机子自己开", value: 2 },
-        { key: "我是维修商", value: 3 },
-        { key: "我是板车运输", value: 4 },
-        { key: "我是二手车商", value: 5 },
-        { key: "我是配件商", value: 6 },
-        { key: "我有工程方找设备", value: 7 },
-        { key: "其它", value: 8 }
+        { key: "请选择自己的身份", value: 0 },
+        { key: "我是驾驶员", value: 1 },
+        { key: "我是机主", value: 2 },
+        { key: "我是自己的机子自己开", value: 3 },
+        { key: "我是维修商", value: 4 },
+        { key: "我是板车运输", value: 5 },
+        { key: "我是二手车商", value: 6 },
+        { key: "我是配件商", value: 7 },
+        { key: "我有工程方找设备", value: 8 },
+        { key: "其它", value: 9 }
       ],
 
       regInfo: {
@@ -213,7 +213,9 @@ export default {
             "/api/user/bind",
             this.qs.stringify({
               mobile: this.regInfo.phoneNum,
-              code: this.regInfo.checkNum
+              code: this.regInfo.checkNum,
+              type: this.regInfo.personType
+
             })
           )
           .then(res => {
@@ -291,6 +293,7 @@ export default {
       .then((res) => {
         console.log(res)
         this.jiyouList = res.data.data
+
       })
     },
     setCookie(){

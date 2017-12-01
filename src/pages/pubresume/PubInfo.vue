@@ -311,7 +311,7 @@ export default {
       }
     },
     getHisInfo(){
-      this.axios.post("/api/resume/detail")
+      this.axios.post("/api/resume/my-detail")
       .then((res) => {
         console.log(res)
         if(res.data.data.car_type_id){

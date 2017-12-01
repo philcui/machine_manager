@@ -10,7 +10,7 @@
       </div>
     </group>
     <group>
-      <x-switch title="是否公开" :value-map="[0, 1]" v-model="isPublic" :inline-desc="getSwitchResult()" @on-change='switchResumePublic'></x-switch>      
+      <x-switch title="是否公开" :value-map="[0, 1]" v-model="isPublic" :inline-desc="getSwitchResult()" @on-change='switchResumePublic'></x-switch>
       <cell title="查看简历" is-link @click.native="goto('../resumepreview/index.html')"></cell>
       <cell title="刷新简历" is-link @click.native="refreshResume"></cell>
       <cell title="修改简历" is-link @click.native="goto('../pubresume/index.html')"></cell>

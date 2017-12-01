@@ -101,18 +101,31 @@ export default {
   mounted(){
     let id =getUrlKey('id');
 //    console.log(id);
-    this.axios.post("/api/resume/detail?id=" + id)
-    .then((res) => {
-      console.log(res)
-      this.info  = res.data.data
-      share({
-        title: this.info.address,
-        img: "../../../static/imgtest.jpg",
-        desc: this.info.description,
-        link: window.location.href,
+    if(id){
+      this.axios.post("/api/resume/detail?id=" + id)
+        .then((res) => {
+          console.log(res)
+          this.info  = res.data.data
+          share({
+            title: this.info.address,
+            img: "../../../static/imgtest.jpg",
+            desc: this.info.description,
+            link: window.location.href + "?=id" + id,
+          })
+        })
+    }else{
+      this.axios.post("/api/resume/my-detail")
+      .then((res) => {
+        console.log(res)
+        this.info  = res.data.data
+        share({
+          title: this.info.address,
+          img: "../../../static/imgtest.jpg",
+          desc: this.info.description,
+          link: window.location.href,
+        })
       })
-    })
-
+    }
     this.axios.get("/api/user/my")
     .then((res) => {
       console.log(res)

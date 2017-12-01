@@ -33,6 +33,17 @@
           :show.sync="showMacType">
         </popup-picker>
       </div>
+      <div @click="changeShowSal" class="filterItem sal">
+        {{salName}}
+        <img class="arrow" src="./img/arrowDown.png" alt="">
+        <popup-picker
+          style="display:none;"
+          title="title"
+          :data="salData"
+          v-model="salVal"
+          :show.sync="showSal">
+        </popup-picker>
+      </div>
       <div class="filterItem locate">
         <img src="./img/locate.png" alt="">
         {{locate.name}}
@@ -96,8 +107,10 @@ export default {
   data() {
     return {
       addVal: [],
+      salVal: [],
       addressData: provinceData,
       showAddress: false,
+      showSal: false,
       locate: { name: "定位中", id: "" },
       macTypeData: macTypeData,
       macTypeVal: [],
@@ -106,7 +119,35 @@ export default {
       normalList: [],
       showDialog: false,
       isLoading: false,
-      nowPage: 0
+      nowPage: 0,
+      salData: [
+        [
+          {
+            value: "0,0",
+            name: "不限"
+          },
+          {
+            value: "0,6000",
+            name: "6000以下"
+          },
+          {
+            value: "6000,8000",
+            name: "6000-8000"
+          },
+          {
+            value: "8000,9000",
+            name: "8000-9000"
+          },
+          {
+            value: "9000,12000",
+            name: "9000-12000"
+          },
+          {
+            value: "12000,0",
+            name: "12000以上"
+          }
+        ]
+      ]
     };
   },
   methods: {
@@ -115,6 +156,9 @@ export default {
     },
     changeShowMacType() {
       this.showMacType = !this.showMacType;
+    },
+    changeShowSal() {
+      this.showSal = !this.showSal;
     },
     scrollList(e) {
       if (this.isBottom(e.target)) {
@@ -136,16 +180,25 @@ export default {
     },
     getFilter(opt) {
       // 动态条件生成
-      return this.qs.stringify(
-        Object.assign(
-          {
-            page: this.nowPage,
-            address_id: this.addVal[0] || this.locate.id,
-            car_type_id: this.macTypeVal[0]
-          },
-          opt
-        )
+      let filter = Object.assign(
+        {
+          page: this.nowPage,
+          address_id: this.addVal[0] || this.locate.id,
+          car_type_id: this.macTypeVal[0],
+          base_salary:
+            this.salVal.length && parseInt(this.salVal[0].split(",")[0]),
+          max_salary:
+            this.salVal.length && parseInt(this.salVal[0].split(",")[1])
+        },
+        opt
       );
+      if(this.addVal[0] === "0"){
+        delete filter.address_id
+      }
+      if(this.macTypeVal[0] === "0"){
+        delete filter.car_type_id
+      }
+      return this.qs.stringify(filter);
     },
     reloadData() {
       // 条件变化，发生重新加载，重置当前数据及页码
@@ -195,18 +248,25 @@ export default {
     //   }
     // },
     addName() {
-      if (this.addVal && this.addVal.length > 0) {
+      if (this.addVal && this.addVal.length > 0 && this.addVal[0]) {
         return this.findName(this.addVal[0], provinceData);
       } else {
         return "工作地点";
       }
     },
     macTypeName() {
-      if (this.macTypeVal && this.macTypeVal.length > 0) {
+      if (this.macTypeVal && this.macTypeVal.length > 0 && this.macTypeVal[0]) {
         //return value2name(this.macTypeVal, this.macTypeData);
         return this.findName(this.macTypeVal[0], macTypeData);
       } else {
         return "设备种类";
+      }
+    },
+    salName() {
+      if (this.salVal && this.salVal.length > 0 && this.salVal[0]) {
+        return this.findName(this.salVal[0], this.salData);
+      } else {
+        return "工资查询";
       }
     }
   },
@@ -228,6 +288,10 @@ export default {
       this.loadAds();
     },
     macTypeVal() {
+      this.reloadData();
+      this.loadAds();
+    },
+    salVal() {
       this.reloadData();
       this.loadAds();
     }
@@ -269,6 +333,7 @@ export default {
   .machineType {
     flex: 1;
     border-left: 1px solid #c9c9c9;
+    border-right: 1px solid #c9c9c9;
   }
   .locate {
     width: 1.5rem;
@@ -303,14 +368,14 @@ export default {
   bottom: 0;
   width: 100%;
   z-index: 10;
-  .btnpu{
+  .btnpu {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 0.78rem;
     background-color: @theme-color;
-    img{
+    img {
       height: 0.34rem;
       padding-right: 0.14rem;
     }

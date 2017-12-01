@@ -101,7 +101,7 @@ export default {
         // { imgSrc: require("./img/banche.png"), title: "板车托运" }
       ],
       jiyouList: [
-        {
+        /*{
           imgSrc: require("./img/video.png"),
           tag: "精彩视频",
           title: "每天更新，最懂机友的挖机视频",
@@ -118,7 +118,7 @@ export default {
           tag: "机友交流",
           title: "大神们，帮我看下值多少钱，卡特320",
           content: "刚刚在工地包完月，工况非常好，行走有力，油、水温不高"
-        }
+        }*/
       ],
       pubNotice: false,
       showReg: false,
@@ -293,6 +293,7 @@ export default {
       .then((res) => {
         console.log(res)
         this.jiyouList = res.data.data
+
       })
     },
     setCookie(){

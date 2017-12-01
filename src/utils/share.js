@@ -5,6 +5,8 @@ var qs = require('qs')
 //import wxConfig from "@/data/wxConfig.json";
 
 function setWxConfig(res, conf) {
+  console.info(res);
+  console.info(conf);
   wx.config({
     appId: res.appId, // 必填，公众号的唯一标识
     timestamp: res.timestamp, // 必填，生成签名的时间戳
@@ -33,7 +35,7 @@ function setWxConfig(res, conf) {
 export default function (conf) {
   axios.get('/wechat/jssdk/index?url=' + encodeURIComponent(location.href.split('#')[0]))
     .then((res) => {
-      console.log(res)
-      setWxConfig(res, conf)
+      console.log(res.data.data);
+      setWxConfig(res.data.data, conf)
     })
 }

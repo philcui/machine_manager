@@ -54,12 +54,12 @@ export default {
     }
     .dot {
       background-color: #ff0000;
-      width: 0.1rem;
-      height: 0.1rem;
+      width: 0.2rem;
+      height: 0.2rem;
       border-radius: 50%;
       position: absolute;
-      right: 0;
-      top: 0.1rem;
+      right: -0.05rem;
+      top: 0.05rem;
     }
   }
 }

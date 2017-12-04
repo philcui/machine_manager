@@ -11,7 +11,7 @@
           </div>
           <div class="renzheng">
             <img src="./img/opreate_card.png" alt="">
-            <div>{{this.info.status & 4 ? "操作证已认证" : "操作证未认证"}}</div>
+            <div>{{this.info.status & 8 ? "操作证已认证" : "操作证未认证"}}</div>
           </div>
         </div>
         <div class="line2">{{info.address}}</div>

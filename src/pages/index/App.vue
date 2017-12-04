@@ -299,10 +299,10 @@ export default {
     setCookie(){
       //模拟登录，写入cookie
       //this.cookie.set('auth_cookie', tmp)
-/*
+
       document.cookie =
-        "auth_cookie=e4336578cddb05522fc1a41735ce72f92c211d7a7cff9798febc5947e3272b93a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A36%3A%22b53e2ecf29f19ae2e1c22b3a8942f95f%23%23%233%22%3B%7D";
-*/
+        "auth_cookie=0e544bfb28838d0cce9280a3b684d60ea7656f3ea2f2fa4a6a4032c119ef98f3a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A40%3A%22efb70420a7a4e8899cc60290194f69ce%23%23%2350005%22%3B%7D";
+
     },
     getAccountInfo(){
       this.axios.get("/api/user/my").then(res => {

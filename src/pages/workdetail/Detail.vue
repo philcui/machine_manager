@@ -22,10 +22,10 @@
       <pre-cell title="工作介绍"></pre-cell>
       <div class="workDetail">{{info.description}}</div>
     </div>
-    <one-key-share v-if="type == 1"></one-key-share>
-    <focus-wechat v-if="type == 0"></focus-wechat>
+    <one-key-share v-if="nowType.showShare"></one-key-share>
+    <focus-wechat v-if="nowType.showFocus"></focus-wechat>
     <free-resume v-if="false"></free-resume>
-    <info-bottom v-if="type == 1" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <info-bottom v-if="nowType.showInfo" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>
 </template>
 
@@ -45,7 +45,31 @@ export default {
   data() {
     return {
       info: {},
-      type: 0,
+      isLogin: false,
+      typeMap: {
+        unLogIn:{
+          showShare: false,
+          showFocus: true,
+          showInfo: false,
+        },
+        myInfo: {
+          showShare: true,
+          showFocus: false,
+          showInfo: false,
+        },
+        otherInfo :{
+          showShare: false,
+          showFocus: true,
+          showInfo: true,
+        },
+      },
+      nowType: {
+        showShare: false,
+        showFocus: false,
+        showInfo: false,
+      },
+      user_id: "",
+      member_id: "",
     };
   },
   components: {
@@ -57,10 +81,11 @@ export default {
   },
   mounted() {
     //todo 地址有问题
-    this.axios.get("/api/job/detail?id=" + getUrlKey('id'))
+    let minfo = this.axios.get("/api/job/detail?id=" + getUrlKey('id'))
     .then(res => {
       console.log(res)
       this.info = res.data.data
+      this.member_id = this.mid
       if(this.info){
         this.info.car_type = getName(car_type[0], this.info.car_type_id);
         this.info.operating_mode = getName(mode_type[0], this.info.mode);
@@ -73,10 +98,22 @@ export default {
         link: window.location.href,
       })
     });
-    this.axios.get("/api/user/my")
+    let uinfo = this.axios.get("/api/user/my")
     .then((res) => {
       console.log(res)
-      this.type = res.data.data.status & 1
+      this.isLogin = res.data.data.status & 1
+      this.user_id = this.id
+    })
+    Promise.all([minfo,uinfo]).then(() => {
+      if(this.isLogin){
+        if(this.user_id === this.member_id){
+          this.nowType = this.typeMap.myInfo
+        }else{
+          this.nowType = this.typeMap.otherInfo
+        } 
+      }else{
+        this.nowType = this.typeMap.unLogIn
+      }
     })
   }
 };

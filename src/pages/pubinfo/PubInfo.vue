@@ -2,7 +2,7 @@
   <div class="pubInfo">
     <div class="hintHead">
       <div class="tipbox">
-        <p>工机管家平台有三万多名注册的驾驶员</p>
+        <p>工机管家平台有5万多名注册的驾驶员</p>
         <p>主动发布让驾驶员联系你</p>
       </div>
     </div>

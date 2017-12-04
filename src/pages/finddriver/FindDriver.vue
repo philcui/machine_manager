@@ -251,7 +251,7 @@ export default {
       if (this.addVal && this.addVal.length > 0 && this.addVal[0]) {
         return this.findName(this.addVal[0], provinceData);
       } else {
-        return "工作地点";
+        return "地点";
       }
     },
     macTypeName() {
@@ -259,14 +259,14 @@ export default {
         //return value2name(this.macTypeVal, this.macTypeData);
         return this.findName(this.macTypeVal[0], macTypeData);
       } else {
-        return "设备种类";
+        return "设备";
       }
     },
     salName() {
       if (this.salVal && this.salVal.length > 0 && this.salVal[0]) {
         return this.findName(this.salVal[0], this.salData);
       } else {
-        return "工资查询";
+        return "工资";
       }
     }
   },
@@ -334,6 +334,9 @@ export default {
     flex: 1;
     border-left: 1px solid #c9c9c9;
     border-right: 1px solid #c9c9c9;
+  }
+  .sal{
+    flex: 1;
   }
   .locate {
     width: 1.5rem;

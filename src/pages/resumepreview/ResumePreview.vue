@@ -57,10 +57,10 @@
       </p>
       <p class="jieshao_info">{{info.description}}</p>
     </div>
-    <one-key-share v-if="type == 1"></one-key-share>
-    <focus-wechat v-if="false"></focus-wechat>
-    <free-resume v-if="type == 0"></free-resume>
-    <info-bottom v-if="type == 1" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <one-key-share v-if="nowType.showShare"></one-key-share>
+    <focus-wechat v-if="nowType.showFocus"></focus-wechat>
+    <free-resume v-if="false"></free-resume>
+    <info-bottom v-if="nowType.showInfo" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>
 </template>
 
@@ -86,7 +86,31 @@ export default {
       working_age: working_age,
       salary: salary,
       location: location,
-      type: 0,
+      isLogin: false,
+      typeMap: {
+        unLogIn:{
+          showShare: false,
+          showFocus: true,
+          showInfo: false,
+        },
+        myInfo: {
+          showShare: true,
+          showFocus: false,
+          showInfo: false,
+        },
+        otherInfo :{
+          showShare: false,
+          showFocus: true,
+          showInfo: true,
+        },
+      },
+      nowType: {
+        showShare: false,
+        showFocus: false,
+        showInfo: false,
+      },
+      user_id: "",
+      member_id: "",
     };
   },
   components:{
@@ -100,12 +124,13 @@ export default {
   },
   mounted(){
     let id =getUrlKey('id');
-//    console.log(id);
+    let minfo
     if(id){
-      this.axios.post("/api/resume/detail?id=" + id)
+      minfo = this.axios.post("/api/resume/detail?id=" + id)
         .then((res) => {
           console.log(res)
           this.info  = res.data.data
+          this.member_id = this.mid
           share({
             title: this.info.address,
             img: "../../../static/imgtest.jpg",
@@ -114,10 +139,11 @@ export default {
           })
         })
     }else{
-      this.axios.post("/api/resume/my-detail")
+      minfo = this.axios.post("/api/resume/my-detail")
       .then((res) => {
         console.log(res)
         this.info  = res.data.data
+        this.member_id = this.mid
         share({
           title: this.info.address,
           img: "../../../static/imgtest.jpg",
@@ -126,10 +152,22 @@ export default {
         })
       })
     }
-    this.axios.get("/api/user/my")
+    let uinfo = this.axios.get("/api/user/my")
     .then((res) => {
       console.log(res)
-      this.type = res.data.data.status & 1
+      this.isLogin = res.data.data.status & 1
+      this.user_id = this.id
+    })
+    Promise.all([minfo,uinfo]).then(() => {
+      if(this.isLogin){
+        if(this.user_id === this.member_id){
+          this.nowType = this.typeMap.myInfo
+        }else{
+          this.nowType = this.typeMap.otherInfo
+        } 
+      }else{
+        this.nowType = this.typeMap.unLogIn
+      }
     })
   },
 };

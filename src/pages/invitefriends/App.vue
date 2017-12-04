@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <a href="../invitepage/index.html" class="inviteTop"></a>
+    <a @click="showTip = true" class="inviteTop"></a>
     <a href="" class="myInvite" @click.prevent="showMyInvite=true"></a>
     <a href="" class="myPoint" @click.prevent="showGift=true"></a>
-    <a href="../invitepage/index.html" class="inviteBottom"></a>
+    <a @click="showTip = true" class="inviteBottom"></a>
 
     <x-dialog v-model="showMyInvite" :dialog-style="{'background-color': 'transparent'}">
       <img class="invitebg" src="./img/myinvite.jpg" alt="">
@@ -19,28 +19,44 @@
         <img class="close" src="../../assets/close.png" alt="">
       </div>
     </x-dialog>
+
+    <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
   </div>
 </template>
 
 <script>
 import { XDialog } from "vux";
+import ShareGuide from "@/components/ShareGuide.vue"
+import share from '@/utils/share.js'
 export default {
   data() {
     return {
       showMyInvite: false,
       showGift: false,
-      count: 0
+      count: 0,
+      showTip: false,
     };
   },
-  methods: {},
+  methods: {
+    closeGuide(){
+      this.showTip = false;
+    },
+  },
   mounted() {
     this.axios.post("/api/qrcode/member-total-scan").then(res => {
       console.log(res);
       this.count = res.data.data.count;
     });
+    share({
+      title: "工机管家，邀请注册",
+      img: "../../../static/imgtest.jpg",
+      desc: "注册享好礼，老铁快来工机管家看看吧",
+      link: "../invitepage/index.html",
+    })
   },
   components: {
-    XDialog
+    XDialog,
+    ShareGuide,
   }
 };
 </script>
@@ -48,7 +64,6 @@ export default {
 <style lang='less'>
 @import "~vux/src/styles/reset.less";
 @import "../../style/base.less";
-//为了进度也是没办法 MDZZ
 #app {
   background: url("./img/bg_big.jpg") center center no-repeat;
   background-size: cover;

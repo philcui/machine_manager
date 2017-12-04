@@ -5,9 +5,9 @@
         {{item.text}}
       </a>
     </div>
-    <div class="new-message">
+    <div @click="myMsg" class="new-message">
       <img src="../assets/icon_message.png" alt="">
-      <div class="dot"></div>
+      <div :class="{dot: hasMsg}"></div>
     </div>
   </div>
 </template>
@@ -16,7 +16,8 @@
 export default {
   data() {
     return {
-      items: [{ selected: true, text: "服务" }, { selected: false, text: "社区" }]
+      items: [{ selected: true, text: "服务" }, { selected: false, text: "社区" }],
+      hasMsg: false,
     };
   },
   methods: {
@@ -27,7 +28,14 @@ export default {
           : (item.selected = false);
         return item;
       });
-    }
+    },
+    myMsg(){
+      //查看我的消息
+    },
+  },
+  mounted(){
+    //模拟获取消息
+    this.hasMsg = true
   }
 };
 </script>
@@ -54,12 +62,12 @@ export default {
     }
     .dot {
       background-color: #ff0000;
-      width: 0.1rem;
-      height: 0.1rem;
+      width: 0.2rem;
+      height: 0.2rem;
       border-radius: 50%;
       position: absolute;
-      right: 0;
-      top: 0.1rem;
+      right: -0.05rem;
+      top: 0.05rem;
     }
   }
 }

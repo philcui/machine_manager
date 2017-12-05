@@ -61,11 +61,11 @@
     <div class="hrbottom">
       <div class="btnpu left">
         <img src="./img/icon_owner.png" alt="">
-        <a href="../pubinfo/index.html" class="button">发布机主招聘</a>
+        <a @click="pubInfo" class="button">发布机主招聘</a>
       </div>
       <div class="btnpu">
         <img src="./img/icon_driver.png" alt="">
-        <a href="../pubresume/index.html" class="button">发布机手求职</a>
+        <a @click="pubResume" class="button">发布机手求职</a>
       </div>
     </div>
     <img src="./img/publish.png" class="publish" @click="showDialog=true">
@@ -74,11 +74,11 @@
       <div class="dia-content">
         <div class="dia_content_line" style="border-bottom: 1px solid #707070;">
           <img src="./img/icon_find.png" alt="">
-          <a href="../pubinfo/index.html" class="dia-button">我是机主：发布招聘</a>
+          <a @click="pubInfo" class="dia-button">我是机主：发布招聘</a>
         </div>
         <div class="dia_content_line">
           <img src="./img/icon_admin.png" alt="">
-          <a href="../pubresume/index.html" class="dia-button">我是机手：发布求职</a>
+          <a @click="pubResume" class="dia-button">我是机手：发布求职</a>
         </div>
       </div>
       <div @click="showDialog=false">
@@ -106,6 +106,7 @@ import provinceData from "@/data/prov.json";
 export default {
   data() {
     return {
+      isReg: false,
       addVal: [],
       salVal: [],
       addressData: provinceData,
@@ -229,6 +230,38 @@ export default {
         .then(res => {
           this.topList = res.data.data;
         });
+    },
+    getRegInfo(){
+      this.axios.get("/api/user/my")
+      .then((res) => {
+        if(res.data.data.status & 2){
+          //已注册
+          this.isReg = true
+        }else{
+          //未注册
+          this.isReg = false
+        }
+      })
+    },
+    pubInfo(){
+      if(this.isReg){
+        window.location.href = "../pubinfo/index.html"
+      }else{
+        this.$vux.toast.show({
+          type: 'text',
+          text: '注册用户可发布，请注册'
+        })
+      }
+    },
+    pubResume(){
+      if(this.isReg){
+        window.location.href = "../pubresume/index.html"
+      }else{
+        this.$vux.toast.show({
+          type: 'text',
+          text: '注册用户可发布，请注册'
+        })
+      }
     }
   },
   components: {
@@ -268,9 +301,10 @@ export default {
       } else {
         return "工资";
       }
-    }
+    },
   },
   mounted() {
+    this.getRegInfo()
     this.guessAddress().then(
       val => {
         this.loadData();

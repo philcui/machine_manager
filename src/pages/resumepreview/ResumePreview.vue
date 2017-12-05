@@ -126,7 +126,7 @@ export default {
     let id =getUrlKey('id');
     let minfo
     if(id){
-      minfo = this.axios.post("/api/resume/detail?id=" + id)
+      minfo = this.axios.get("/api/resume/detail?id=" + id)
         .then((res) => {
           console.log(res)
           this.info  = res.data.data
@@ -139,7 +139,7 @@ export default {
           })
         })
     }else{
-      minfo = this.axios.post("/api/resume/my-detail")
+      minfo = this.axios.get("/api/resume/my-detail")
       .then((res) => {
         console.log(res)
         this.info  = res.data.data
@@ -148,7 +148,7 @@ export default {
           title: this.info.address,
           img: "../../../static/imgtest.jpg",
           desc: this.info.description,
-          link: window.location.href,
+          link: window.location.href + "?=id" + this.id,
         })
       })
     }

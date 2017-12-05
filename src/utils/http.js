@@ -43,7 +43,7 @@ instance.interceptors.response.use(
       })
 
       if(response.data.code == -302){
-        window.location.href = ""
+        //window.location.href = ""
       }
 
       return Promise.reject(response)

@@ -169,6 +169,9 @@ export default {
         this.nowType = this.typeMap.unLogIn
       }
     })
+    .catch((err) => {
+      this.nowType = this.typeMap.otherInfo
+    })
   },
 };
 </script>

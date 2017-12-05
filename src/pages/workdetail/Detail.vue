@@ -104,6 +104,7 @@ export default {
       this.isLogin = res.data.data.status & 1
       this.user_id = this.id
     })
+
     Promise.all([minfo,uinfo]).then(() => {
       if(this.isLogin){
         if(this.user_id === this.member_id){
@@ -114,6 +115,9 @@ export default {
       }else{
         this.nowType = this.typeMap.unLogIn
       }
+    })
+    .catch((err) => {
+      this.nowType = this.typeMap.otherInfo
     })
   }
 };

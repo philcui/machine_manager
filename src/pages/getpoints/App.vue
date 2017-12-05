@@ -20,16 +20,19 @@
         <a :class="getBtnClass(isIdCardComplete)">{{isIdCardComplete ? "已完成" : "去完成"}}</a>
       </a>
     </div>
-    <a href="../invitepage/index.html" class="bottom">
+    <a @click="showTip = true" class="bottom">
       <img src="./img/friends.png" alt="">
       <div>邀请好友注册</div>
       <div>+20积分</div>
       <a class="btn uncomplete">去分享</a>
     </a>
+    <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
   </div>
 </template>
 
 <script>
+import share from '@/utils/share.js'
+import ShareGuide from "@/components/ShareGuide.vue"
 export default {
   data() {
     return {
@@ -37,6 +40,7 @@ export default {
       isIdCardComplete: true,
       points: 0,
       info: {},
+      showTip: false,
     };
   },
   methods: {
@@ -47,9 +51,14 @@ export default {
       for(let i=0; i <= num; i++){
         setTimeout(() => {this.points = i}, 1000/30)
       }
-    }
+    },
+    closeGuide(){
+      this.showTip = false;
+    },
   },
-  components: {},
+  components: {
+    ShareGuide
+  },
   mounted(){
     this.axios.post("/api/user/profile").then(res => {
       console.log(res);
@@ -58,6 +67,12 @@ export default {
       this.isInfoComplete = this.info.point == 100
       this.isIdCardComplete = this.info.status & 4
     });
+    share({
+      title: "工机管家，邀请注册",
+      img: "../../../static/imgtest.jpg",
+      desc: "注册享好礼，老铁快来工机管家看看吧",
+      link: "../invitepage/index.html",
+    })
   }
 };
 </script>

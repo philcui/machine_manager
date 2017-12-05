@@ -50,7 +50,7 @@ export default {
         unLogIn:{
           showShare: false,
           showFocus: true,
-          showInfo: false,
+          showInfo: true,
         },
         myInfo: {
           showShare: true,

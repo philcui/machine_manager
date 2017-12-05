@@ -91,7 +91,7 @@ export default {
         unLogIn:{
           showShare: false,
           showFocus: true,
-          showInfo: false,
+          showInfo: true,
         },
         myInfo: {
           showShare: true,
@@ -182,6 +182,7 @@ export default {
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
+    display: flex;
     .avatar {
       width: 1.54rem;
       display: block;
@@ -190,29 +191,30 @@ export default {
       margin-top: 0.37rem;
     }
     .right{
-      float: left;
+      flex: 1;
       margin-left: 0.47rem;
-      margin-top: 0.37rem;
+      margin-top: 0.5rem;
+      margin-right: 0.38rem;
       color: white;
       .line1{
         display: block;
-        height: 0.32rem;
-        line-height: 0.32rem;
+        display: flex;
         img{
           width: 0.49rem;
         }
         .name{
-          float: left;
           font-size: 0.36rem;
-          max-width: 1rem;
           overflow: hidden;
+          flex: 1;
         }
         .renzheng{
-          float: left;
           text-align: center;
           font-size: 0.133rem;
           margin-left: 0.28rem;
         }
+      }
+      .line2{
+        margin-top: 0.1rem;
       }
     }
     .down_right{

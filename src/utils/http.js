@@ -41,6 +41,11 @@ instance.interceptors.response.use(
         type: 'warn',
         text: response.data.msg + JSON.stringify(response.data.data)
       })
+
+      if(response.data.code == -302){
+        window.location.href = ""
+      }
+
       return Promise.reject(response)
     }
     return response

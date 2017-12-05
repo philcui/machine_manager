@@ -6,7 +6,6 @@
       </div>
     </div>
 
-    <form ref="formInfo" action="/api/resume/add" method="post">
     <group gutter='0'>
       <x-input :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
       <popup-picker
@@ -76,6 +75,7 @@
       <selector title="操作证" direction='rtl' placeholder="请选择" v-model="zhengshu" :options="zhengshuList"></selector>
       <!--selector title="是否愿意付费找工作" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector-->
     </group>
+    <form ref="formInfo" action="/api/resume/add" method="post">
       <!-- 姓名 -->
       <input type="hidden" name="realname" v-model="realname">
       <!-- 设备类型 -->
@@ -100,7 +100,6 @@
       <input type="hidden" name="certified" v-model="zhengshu">
       <!-- 是否愿意付费 -->
       <!--input type="hidden" name="will_pay" v-model="isLikePay/"-->
-      <a class="submit" @click.prevent="submitResume" href="../result/index.html?restype=pubresume">提交</a>
     </form>
 
     <x-dialog v-model="showExample" class="dialog-demo" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
@@ -111,6 +110,7 @@
         <img class="close" src="../../assets/close.png" alt="">
       </div>
     </x-dialog>
+    <div class="submit" @click="submitResume">提交</div>
   </div>
 </template>
 
@@ -194,6 +194,9 @@ export default {
     },
   },
   methods: {
+    info(){
+      alert('')
+    },
     getErrorInfo(key) {
       var infoMap = {
         "001": "请选择设备类型",
@@ -280,8 +283,8 @@ export default {
         let formInfo = new FormData(this.$refs.formInfo)
         formInfo.append("base_salary", JSON.parse(this.salary[0])[0])
         formInfo.append("max_salary", JSON.parse(this.salary[0])[1])
-        if(!document.querySelector(".upload").value){
-          formInfo.delete('image')
+        if(document.querySelector(".upload").value){
+          formdata.append("image", document.querySelector(".upload").files[0])
         }
         this.axios.post(this.editType, formInfo).then((res) => {
           //todo 后端返回错误需处理
@@ -340,7 +343,7 @@ export default {
       this.macTypeVal = [data.car_type_id]
       this.addVal = this.getAddList(data.address_id)
       this.anotherAddVal = [data.location]
-      this.driveAge = [data.working_age]
+      this.driveAge = [data.working_age.toString()]
       this.operate = [data.mode]
       //todo 薪资form初始无值时有报错 这里的接口定义与前端不吻合导致
       this.salary = [JSON.stringify([parseInt(data.base_salary), parseInt(data.max_salary)])]

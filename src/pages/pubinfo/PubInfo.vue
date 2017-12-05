@@ -69,7 +69,7 @@
       </div>
       <!-- <selector title="是否愿意付费找驾驶员" direction='rtl' placeholder="请选择" v-model="isLikePay" :options="isLikePayList"></selector> -->
     </group>
-    <a href="" @click.prevent="submitPubInfo" class="submit">提交</a>
+    <div @click.prevent="submitPubInfo" class="submit">提交</div>
   </div>
 </template>
 

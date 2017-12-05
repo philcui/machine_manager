@@ -45,7 +45,10 @@ export default {
   }
   .tip {
     position: absolute;
-    margin-top: 3.3rem;
+    text-align: center;
+    top: 3.3rem;
+    left: 0;
+    width: 100%;
     .tipText {
       font-size: 0.35rem;
       color: #e2b20b;

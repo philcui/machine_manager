@@ -341,12 +341,12 @@ export default {
         this.realname = data.realname
         this.phone = data.mobile
       })
-      this.axios.post("/api/default/guess-address")
-      .then((res) => {
-        //todo 这里设计有矛盾，到底以用户已经填写的还是当前定位的为准
-        console.log(res)
-        this.addVal = this.getAddList(res.data.data.id.toString())
-      })
+      // this.axios.post("/api/default/guess-address")
+      // .then((res) => {
+      //   //todo 这里设计有矛盾，到底以用户已经填写的还是当前定位的为准
+      //   console.log(res)
+      //   this.addVal = this.getAddList(res.data.data.id.toString())
+      // })
     }
   }
 };

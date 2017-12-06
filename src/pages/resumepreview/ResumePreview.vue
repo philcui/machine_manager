@@ -132,8 +132,8 @@ export default {
           this.info  = res.data.data
           this.member_id = res.data.data.mid
           share({
-            title: this.info.address,
-            img: "../../../static/imgtest.jpg",
+            title: this.info.address + "驾驶员求职",
+            img: "http://m.gongji58.com/static/imgtest.jpg",
             desc: this.info.description,
             link: window.location.href + "?=id" + id,
           })
@@ -145,8 +145,8 @@ export default {
         this.info  = res.data.data
         this.member_id = res.data.data.mid
         share({
-          title: this.info.address,
-          img: "../../../static/imgtest.jpg",
+          title: this.info.address + "驾驶员求职",
+          img: "http://m.gongji58.com/static/imgtest.jpg",
           desc: this.info.description,
           link: window.location.href + "?=id" + this.id,
         })

@@ -49,9 +49,9 @@ export default {
     });
     share({
       title: "工机管家，邀请注册",
-      img: "../../../static/imgtest.jpg",
+      img: "http://m.gongji58.com/static/imgtest.jpg",
       desc: "注册享好礼，老铁快来工机管家看看吧",
-      link: "../invitepage/index.html",
+      link: "http://m.gongji58.com/invitepage/index.html",
     })
   },
   components: {

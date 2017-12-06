@@ -88,7 +88,10 @@ export default {
         this.$vux.toast.show({
           type: "success",
           text: "刷新成功"
-        });
+        })
+        setTimeout(() => {
+            window.location.reload()
+        }, 1000)
       });
     },
     loadData(){
@@ -122,7 +125,7 @@ export default {
   .listWrap {
     .hisItem {
       display: flex;
-      height: 1.7rem;
+      height: 1.9rem;
       padding-top: 0.27rem;
       box-sizing: border-box;
       background-color: white;
@@ -177,12 +180,12 @@ export default {
           align-items: center;
           border-top: 1px solid #535353;
           .btn {
-            width: 0.7rem;
+            width: 1rem;
             border: 1px solid #959595;
             color: @theme-color;
             font-size: 0.21rem;
-            height: 0.3rem;
-            line-height: 0.3rem;
+            height: 0.45rem;
+            line-height: 0.45rem;
             text-align: center;
           }
         }

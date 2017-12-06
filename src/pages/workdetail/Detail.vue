@@ -92,8 +92,8 @@ export default {
         this.info.benefit = getName(benefit[0], this.info.benefit)
       }
       share({
-        title: this.info.address,
-        img: "../../../static/imgtest.jpg",
+        title: this.info.address + "招聘驾驶员",
+        img: "http://m.gongji58.com/static/imgtest.jpg",
         desc: this.info.description,
         link: window.location.href,
       })

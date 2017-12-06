@@ -1,9 +1,9 @@
 <template>
   <div class="report">
-    <group gutter='0'>
+    <!-- <group gutter='0'>
       <x-input title="标题" placeholder="请输入" v-model="title" text-align='right'></x-input>
       <x-input title="联系方式" placeholder="请输入" v-model="phone" text-align='right'></x-input>
-    </group>
+    </group> -->
     <group>
       <cell title="举报内容"></cell>
       <checker class="checker" v-model="reportType" default-item-class="work-item" selected-item-class="work-item-selected">
@@ -56,27 +56,27 @@ export default {
       })
     },
      validatePubInfo() {
-      if (this.title == "") {
-        this.$vux.toast.show({
-          text: "请输入标题",
-          type: "text"
-        });
-        return false;
-      }
-      if (this.phone == "") {
-        this.$vux.toast.show({
-          text: "请输入联系方式",
-          type: "text"
-        });
-        return false;
-      }
-      if (!/^1[34578]\d{9}$/.test(this.phone)) {
-        this.$vux.toast.show({
-          text: "请输入正确格式的电话号码",
-          type: "text"
-        });
-        return false;
-      }
+      // if (this.title == "") {
+      //   this.$vux.toast.show({
+      //     text: "请输入标题",
+      //     type: "text"
+      //   });
+      //   return false;
+      // }
+      // if (this.phone == "") {
+      //   this.$vux.toast.show({
+      //     text: "请输入联系方式",
+      //     type: "text"
+      //   });
+      //   return false;
+      // }
+      // if (!/^1[34578]\d{9}$/.test(this.phone)) {
+      //   this.$vux.toast.show({
+      //     text: "请输入正确格式的电话号码",
+      //     type: "text"
+      //   });
+      //   return false;
+      // }
       if (this.content == "") {
         this.$vux.toast.show({
           text: "请输入举报内容", 
@@ -90,8 +90,8 @@ export default {
       if(this.validatePubInfo()){
         //前端校验通过
         this.axios.post("/api/default/add-report", this.qs.stringify({
-          title: this.title,
-          phone: this.phone,
+          // title: this.title,
+          // phone: this.phone,
           content: this.content,
           category: this.reportType,
           item_id: this.info.id,

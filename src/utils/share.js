@@ -18,7 +18,7 @@ function setWxConfig(res, conf) {
     // 分享到朋友圈
     wx.onMenuShareTimeline({
       title: conf.title, // 分享标题
-      link: conf.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+      link: conf.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
       imgUrl: conf.img // 分享图标
     });
     //分享给朋友

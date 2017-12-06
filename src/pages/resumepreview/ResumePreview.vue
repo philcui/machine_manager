@@ -130,7 +130,7 @@ export default {
         .then((res) => {
           console.log(res)
           this.info  = res.data.data
-          this.member_id = this.mid
+          this.member_id = res.data.data.mid
           share({
             title: this.info.address,
             img: "../../../static/imgtest.jpg",
@@ -143,7 +143,7 @@ export default {
       .then((res) => {
         console.log(res)
         this.info  = res.data.data
-        this.member_id = this.mid
+        this.member_id = res.data.data.mid
         share({
           title: this.info.address,
           img: "../../../static/imgtest.jpg",
@@ -156,11 +156,11 @@ export default {
     .then((res) => {
       console.log(res)
       this.isLogin = res.data.data.status & 1
-      this.user_id = this.id
+      this.user_id = res.data.data.id
     })
     Promise.all([minfo,uinfo]).then(() => {
       if(this.isLogin){
-        if(this.user_id === this.member_id){
+        if(this.user_id == this.member_id){
           this.nowType = this.typeMap.myInfo
         }else{
           this.nowType = this.typeMap.otherInfo

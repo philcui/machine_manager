@@ -106,7 +106,7 @@ import provinceData from "@/data/prov.json";
 export default {
   data() {
     return {
-      isReg: false,
+      isReg: true,
       addVal: [],
       salVal: [],
       addressData: provinceData,
@@ -304,7 +304,7 @@ export default {
     },
   },
   mounted() {
-    this.getRegInfo()
+    //this.getRegInfo()
     this.guessAddress().then(
       val => {
         this.loadData();

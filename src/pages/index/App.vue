@@ -313,7 +313,7 @@ export default {
     },
   },
   mounted() {
-    this.setCookie()
+    //this.setCookie()
     this.getAccountInfo()
     this.getArtical()
   }

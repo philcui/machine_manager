@@ -93,10 +93,27 @@ export default {
           title: "找驾驶员",
           url: "/finddriver/index.html"
         },
-        { imgSrc: require("./img/guzhang.png"), title: "故障问答" },
-        { imgSrc: require("./img/more.png"), title: "更多精彩", url: "./explore/index.html"},
-        { imgSrc: require("./img/qiuzu.png"), title: "设备求租" },
-        { imgSrc: require("./img/ershou.png"), title: "二手机" },
+        { 
+          imgSrc: require("./img/guzhang.png"),
+          title: "故障问答",
+          url: ""
+        },
+        {
+          imgSrc: require("./img/code.png"),
+          title: "故障代码"
+        },
+        { 
+          imgSrc: require("./img/light.png"),
+          title: "故障灯查询"
+        },
+        { 
+          imgSrc: require("./img/vid.png"),
+          title: "精彩视频"
+        },
+        { 
+          imgSrc: require("./img/ershou.png"),
+          title: "二手机"
+        }
         // { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
         // { imgSrc: require("./img/banche.png"), title: "板车托运" }
       ],
@@ -215,7 +232,6 @@ export default {
               mobile: this.regInfo.phoneNum,
               code: this.regInfo.checkNum,
               type: this.regInfo.personType
-
             })
           )
           .then(res => {
@@ -288,34 +304,31 @@ export default {
       this.isSending = false;
       clearTimeout(this.timer);
     },
-    getArtical(){
-      this.axios.post("/api/default/articles")
-      .then((res) => {
-        console.log(res)
-        this.jiyouList = res.data.data
-
-      })
+    getArtical() {
+      this.axios.post("/api/default/articles").then(res => {
+        console.log(res);
+        this.jiyouList = res.data.data;
+      });
     },
-    setCookie(){
+    setCookie() {
       //模拟登录，写入cookie
       //this.cookie.set('auth_cookie', tmp)
 
       document.cookie =
         "auth_cookie=0e544bfb28838d0cce9280a3b684d60ea7656f3ea2f2fa4a6a4032c119ef98f3a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A40%3A%22efb70420a7a4e8899cc60290194f69ce%23%23%2350005%22%3B%7D";
-
     },
-    getAccountInfo(){
+    getAccountInfo() {
       this.axios.get("/api/user/my").then(res => {
         console.log(res);
         //this.showReg = true
-        this.showReg = res.data.data.status & 2 ? false : true
+        this.showReg = res.data.data.status & 2 ? false : true;
       });
-    },
+    }
   },
   mounted() {
-    //this.setCookie()
-    this.getAccountInfo()
-    this.getArtical()
+    //this.setCookie();
+    this.getAccountInfo();
+    this.getArtical();
   }
 };
 </script>
@@ -323,7 +336,7 @@ export default {
 <style lang='less'>
 @import "~vux/src/styles/reset.less";
 @import "../../style/base.less";
-#app{
+#app {
   padding-bottom: 0.9rem;
 }
 .menu {
@@ -396,7 +409,7 @@ export default {
       }
     }
     .codeLine {
-      margin-top: 0.30rem;
+      margin-top: 0.3rem;
       box-sizing: border-box;
       overflow: hidden;
       .codeInput {
@@ -430,7 +443,7 @@ export default {
       }
     }
     .selectLine {
-      margin-top: 0.30rem;
+      margin-top: 0.3rem;
       height: 0.55rem;
       border: 1px solid #bfbbab;
       border-radius: 0.05rem;

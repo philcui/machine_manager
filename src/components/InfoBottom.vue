@@ -9,7 +9,7 @@
       <span>收藏</span>
     </div>
     <div class="box concatContainer">
-      <img src="../assets/call.png" alt=""><a :href="mobileHref">立即联系</a>
+      <img src="../assets/call.png" alt=""><a @click="call">立即联系</a>
     </div>
     <div class="box mainContainer" @click="goMain">
       <img src="../assets/icon.png" alt="">
@@ -22,7 +22,7 @@
 import ShareGuide from "@/components/ShareGuide.vue"
 export default {
   props:{
-    mobile: {
+    mobileLink: {
       type: String
     },
     isShowCollect: {
@@ -35,11 +35,6 @@ export default {
       
     }
   },
-  computed: {
-    mobileHref(){
-      return "tel:" + this.mobile
-    }
-  },
   data(){
     return {
       showTip: false,
@@ -48,7 +43,7 @@ export default {
   methods:{
     favItem(){
       this.axios
-        .get("/api/member-fav/add?type="+this.item_type+"&id="+this.item_id)
+        .get("/api/member-fav/add?type="+this.item_type+"&id="+this.item_id)    
           .then(res => {
             console.log(res)
             //todo 如何避免重复收藏
@@ -66,6 +61,13 @@ export default {
     },
     closeGuide(){
       this.showTip = false;
+    },
+    call(){
+      // this.axios.post(this.mobileLink)
+      // .then((res) => {
+      //   console.log(res)
+      //   window.location.href = "tel" + res.data.data.number  
+      // })
     }
   },
   components:{

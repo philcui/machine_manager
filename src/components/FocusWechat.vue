@@ -18,8 +18,7 @@ export default {
 .focus-wechat{
   width: 100%;
   height: 1.34rem;
-  position: absolute;
-  bottom: 1.4rem;
+  margin-top: 0.1rem;
   .inner{
     height: 100%;
     line-height: 1.34rem;

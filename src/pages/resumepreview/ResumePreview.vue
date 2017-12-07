@@ -16,8 +16,8 @@
         </div>
         <div class="line2">{{info.address}}</div>
       </div>
-      <img class="up_right" src="./img/up_right.png" alt="">
-      <img class="down_right" src="./img/down_right.png" alt="">
+      <!-- <img class="up_right" src="./img/up_right.png" alt="">
+      <img class="down_right" src="./img/down_right.png" alt=""> -->
       <!-- <div class="getOpCard">办操作证？</div> -->
     </div>
     <div class="jianjie">
@@ -125,7 +125,7 @@ export default {
   },
   mounted(){
     let id =getUrlKey('id');
-    this.mobileLink = "/api/resume/query-mobile?item_id=" + res.data.data.id
+    this.mobileLink = "/api/resume/query-mobile?item_id=" + id
     let minfo
     if(id){
       minfo = this.axios.get("/api/resume/detail?id=" + id)
@@ -194,16 +194,18 @@ export default {
       float: left;
       margin-left: 0.47rem;
       margin-top: 0.37rem;
+      margin-bottom: 0.2rem;
     }
     .right{
       flex: 1;
       margin-left: 0.47rem;
       margin-top: 0.5rem;
-      margin-right: 0.38rem;
+      margin-right: 0.08rem;
       color: white;
       .line1{
         display: block;
         display: flex;
+        align-items: center;
         img{
           width: 0.49rem;
         }
@@ -215,7 +217,7 @@ export default {
         .renzheng{
           text-align: center;
           font-size: 0.133rem;
-          margin-left: 0.28rem;
+          margin-left: 0.08rem;
         }
       }
       .line2{

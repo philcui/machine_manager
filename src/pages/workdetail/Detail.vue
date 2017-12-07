@@ -25,7 +25,7 @@
     <one-key-share v-if="nowType.showShare"></one-key-share>
     <focus-wechat v-if="nowType.showFocus"></focus-wechat>
     <free-resume v-if="false"></free-resume>
-    <info-bottom v-if="nowType.showInfo" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <info-bottom v-if="nowType.showInfo" :mobileLink="mobileLink"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>
 </template>
 
@@ -70,6 +70,7 @@ export default {
       },
       user_id: "",
       member_id: "",
+      mobileLink: "",
     };
   },
   components: {
@@ -90,6 +91,7 @@ export default {
         this.info.car_type = getName(car_type[0], this.info.car_type_id);
         this.info.operating_mode = getName(mode_type[0], this.info.mode);
         this.info.benefit = getName(benefit[0], this.info.benefit)
+        this.mobileLink = "/api/job/query-mobile?item_id=" + this.info.id
       }
       share({
         title: this.info.address + "招聘驾驶员",

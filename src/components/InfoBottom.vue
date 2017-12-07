@@ -63,11 +63,11 @@ export default {
       this.showTip = false;
     },
     call(){
-      // this.axios.post(this.mobileLink)
-      // .then((res) => {
-      //   console.log(res)
-      //   window.location.href = "tel" + res.data.data.number  
-      // })
+      this.axios.get(this.mobileLink)
+      .then((res) => {
+        console.log(res)
+        window.location.href = "tel:" + res.data.data.mobile  
+      })
     }
   },
   components:{

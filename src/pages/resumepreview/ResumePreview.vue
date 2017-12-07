@@ -60,7 +60,7 @@
     <one-key-share v-if="nowType.showShare"></one-key-share>
     <focus-wechat v-if="nowType.showFocus"></focus-wechat>
     <free-resume v-if="false"></free-resume>
-    <info-bottom v-if="nowType.showInfo" :mobile="info.mobile"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <info-bottom v-if="nowType.showInfo" :mobileLink="mobileLink"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
   </div>
 </template>
 
@@ -111,6 +111,7 @@ export default {
       },
       user_id: "",
       member_id: "",
+      mobileLink: "",
     };
   },
   components:{
@@ -124,6 +125,7 @@ export default {
   },
   mounted(){
     let id =getUrlKey('id');
+    this.mobileLink = "/api/resume/query-mobile?item_id=" + res.data.data.id
     let minfo
     if(id){
       minfo = this.axios.get("/api/resume/detail?id=" + id)

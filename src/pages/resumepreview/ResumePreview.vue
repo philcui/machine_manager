@@ -150,7 +150,7 @@ export default {
           title: this.info.address + "驾驶员求职",
           img: "http://m.gongji58.com/static/imgtest.jpg",
           desc: this.info.description,
-          link: window.location.href + "?=id" + this.id,
+          link: window.location.href + "?=id" + res.data.data.id,
         })
       })
     }
@@ -166,7 +166,7 @@ export default {
           this.nowType = this.typeMap.myInfo
         }else{
           this.nowType = this.typeMap.otherInfo
-        } 
+        }
       }else{
         this.nowType = this.typeMap.unLogIn
       }

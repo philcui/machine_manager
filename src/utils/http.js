@@ -8,7 +8,7 @@ Vue.use(ToastPlugin)
 var vue = new Vue()
 
 var instance = axios.create({
-  timeout: 10000,
+  timeout: 20000,
   baseURL: "",
   headers: {
     //'Content-Type': 'application/json; charset=UTF-8',
@@ -42,10 +42,14 @@ instance.interceptors.response.use(
         text: response.data.msg + JSON.stringify(response.data.data)
       })
 
+      if(response.data.code == -301){
+        window.location.href = "/m/account/login?ref_url=" + window.location.href
+      }
+/*
       if(response.data.code == -302){
         window.location.href = "/m/account/login?ref_url=" + window.location.href
       }
-
+*/
       return Promise.reject(response)
     }
     return response

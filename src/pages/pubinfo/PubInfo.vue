@@ -143,6 +143,8 @@ export default {
         "006": "请填写联系电话",
         "007": "请填写正确的电话格式",
         "008": "请填写姓名",
+        "010": "请填写详情",
+
       };
       return infoMap[key];
     },
@@ -199,6 +201,13 @@ export default {
       if (this.realname == "") {
         this.$vux.toast.show({
           text: this.getErrorInfo("008"),
+          type: "text"
+        });
+        return false;
+      }
+      if (this.description == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("010"),
           type: "text"
         });
         return false;

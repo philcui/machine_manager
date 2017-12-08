@@ -7,9 +7,9 @@
     <group>
       <cell title="举报内容"></cell>
       <checker class="checker" v-model="reportType" default-item-class="work-item" selected-item-class="work-item-selected">
-        <checker-item 
-          v-for="(item, index) in reportList" 
-          :key="index" 
+        <checker-item
+          v-for="(item, index) in reportList"
+          :key="index"
           :value='item.value'>
           {{item.key}}
         </checker-item>
@@ -18,8 +18,8 @@
         <textarea v-model="content" name="" id="" cols="30" rows="10" placeholder="请填写举报内容"></textarea>
       </div>
     </group>
-    <a @click="submitReport" class="submit">提交</a> 
-  </div>  
+    <a @click="submitReport" class="submit">提交</a>
+  </div>
 </template>
 
 <script>
@@ -34,6 +34,7 @@ export default {
         { key: "与描述不符", value: "2" },
         { key: "无法取得联系", value: "3" }
       ],
+      type: this.getInfo(getUrlKey("type")),
       title: "",
       phone: "",
       content: "",
@@ -49,11 +50,22 @@ export default {
   },
   methods: {
     getInfo(id){
-      return this.axios.post("/api/job/detail", this.qs.stringify({id: id}))
-      .then((res) => {
-        console.log(res)
-        this.info = res.data.data
-      })
+      if(this.type == 1){
+        return this.axios.post("/api/job/detail", this.qs.stringify({id: id}))
+          .then((res) => {
+            console.log(res)
+            this.info = res.data.data
+          })
+      }else if(this.type == 2){
+        return this.axios.post("/api/resume/detail", this.qs.stringify({id: id}))
+          .then((res) => {
+            console.log(res)
+            this.info = res.data.data
+          })
+      }else{
+        this.info = '';
+      }
+
     },
      validatePubInfo() {
       // if (this.title == "") {
@@ -79,7 +91,7 @@ export default {
       // }
       if (this.content == "") {
         this.$vux.toast.show({
-          text: "请输入举报内容", 
+          text: "请输入举报内容",
           type: "text"
         });
         return false;

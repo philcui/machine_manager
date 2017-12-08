@@ -1,17 +1,17 @@
 <template>
   <div class="resPre">
     <div class="head">
-      <img class="avatar" :src="info.image || './img/avatar_gj.jpg'" alt="">
+      <img class="avatar" :src="info.image || '/static/avatar_gj.jpg'" alt="">
       <div class="right">
         <div class="line1">
           <div class="name">{{info.realname}}</div>
           <div class="renzheng">
-            <img src="./img/id_card.png" alt="">
-            <div>{{this.info.status & 4 ? "身份证已认证" : "身份证未认证"}}</div>
+            <img src="./img/id_card.png" alt="身份证已认证" v-if="(this.info.status & 4)">
+            <div v-if="(this.info.status & 4)">身份证已认证</div>
           </div>
           <div class="renzheng">
-            <img src="./img/opreate_card.png" alt="">
-            <div>{{this.info.status & 8 ? "操作证已认证" : "操作证未认证"}}</div>
+            <img src="./img/opreate_card.png" alt="操作证已认证" v-if="(this.info.status & 8)">
+            <div v-if="(this.info.status & 8)">操作证已认证"</div>
           </div>
         </div>
         <div class="line2">{{info.address}}</div>

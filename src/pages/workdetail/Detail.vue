@@ -11,7 +11,7 @@
       </div> -->
     </div>
     <div class="info info2">
-      <pre-cell title="发布时间" :content='info.ctime'></pre-cell>
+      <pre-cell title="发布时间" :content='info.utime'></pre-cell>
       <pre-cell title="月薪" :content='info.salary'></pre-cell>
       <pre-cell title="设备类型" :content='info.car_type'></pre-cell>
       <pre-cell title="工作地点" :content='info.address'></pre-cell>

@@ -346,15 +346,17 @@ export default {
         }else{
           return true
         }
-      } 
+      }
     }
   },
   mounted(){
     //修改发布的招聘信息
     this.type = getUrlKey("type")
-    if(this.type == 1){
+
+    //if(this.type == 1){
+    if(getUrlKey("id") > 0){
       //编辑已发布的信息
-      this.getHisInfo()
+      this.getHisInfo();
     }else{
       //新发布
       this.axios.get("/api/user/my")
@@ -363,7 +365,7 @@ export default {
         console.log(res.data.data)
         let data  = res.data.data
         this.realname = data.realname
-        this.phone = data.mobile
+        //this.phone = data.mobile
       })
       // this.axios.post("/api/default/guess-address")
       // .then((res) => {

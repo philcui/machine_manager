@@ -7,8 +7,8 @@
           <input name="image" type="file" @change="fileChange" accept="image/*" id="photo" class="upload">
         </div>
       </cell>
-      <x-input text-align='right' title="名字" v-model="realname"></x-input>
-      <x-input text-align='right' title="手机" v-model="phone"></x-input>
+      <x-input text-align='right' title="名字" v-model="nickname"></x-input>
+      <!--<x-input text-align='right' title="手机" v-model="phone"></x-input>-->
       <x-address title="地址" v-model="address" :list="addressData" ></x-address>
     </group>
     <group>
@@ -19,7 +19,7 @@
     <div class="save-content">
       <x-button @click.native="submitInfo" type="primary">保存</x-button>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -36,8 +36,8 @@ export default {
   data() {
     return {
       addressData: ChinaAddressV4Data,
-      realname: "",
-      phone: "",
+      nickname: "",
+      //phone: "",
       address: [],
       introduce: "",
       src: require("./img/tx.png"),
@@ -53,7 +53,7 @@ export default {
       return infoMap[key];
     },
     validateInfo() {
-      // if (this.realname == "") {
+      // if (this.nickname == "") {
       //   this.$vux.toast.show({
       //     text: this.getErrorInfo("001"),
       //     type: "text"
@@ -66,8 +66,8 @@ export default {
       if (this.validateInfo()) {
         //前端校验通过
         let formdata = new FormData();
-        formdata.append("realname", this.realname);
-        formdata.append("mobile", this.phone);
+        formdata.append("nickname", this.nickname);
+        //formdata.append("mobile", this.phone);
         formdata.append("address_id", this.address[2]);
         formdata.append("description", this.introduce);
         if(document.querySelector(".upload").value){
@@ -115,8 +115,8 @@ export default {
       console.log(res);
       this.info = res.data.data;
       document.querySelector(".prev").src = this.info.avatar;
-      this.realname = this.info.realname;
-      this.phone = this.info.mobile;
+      this.nickname = this.info.nickname;
+      //this.phone = this.info.mobile;
       this.introduce = this.info.description;
       this.address = this.getAddList(this.info.address_id.toString())
       this.idcardPassed = this.info.status & 4 ? "已认证" : "未认证"

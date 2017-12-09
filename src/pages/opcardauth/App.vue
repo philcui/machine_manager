@@ -10,17 +10,23 @@
       <x-button @click.native="submitInfo" type="primary">提交认证</x-button>
       <div class="tip">
         <img src="./img/icon_op.png" alt="">
-        <div class="tipText">如果你没有操作证，想找一家可靠的公司正规办理操作证，请<a href="">点此办理</a></div>
+        <div class="tipText">如果你没有操作证，想找一家可靠的公司正规办理操作证，请<a @click="contact">点此办理</a></div>
       </div>
     </div>
+    <alert v-model="show" title="办理操作证">
+      <p>请电话联系:<a href="tel:15715718487">15715718487</a>(微信同号)</p>
+      <p>我们的专业工作人员会跟你详细沟通</p>
+    </alert>
   </div>
 </template>
 
 <script>
-import { XButton } from "vux";
+import { XButton, Alert } from "vux";
 export default {
   data() {
-    return {};
+    return {
+      show: false,
+    };
   },
   methods: {
     fileChange(e) {
@@ -51,10 +57,14 @@ export default {
           history.back()
         }, 1000)
       });
-    }
+    },
+    contact(){
+      this.show = true
+    },
   },
   components: {
-    XButton
+    XButton,
+    Alert,
   }
 };
 </script>

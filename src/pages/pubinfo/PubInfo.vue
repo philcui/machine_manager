@@ -38,7 +38,7 @@
       <div class="mycell nextTip">【以下部分为选填项】</div>
     </group>
     <group gutter='0.2rem'>
-      <div>
+      <div v-show="isShowWorkContent">
         <p class="checker_content">工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
@@ -216,6 +216,9 @@ export default {
     },
     submitPubInfo() {
       if (this.validatePubInfo()) {
+        if(!this.isShowWorkContent){
+          this.workContent = []
+        }
         //前端校验通过
         if(this.type){
           //修改提交
@@ -333,6 +336,18 @@ export default {
       });
       return names;
     },
+    isShowWorkContent(){
+      let data = this.macTypeVal
+      if(data == ""){
+        return true
+      }else{
+        if(parseInt(data[0]) > 5){
+          return false
+        }else{
+          return true
+        }
+      } 
+    }
   },
   mounted(){
     //修改发布的招聘信息

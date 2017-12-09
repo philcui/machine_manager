@@ -7,13 +7,13 @@
       </div>
     </div>
     <div class="center">
-      <a href="../personinfo/index.html" class="cell personInfo">
+      <a @click="goto('../personinfo/index.html', !isInfoComplete)" class="cell personInfo">
         <img src="./img/person_info.png" alt="">
         <div>完善个人资料</div>
         <div>+20积分</div>
         <a :class="getBtnClass(isInfoComplete)">{{isInfoComplete ? "已完成" : "去完成"}}</a>
       </a>
-      <a href="../idcardauth/index.html" class="cell idcard">
+      <a @click="goto('../idcardauth/index.html', !isIdCardComplete)" class="cell idcard">
         <img src="./img/id_card.png" alt="">
         <div>完成实名认证</div>
         <div>+20积分</div>
@@ -55,6 +55,13 @@ export default {
     closeGuide(){
       this.showTip = false;
     },
+    goto(link, cond){
+      if(cond){
+        window.location.href = link
+      }else{
+        return false
+      }
+    }
   },
   components: {
     ShareGuide

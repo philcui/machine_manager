@@ -20,11 +20,11 @@
     </a>
     <div class="renzheng">
       <div class="idcard_wrap wrap">
-        <a href="../idcardauth/index.html" class="item item-left"><img src="./img/id_card.png" alt="">身份证认证</a>
+        <a @click="goto('../idcardauth/index.html', !(info.status & 4))" class="item item-left"><img src="./img/id_card.png" alt="">身份证认证</a>
         <span class="item unauth">{{info.status & 4 ? "已认证" : "未认证"}}</span>
       </div>
       <div class="opcard_wrap wrap">
-        <a href="../opcardauth/index.html" class="item item-left"><img src="./img/op_card.png" alt="">操作证认证</a>
+        <a @click="goto('../opcardauth/index.html', !(info.status & 8))" class="item item-left"><img src="./img/op_card.png" alt="">操作证认证</a>
         <span class="item">{{info.status & 8 ? "已认证" : "未认证"}}</span>
       </div>
     </div>
@@ -63,6 +63,15 @@ export default {
       ],
       info: {},
     };
+  },
+  methods: {
+    goto(link, cond){
+      if(cond){
+        window.location.href = link
+      }else{
+        return false
+      }
+    }
   },
   components: {
     TabBottom,

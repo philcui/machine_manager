@@ -93,7 +93,7 @@ export default {
           title: "找驾驶员",
           url: "/finddriver/index.html"
         },
-        { 
+        {
           imgSrc: require("./img/guzhang.png"),
           title: "故障问答",
           url: ""
@@ -102,15 +102,15 @@ export default {
           imgSrc: require("./img/code.png"),
           title: "故障代码"
         },
-        { 
+        {
           imgSrc: require("./img/light.png"),
           title: "故障灯查询"
         },
-        { 
+        {
           imgSrc: require("./img/vid.png"),
           title: "精彩视频"
         },
-        { 
+        {
           imgSrc: require("./img/ershou.png"),
           title: "二手机"
         }
@@ -241,6 +241,10 @@ export default {
             });
             if (res.data.code == 200) {
               this.showReg = false;
+              let jumpUrl = res.data.data.url;
+              if(jumpUrl){
+                window.location.href = jumpUrl;
+              }
             }
           });
       } else {
@@ -313,9 +317,10 @@ export default {
     setCookie() {
       //模拟登录，写入cookie
       //this.cookie.set('auth_cookie', tmp)
-
+/*
       document.cookie =
         "auth_cookie=0e544bfb28838d0cce9280a3b684d60ea7656f3ea2f2fa4a6a4032c119ef98f3a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A40%3A%22efb70420a7a4e8899cc60290194f69ce%23%23%2350005%22%3B%7D";
+*/
     },
     getAccountInfo() {
       this.axios.get("/api/user/my").then(res => {

@@ -11,7 +11,7 @@
           </div>
           <div class="renzheng">
             <img src="./img/opreate_card.png" alt="操作证已认证" v-if="(this.info.status & 8)">
-            <div v-if="(this.info.status & 8)">操作证已认证"</div>
+            <div v-if="(this.info.status & 8)">操作证已认证</div>
           </div>
         </div>
         <div class="line2">{{info.address}}</div>

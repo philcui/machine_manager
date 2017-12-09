@@ -45,11 +45,11 @@ instance.interceptors.response.use(
       if(response.data.code == -301){
         window.location.href = "/m/account/login?ref_url=" + encodeURIComponent(location.href.split('#')[0])
       }
-/*
+
       if(response.data.code == -302){
-        window.location.href = "/m/account/login?ref_url=" + window.location.href
+        window.location.href = "/m?ref_url_bind=" + encodeURIComponent(location.href.split('#')[0])
       }
-*/
+
       return Promise.reject(response)
     }
     return response

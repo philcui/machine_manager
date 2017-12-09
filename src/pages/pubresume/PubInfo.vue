@@ -292,7 +292,7 @@ export default {
         formInfo.append("base_salary", JSON.parse(this.salary[0])[0])
         formInfo.append("max_salary", JSON.parse(this.salary[0])[1])
         if(document.querySelector(".upload").value){
-          formdata.append("image", document.querySelector(".upload").files[0])
+          formInfo.append("image", document.querySelector(".upload").files[0])
         }
         this.axios.post(this.editType, formInfo).then((res) => {
           //todo 后端返回错误需处理

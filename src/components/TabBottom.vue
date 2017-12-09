@@ -16,24 +16,25 @@ export default {
           img: require("../assets/zhuye.png"),
           activeImg: require("../assets/zhuye_active.png"),
           title: "主页",
-          url: "../index.html"
+          url: "/index.html"
         },
         {
           img: require("../assets/faxian.png"),
           activeImg: require("../assets/faxian_active.png"),
           title: "发现",
-          url: "./explore/index.html"
+          url: "/explore/index.html"
         },
-        { 
+        {
           img: require("../assets/friends.png"),
           activeImg: require("../assets/friends_active.png"),
-          title: "机友圈"
+          title: "机友圈",
+          url : "https://v.pengxun.cn/f/s-826187"
         },
-        { 
+        {
           img: require("../assets/wode.png"),
           activeImg: require("../assets/wode_active.png"),
           title: "我的",
-          url: "../mine/index.html"
+          url: "/mine/index.html"
         }
       ]
     };

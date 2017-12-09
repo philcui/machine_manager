@@ -96,23 +96,27 @@ export default {
         {
           imgSrc: require("./img/guzhang.png"),
           title: "故障问答",
-          url: ""
+          url: "https://v.pengxun.cn/f/s-826187?typeId=352705&h=0"
         },
         {
           imgSrc: require("./img/code.png"),
-          title: "故障代码"
+          title: "故障代码",
+          url: "https://mp.weixin.qq.com/s/Msz5qTU8Q29HPCf1-bqaFA"
         },
         {
           imgSrc: require("./img/light.png"),
-          title: "故障灯查询"
+          title: "故障灯查询",
+          url: "http://mp.weixin.qq.com/s/zUa0Ya0y7DHprUqx533aRQ"
         },
         {
           imgSrc: require("./img/vid.png"),
-          title: "精彩视频"
+          title: "精彩视频",
+          url: "https://v.pengxun.cn/f/s-826187?typeId=449253&h=0"
         },
         {
           imgSrc: require("./img/ershou.png"),
           title: "二手机"
+
         }
         // { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
         // { imgSrc: require("./img/banche.png"), title: "板车托运" }
@@ -174,7 +178,8 @@ export default {
   },
   methods: {
     cellClick(item) {
-      if (item.title == "故障问答") {
+//      if (item.title == "故障问答") {
+      if (item.title == "") {
         this.pubNotice = true;
       } else if (!item.url) {
         this.$vux.toast.show({

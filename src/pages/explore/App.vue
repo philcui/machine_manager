@@ -39,21 +39,32 @@ export default {
   data() {
     return {
       cellList1: [
-        { imgSrc: require("./img/guzhang.png"), title: "故障代码" },
-        { imgSrc: require("./img/fuli.png"), title: "免费福利" },
-        { imgSrc: require("./img/zizhu.png"), title: "自助商城" },
-        { imgSrc: require("./img/mingpian.png"), title: "免费名片" },
+        { imgSrc: require("./img/guzhang.png"), title: "故障代码", url: "https://mp.weixin.qq.com/s/Msz5qTU8Q29HPCf1-bqaFA" },
+        { imgSrc: require("./img/fuli.png"), title: "免费福利", url: "https://v.pengxun.cn/t/d-25502421?pageIndex=1" },
+        { imgSrc: require("./img/zizhu.png"), title: "自助商城", url: "https://weidian.com/?userid=1154610337&wfr=c&ifr=itemdetail" },
+        { imgSrc: require("./img/mingpian.png"), title: "免费名片", url: "http://tool.gongji58.com/tool" } ,
         { imgSrc: require("./img/jieqian.png"), title: "我要借钱" }
       ],
       cellList2: [
-        { imgSrc: require("./img/baisi.png"), title: "百思不得姐" },
-        { imgSrc: require("./img/neihan.png"), title: "内涵视频" },
-        { imgSrc: require("./img/huoshan.png"), title: "火山视频" },
-        { imgSrc: require("./img/meinv.png"), title: "美女直播" }
+        { imgSrc: require("./img/baisi.png"), title: "百思不得姐", url: "http://www.budejie.com/" },
+        { imgSrc: require("./img/neihan.png"), title: "内涵视频", url: "http://neihanshequ.com/video/" },
+        { imgSrc: require("./img/huoshan.png"), title: "精彩视频", url: "https://v.pengxun.cn/f/s-826187?typeId=449253&h=0" },
+        { imgSrc: require("./img/meinv.png"), title: "美女直播", url: "http://www.huajiao.com/mobile/index" }
       ]
     };
   },
-  methods: {},
+  methods: {
+    cellClick(item) {
+      if (!item.url) {
+        this.$vux.toast.show({
+          text: "敬请期待",
+          type: "text"
+        });
+      } else {
+        window.location.href = item.url;
+      }
+    },
+  },
   components: {
     TabBottom,
     MenuCell

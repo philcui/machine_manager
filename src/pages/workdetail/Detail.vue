@@ -5,12 +5,13 @@
       <div class="report">
         如遇虚假信息，请<a :href="'../report/index.html?type=1&id=' + info.id">点此举报</a>
       </div>
-      <div class="right">
-        <!-- <p class="name">{{info.realname}}</p> -->
+     <!-- <div class="right">
+        <p class="name">{{info.realname}}</p>
         {{info.ctime}}
-      </div>
+      </div> -->
     </div>
     <div class="info info2">
+      <pre-cell title="发布时间" :content='info.ctime'></pre-cell>
       <pre-cell title="月薪" :content='info.salary'></pre-cell>
       <pre-cell title="设备类型" :content='info.car_type'></pre-cell>
       <pre-cell title="工作地点" :content='info.address'></pre-cell>

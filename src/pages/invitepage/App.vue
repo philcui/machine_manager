@@ -5,7 +5,9 @@
 </template>
 
 <script>
-export default {
+  import getUrlKey from '@/utils/getUrlKey.js'
+
+  export default {
   data(){
     return {
       src: ""
@@ -15,7 +17,7 @@ export default {
 
   },
   mounted(){
-    this.axios.post("/api/qrcode/qrcode-img?code=87abfct9168R1")
+    this.axios.post("/api/qrcode/qrcode-img?code=" + getUrlKey("code"))
     .then((res) => {
       console.log(res)
       this.src = res.data

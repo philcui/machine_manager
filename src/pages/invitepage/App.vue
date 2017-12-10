@@ -15,7 +15,7 @@ export default {
 
   },
   mounted(){
-    this.axios.post("/api/qrcode/member-img")
+    this.axios.post("/api/qrcode/qrcode-img?code=87abfct9168R1")
     .then((res) => {
       console.log(res)
       this.src = res.data

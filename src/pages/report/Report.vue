@@ -30,11 +30,11 @@ export default {
     return {
       reportType: "",
       reportList: [
-        { key: "虚假信息", value: "1" },
-        { key: "与描述不符", value: "2" },
-        { key: "无法取得联系", value: "3" }
+        { key: "虚假信息", value: "虚假信息" },
+        { key: "与描述不符", value: "与描述不符" },
+        { key: "无法取得联系", value: "无法取得联系" }
       ],
-      type: this.getInfo(getUrlKey("type")),
+      type: getUrlKey("type"),
       title: "",
       phone: "",
       content: "",
@@ -104,9 +104,10 @@ export default {
         this.axios.post("/api/default/add-report", this.qs.stringify({
           // title: this.title,
           // phone: this.phone,
+          type: this.type,
           content: this.content,
           category: this.reportType,
-          item_id: this.info.id,
+          item_id: getUrlKey("id"),
         }))
         .then((res) => {
           console.log(res)
@@ -124,7 +125,7 @@ export default {
     },
   },
   mounted(){
-    this.getInfo(getUrlKey("id"))
+    //this.getInfo(getUrlKey("id"))
   }
 };
 </script>

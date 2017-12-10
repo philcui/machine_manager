@@ -5,10 +5,10 @@
         {{item.text}}
       </a>
     </div>
-    <div @click="myMsg" class="new-message">
+    <!--div @click="myMsg" class="new-message">
       <img src="../assets/icon_message.png" alt="">
       <div :class="{dot: hasMsg}"></div>
-    </div>
+    </div-->
   </div>
 </template>
 

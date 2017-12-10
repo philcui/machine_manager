@@ -46,13 +46,15 @@ export default {
     this.axios.post("/api/qrcode/member-total-scan").then(res => {
       console.log(res);
       this.count = res.data.data.count;
+      let code = res.data.data.code;
+      share({
+        title: "工机管家，邀请注册",
+        img: "http://m.gongji58.com/static/imgtest.jpg",
+        desc: "注册享好礼，老铁快来工机管家看看吧",
+        link: "http://m.gongji58.com/invitepage/index.html?code=" + code,
+      })
+
     });
-    share({
-      title: "工机管家，邀请注册",
-      img: "http://m.gongji58.com/static/imgtest.jpg",
-      desc: "注册享好礼，老铁快来工机管家看看吧",
-      link: "http://m.gongji58.com/invitepage/index.html",
-    })
   },
   components: {
     XDialog,

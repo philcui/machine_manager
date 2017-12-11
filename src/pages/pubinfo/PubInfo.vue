@@ -29,7 +29,7 @@
         提示：为了更好的服务大家，目前只开通11个省份的招聘服务，其他省份请
         <a href="">点此发布</a>
       </div> -->
-      <popup-picker placeholder="请选择" show-name :title="redDot + '操作方向'" :data="operateList" v-model="operate"></popup-picker>
+      <popup-picker v-show="isShowWorkContent" placeholder="请选择" show-name :title="redDot + '操作方向'" :data="operateList" v-model="operate"></popup-picker>
       <popup-picker placeholder="请选择" show-name :title="redDot + '吃住'" :data="eatList" v-model="eat"></popup-picker>
     </group>
     <group gutter='0.2rem'>
@@ -163,7 +163,7 @@ export default {
         });
         return false;
       }
-      if (this.operate == "") {
+      if (this.isShowWorkContent && this.operate == "") {
         this.$vux.toast.show({
           text: this.getErrorInfo("003"),
           type: "text"
@@ -218,6 +218,7 @@ export default {
       if (this.validatePubInfo()) {
         if(!this.isShowWorkContent){
           this.workContent = []
+          this.operate = []
         }
         //前端校验通过
         if(this.type){

@@ -128,7 +128,7 @@ export default {
 
 <style lang='less' scoped>
 .detail {
-  background-color: #eeeeee;
+  background-color: white;
   height: 100%;
   display: flex;
   flex-direction: column;

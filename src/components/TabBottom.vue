@@ -3,6 +3,7 @@
     <a :href="item.url" v-for="(item, index) in tabBarList" :key="index" class="tabItem">
       <img :src="selectedItem==index?item.activeImg:item.img" class="icon">
       <span class="title" :class="{activeTitle:index == selectedItem}">{{item.title}}</span>
+      <div class="redDot" v-if="index == 2"></div>
     </a>
   </div>
 </template>
@@ -65,8 +66,9 @@ export default {
     align-items: center;
     flex-direction: column;
     color: #535353;
+    position: relative;
     .icon {
-      height: 0.3rem;
+      height: 0.44rem;
       display: block;
       margin-bottom: 0.1rem;
     }
@@ -75,6 +77,15 @@ export default {
     }
     .activeTitle {
       color: @theme-color;
+    }
+    .redDot{
+      width: 0.15rem;
+      height: 0.15rem;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+      top: -0.1rem;
+      right: 0.35rem;
     }
   }
 }

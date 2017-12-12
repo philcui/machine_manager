@@ -43,8 +43,8 @@ export default {
         { imgSrc: require("./img/fuli.png"), title: "免费福利", url: "https://v.pengxun.cn/t/d-25502421?pageIndex=1" },
         { imgSrc: require("./img/zizhu.png"), title: "自助商城", url: "https://weidian.com/?userid=1154610337&wfr=c&ifr=itemdetail" },
         { imgSrc: require("./img/mingpian.png"), title: "免费名片", url: "http://tool.gongji58.com/tool" } ,
-        { imgSrc: require("./img/resume.png"), title: "机手简历", url: "" },
-        { imgSrc: require("./img/opcard.png"), title: "操作证", url: "" },
+        { imgSrc: require("./img/resume.png"), title: "机手简历", url: "http://tools.gongji58.com/?r=tool/resume" },
+        { imgSrc: require("./img/opcard.png"), title: "操作证", url: "http://mp.weixin.qq.com/s/5FZmLqff3JNvf3O-c9S_hw" },
       ],
       cellList2: [
         { imgSrc: require("./img/baisi.png"), title: "百思不得姐", url: "http://www.budejie.com/" },

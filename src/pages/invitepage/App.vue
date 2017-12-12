@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <img :src="src" alt="">
+    <!--img :src="src" alt=""-->
+    <img v-bind:src="imgUrl" alt="二维码加载中..." />
   </div>
 </template>
 
@@ -10,18 +11,22 @@
   export default {
   data(){
     return {
-      src: ""
+      src: "",
+      imgUrl: '',
     }
   },
   methods:{
 
   },
   mounted(){
+    this.imgUrl = "/api/qrcode/qrcode-img?code=" + getUrlKey("code");
+    /*
     this.axios.post("/api/qrcode/qrcode-img?code=" + getUrlKey("code"))
     .then((res) => {
       console.log(res)
       this.src = res.data
     })
+    */
   },
   components:{
 

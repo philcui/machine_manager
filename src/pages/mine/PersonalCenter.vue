@@ -7,7 +7,7 @@
       <div class="info">
         <div class="left-info">
           <div class="info-line1">
-            <div class="name">{{info.realname}}</div>
+            <div class="name">{{info.nickname}}</div>
             <div class="score">积分：{{info.point}}</div>
           </div>
           <percent class="info-line2" :percent="percent"></percent>
@@ -15,7 +15,7 @@
         </div>
         <div class="right-arrow">
           <img src="./img/right_arrow.png" alt="">
-        </div>  
+        </div>
       </div>
     </a>
     <div class="renzheng">
@@ -39,7 +39,7 @@
       </p>
     </div>
     <tab-bottom :selectedItem='3'></tab-bottom>
-  </div>  
+  </div>
 </template>
 
 <script>

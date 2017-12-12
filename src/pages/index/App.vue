@@ -106,7 +106,7 @@ export default {
         {
           imgSrc: require("./img/light.png"),
           title: "故障灯查询",
-          url: "http://mp.weixin.qq.com/s/zUa0Ya0y7DHprUqx533aRQ"
+          url: "http://mp.weixin.qq.com/s/i_bzD3RzhQk-PxvWQ-8InQ"
         },
         {
           imgSrc: require("./img/vid.png"),

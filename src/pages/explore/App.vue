@@ -17,13 +17,13 @@
     <div class="group news">
       <div class="news-title">
         <span>行业新闻</span>
-        <a href="">更多 ></a>
+        <!-- <a href="">更多 ></a> -->
       </div>
       <div class="news-item">
         <img src="./img/news_demo.png" alt="">
         <div class="news-content">
-          <p class="summ">一带一路——中国工程机械的新舞台</p>
-          <p class="text">“一带一路”是跨跃区域大、持续时间长的经 济文化战略决策，中国工程机械只要抓住这个</p>
+          <p class="summ">邀请挖友分享3000亿盛宴</p>
+          <p class="text">加入福利最多的机友圈，拿奖品，并有机会成为代理合伙人！</p>
         </div>
       </div>
     </div>

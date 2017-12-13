@@ -7,7 +7,7 @@
     </div>
 
     <group gutter='0'>
-      <x-input :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
+      <x-input placeholder="请填写" :title="redDot + '姓名'" v-model="realname" text-align='right'></x-input>
       <popup-picker
         :title="redDot + '操作设备'"
         :data="macTypeData"
@@ -213,6 +213,13 @@ export default {
       return infoMap[key];
     },
     validatePubInfo() {
+      if (this.realname == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("009"),
+          type: "text"
+        });
+        return false;
+      }
       if (this.macTypeVal == "") {
         this.$vux.toast.show({
           text: this.getErrorInfo("001"),
@@ -265,13 +272,6 @@ export default {
       if (!/^1[34578]\d{9}$/.test(this.phone)) {
         this.$vux.toast.show({
           text: this.getErrorInfo("007"),
-          type: "text"
-        });
-        return false;
-      }
-      if (this.realname == "") {
-        this.$vux.toast.show({
-          text: this.getErrorInfo("009"),
           type: "text"
         });
         return false;

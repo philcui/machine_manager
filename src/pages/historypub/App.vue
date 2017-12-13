@@ -24,7 +24,10 @@
         </div>
       </div>
     </div>
-    <div @click="loadData" class="loadMore">查看更多</div>
+    <div v-if="publist.length > 0" @click="loadData" class="loadMore">查看更多</div>
+    <div style="text-align:center;" v-if="publist.length == 0">
+      还没有发布过职位
+    </div>
   </div>
 </template>
 

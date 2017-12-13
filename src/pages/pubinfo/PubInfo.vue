@@ -149,6 +149,13 @@ export default {
       return infoMap[key];
     },
     validatePubInfo() {
+      if (this.realname == "") {
+        this.$vux.toast.show({
+          text: this.getErrorInfo("008"),
+          type: "text"
+        });
+        return false;
+      }
       if (this.macTypeVal == "") {
         this.$vux.toast.show({
           text: this.getErrorInfo("001"),
@@ -194,13 +201,6 @@ export default {
       if (!/^1[34578]\d{9}$/.test(this.phone)) {
         this.$vux.toast.show({
           text: this.getErrorInfo("007"),
-          type: "text"
-        });
-        return false;
-      }
-      if (this.realname == "") {
-        this.$vux.toast.show({
-          text: this.getErrorInfo("008"),
           type: "text"
         });
         return false;
@@ -365,7 +365,9 @@ export default {
         //这里存在大量赋值操作，后续可以和后台数据字段做整理
         console.log(res.data.data)
         let data  = res.data.data
-        this.realname = data.realname
+        if(data.realname != "未知" && data.realname != ""){
+          this.realname = data.realname
+        }
         //this.phone = data.mobile
       })
       // this.axios.post("/api/default/guess-address")

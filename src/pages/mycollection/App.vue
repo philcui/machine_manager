@@ -21,6 +21,9 @@
         </div>
       </div>
     </div>
+    <div style="text-align:center;" v-if="jobList.length == 0">
+      还没有收藏
+    </div>
 
     <!--div class="jobCollect machineCollect" v-for="(item, index) in jobList" :key="index" v-show="showBindingActive(2)">
       <div class="jobItem">

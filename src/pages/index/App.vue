@@ -55,6 +55,7 @@
             确 定
           </div>
         </div>
+        <div class="regTip">注册用户才可体验完整功能哦</div>
       </div>
       <div @click="showReg=false">
         <img class="close" src="../../assets/close.png" alt="">
@@ -144,7 +145,7 @@ export default {
       pubNotice: false,
       showReg: false,
       whoimList: [
-        { key: "请选择自己的身份", value: 0 },
+        { key: "请选择自己的身份", value: "" },
         { key: "我是驾驶员", value: 1 },
         { key: "我是机主", value: 2 },
         { key: "我是自己的机子自己开", value: 3 },
@@ -322,10 +323,10 @@ export default {
     setCookie() {
       //模拟登录，写入cookie
       //this.cookie.set('auth_cookie', tmp)
-/*
+
       document.cookie =
         "auth_cookie=0e544bfb28838d0cce9280a3b684d60ea7656f3ea2f2fa4a6a4032c119ef98f3a%3A2%3A%7Bi%3A0%3Bs%3A11%3A%22auth_cookie%22%3Bi%3A1%3Bs%3A40%3A%22efb70420a7a4e8899cc60290194f69ce%23%23%2350005%22%3B%7D";
-*/
+
     },
     getAccountInfo() {
       this.axios.get("/api/user/my").then(res => {
@@ -372,7 +373,7 @@ export default {
   background-size: cover;
   position: relative;
   box-sizing: border-box;
-  padding-top: 2.94rem;
+  padding-top: 3.2rem;
   .huangou {
     position: absolute;
     top: 1.97rem;
@@ -479,6 +480,11 @@ export default {
     font-size: 0.29rem;
     border-radius: 0.05rem;
     background-color: @theme-color;
+  }
+  .regTip{
+    background-color: white;
+    font-weight: bold;
+    color: red;
   }
 }
 .close {

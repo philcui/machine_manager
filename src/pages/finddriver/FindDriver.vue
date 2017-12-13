@@ -12,6 +12,7 @@
         </x-address>
       </div> -->
        <div @click="changeShowAddress" class="filterItem address">
+        <img class="icon_add" src="./img/location.png" alt="">
         {{addName}}
         <img class="arrow" src="./img/arrowDown.png" alt="">
         <popup-picker
@@ -44,10 +45,10 @@
           :show.sync="showSal">
         </popup-picker>
       </div>
-      <div class="filterItem locate">
+      <!-- <div class="filterItem locate">
         <img src="./img/locate.png" alt="">
         {{locate.name}}
-      </div>
+      </div> -->
     </div>
     <div class="infoContent" @scroll="scrollList">
       <div class="topList">
@@ -55,6 +56,12 @@
       </div>
       <div class="normalList">
         <normal-item v-for="(item, index) in normalList" :key="index" :normalObj="item"></normal-item>
+      </div>
+      <div class="noresult" v-show="topList.length == 0 && normalList.length == 0">
+        <div>
+          <img src="./img/noresult.png" alt="">
+          <p>没搜到，换个条件试试？</p>
+        </div>
       </div>
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
@@ -184,7 +191,7 @@ export default {
       let filter = Object.assign(
         {
           page: this.nowPage,
-          address_id: this.addVal[0] || this.locate.id,
+          address_id: this.addVal[0], //|| this.locate.id,
           car_type_id: this.macTypeVal[0],
           base_salary:
             this.salVal.length && parseInt(this.salVal[0].split(",")[0]),
@@ -305,16 +312,18 @@ export default {
   },
   mounted() {
     //this.getRegInfo()
-    this.guessAddress().then(
-      val => {
-        this.loadData();
-        this.loadAds();
-      },
-      err => {
-        this.loadData();
-        this.loadAds();
-      }
-    );
+    // this.guessAddress().then(
+    //   val => {
+    //     this.loadData();
+    //     this.loadAds();
+    //   },
+    //   err => {
+    //     this.loadData();
+    //     this.loadAds();
+    //   }
+    // );
+    this.loadData();
+    this.loadAds();
   },
   watch: {
     addVal() {
@@ -353,6 +362,13 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    .icon_add{
+      height: 0.32rem;
+      margin-right: 0.12rem;
+    }
     img {
       vertical-align: middle;
     }
@@ -396,6 +412,13 @@ export default {
     margin-top: 0.08rem;
   }
   .normalList {
+  }
+  .noresult{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
   }
 }
 

@@ -72,7 +72,7 @@ export default {
       this.axios.get(this.mobileLink)
       .then((res) => {
         console.log(res)
-        if(res.data.data.state == -1){
+        if(res.data.data.code == -1){
           this.callTipText = res.data.data.msg
           this.showCallTip = true
         }else{

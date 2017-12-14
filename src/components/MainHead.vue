@@ -1,7 +1,7 @@
 <template>
   <div class="mainHead">
     <div class="head">
-      <a :class="{isSelected: item.selected}" v-for="(item, index) in items" :key="index" @click="changeSelect(index)" href="{{item.href}}">
+      <a :class="{isSelected: item.selected}" v-for="(item, index) in items" :key="index" @click="changeSelect(index)" :href="item.href">
         {{item.text}}
       </a>
     </div>

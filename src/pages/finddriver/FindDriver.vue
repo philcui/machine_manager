@@ -57,12 +57,12 @@
       <div class="normalList">
         <normal-item v-for="(item, index) in normalList" :key="index" :normalObj="item"></normal-item>
       </div>
-      <div class="noresult" v-show="topList.length == 0 && normalList.length == 0">
+      <!-- <div class="noresult" v-show="topList.length == 0 && normalList.length == 0">
         <div>
           <img src="./img/noresult.png" alt="">
           <p>没搜到，换个条件试试？</p>
         </div>
-      </div>
+      </div> -->
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <div class="hrbottom">

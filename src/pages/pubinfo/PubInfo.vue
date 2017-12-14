@@ -23,7 +23,7 @@
       </popup-picker> -->
       <x-address
         :title="redDot + '期望地点'" v-model="addVal"
-        :list="addressData" placeholder="请选择">
+        :list="addressData" placeholder="请选择" hide-district>
       </x-address>
       <!-- <div class="mycell addTip">
         提示：为了更好的服务大家，目前只开通11个省份的招聘服务，其他省份请
@@ -76,7 +76,7 @@
 <script>
 import {
   XAddress,
-  ChinaAddressV4Data,
+  // ChinaAddressV4Data,
   PopupPicker,
   Selector,
   Group,
@@ -93,6 +93,8 @@ import skillList from "@/data/skills.json"
 import provinceData from "@/data/prov.json"
 import salaryList from "@/data/salary.json"
 import bond from "@/data/bond.json"
+//阉割版地图
+import ChinaAddressV4Data from "@/data/china_data.json"
 import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
@@ -233,7 +235,7 @@ export default {
               text: "提交成功"
             })
             setTimeout(() => {
-              window.location.href = "../workdetail/index.html?id=" + res.data.data.id
+              window.location.href = "../workdetail/index.html?id=" + id
             }, 1000)
             //window.location.href = "../result/index.html?restype=" + JSON.stringify(this.getResInfo(res))
           });
@@ -257,7 +259,7 @@ export default {
       return this.qs.stringify({
           realname: this.realname,
           car_type_id: this.macTypeVal[0],
-          address_id: this.addVal[2],
+          address_id: this.addVal[1],
           mode: this.operate[0],
           benefit: this.eat[0],
           base_salary: JSON.parse(this.salary[0])[0],
@@ -325,7 +327,7 @@ export default {
       let res = []
       res.push(target.substring(0, 2) + "0000")
       res.push(target.substring(0, 4) + "00")
-      res.push(target)
+      //res.push(target)
       return res
     }
   },

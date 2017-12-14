@@ -15,11 +15,15 @@
       <img src="../assets/icon.png" alt="">
     </div>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
+    <alert v-model="showCallTip" title="温馨提示">
+      为了防止机主被过度骚扰，每个驾驶员每天只能联系机主三次，明天再来吧！
+    </alert>
   </div>
 </template>
 
 <script>
 import ShareGuide from "@/components/ShareGuide.vue"
+import { Alert } from "vux" 
 export default {
   props:{
     mobileLink: {
@@ -38,6 +42,7 @@ export default {
   data(){
     return {
       showTip: false,
+      showCallTip: false,
     }
   },
   methods:{
@@ -68,10 +73,15 @@ export default {
         console.log(res)
         window.location.href = "tel:" + res.data.data.mobile  
       })
+      .catch((res) => {
+        console.log("error")
+        this.showCallTip = true
+      })
     }
   },
   components:{
      ShareGuide,
+     Alert,
   }
 };
 </script>

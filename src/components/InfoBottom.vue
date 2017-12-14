@@ -16,7 +16,7 @@
     </div>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
     <alert v-model="showCallTip" title="温馨提示">
-      为了防止机主被过度骚扰，每个驾驶员每天只能联系机主三次，明天再来吧！
+      {{callTipText}}
     </alert>
   </div>
 </template>
@@ -43,6 +43,7 @@ export default {
     return {
       showTip: false,
       showCallTip: false,
+      callTipText: "",
     }
   },
   methods:{
@@ -71,11 +72,12 @@ export default {
       this.axios.get(this.mobileLink)
       .then((res) => {
         console.log(res)
-        window.location.href = "tel:" + res.data.data.mobile  
-      })
-      .catch((res) => {
-        console.log("error")
-        this.showCallTip = true
+        if(res.data.data.state == -1){
+          this.callTipText = res.data.data.msg
+          this.showCallTip = true
+        }else{
+          window.location.href = "tel:" + res.data.data.mobile  
+        }
       })
     }
   },

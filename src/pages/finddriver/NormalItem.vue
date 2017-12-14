@@ -13,10 +13,10 @@
     <div class="item date">
       <!-- <img src="./img/time.png" alt=""> -->
       <span class="label">时间：</span>
-      <span class="text">{{normalObj.ctime}}</span>
+      <span class="text">{{normalObj.utime}}</span>
     </div>
     <a class="offer">详情</a>
-  </a>  
+  </a>
 </template>
 
 <script>

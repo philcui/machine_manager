@@ -233,7 +233,7 @@ export default {
     },
     loadAds() {
       this.axios
-        .post("/api/job/ads-list", this.getFilter({ limit: 2 }))
+        .post("/api/job/ads-list", this.getFilter({ limit: 5 }))
         .then(res => {
           this.topList = res.data.data;
         });

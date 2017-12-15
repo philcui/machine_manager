@@ -69,32 +69,32 @@ export default {
 #app {
   background: url("./img/bg_big.jpg") center center no-repeat;
   background-size: cover;
-  height: 16.59rem;
+  height: 16.9rem;
   position: relative;
   a {
     position: absolute;
     display: block;
   }
   .inviteTop {
-    top: 2.55rem;
+    top: 2.75rem;
     left: 0.84rem;
     height: 0.63rem;
     width: 2.97rem;
   }
   .myInvite {
-    top: 2.55rem;
+    top: 2.75rem;
     left: 4.07rem;
     height: 0.54rem;
     width: 1.69rem;
   }
   .myPoint {
-    top: 9.5rem;
+    top: 9.7rem;
     left: 2.34rem;
     width: 1.53rem;
     height: 0.39rem;
   }
   .inviteBottom {
-    top: 13.65rem;
+    top: 13.85rem;
     left: 0.27rem;
     width: 5.79rem;
     height: 0.9rem;

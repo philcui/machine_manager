@@ -1,7 +1,7 @@
 <template>
   <div class="mainHead">
     <div class="head">
-      <a :class="{isSelected: item.selected}" v-for="(item, index) in items" :key="index" @click="changeSelect(index)">
+      <a :class="{isSelected: item.selected}" v-for="(item, index) in items" :key="index" @click="changeSelect(index)" :href="item.href">
         {{item.text}}
       </a>
     </div>
@@ -16,7 +16,7 @@
 export default {
   data() {
     return {
-      items: [{ selected: true, text: "服务" }, { selected: false, text: "社区" }],
+      items: [{ selected: true, text: "服务", href: "#" }, { selected: false, text: "社区", href: "https://v.pengxun.cn/f/s-826187" }],
       hasMsg: false,
     };
   },

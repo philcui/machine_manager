@@ -72,6 +72,7 @@ export default {
       user_id: "",
       member_id: "",
       mobileLink: "",
+      salary : "",
     };
   },
   components: {
@@ -83,6 +84,7 @@ export default {
   },
   mounted() {
     //todo 地址有问题
+
     let minfo = this.axios.get("/api/job/detail?id=" + getUrlKey('id'))
     .then(res => {
       console.log(res)
@@ -93,11 +95,13 @@ export default {
         this.info.operating_mode = getName(mode_type[0], this.info.mode);
         this.info.benefit = getName(benefit[0], this.info.benefit)
         this.mobileLink = "/api/job/query-mobile?item_id=" + this.info.id
+        this.salary = (this.info.salary != "面议" && this.info.salary) ? (this.info.salary + "元") : "面议";
       }
+
       share({
         title: this.info.address + "招聘驾驶员",
         img: "http://m.gongji58.com/static/imgtest.jpg",
-        desc: this.info.description,
+        desc: this.salary + " / " + this.info.description,
         link: window.location.href,
       })
     });

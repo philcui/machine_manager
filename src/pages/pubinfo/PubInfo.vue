@@ -367,7 +367,9 @@ export default {
         //这里存在大量赋值操作，后续可以和后台数据字段做整理
         console.log(res.data.data)
         let data  = res.data.data
-        this.realname = data.realname
+        if(data.realname){
+          this.realname = data.realname
+        }
         //this.phone = data.mobile
       })
       // this.axios.post("/api/default/guess-address")

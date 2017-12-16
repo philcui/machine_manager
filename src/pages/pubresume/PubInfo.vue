@@ -81,7 +81,7 @@
       <!-- 设备类型 -->
       <input type="hidden" name="car_type_id" v-model="macTypeVal">
       <!-- 工作地点 -->
-      <input type="hidden" name="address_id" v-model="addVal[2]">
+      <input type="hidden" name="address_id" v-model="subAdd">
       <!-- 可接受的工作范围 -->
       <input type="hidden" name="location" v-model="anotherAddVal">
       <!-- 驾龄 -->
@@ -192,6 +192,13 @@ export default {
       });
       return names;
     },
+    subAdd(){
+      if(this.addVal[2] == '--'){
+        return this.addVal[1]
+      }else{
+        return this.addVal[2]
+      }
+    }
   },
   methods: {
     info(){

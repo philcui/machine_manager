@@ -41,10 +41,11 @@ export default {
       cellList1: [
         { imgSrc: require("./img/guzhang.png"), title: "故障代码", url: "https://mp.weixin.qq.com/s/Msz5qTU8Q29HPCf1-bqaFA" },
         { imgSrc: require("./img/fuli.png"), title: "免费福利", url: "https://v.pengxun.cn/t/d-25502421?pageIndex=1" },
-        { imgSrc: require("./img/zizhu.png"), title: "自助商城", url: "https://weidian.com/?userid=1154610337&wfr=c&ifr=itemdetail" },
+        { imgSrc: require("./img/zizhu.png"), title: "精选配件", url: "https://weidian.com/?userid=1154610337&wfr=c&ifr=itemdetail" },
         { imgSrc: require("./img/mingpian.png"), title: "免费名片", url: "http://tool.gongji58.com/tool" } ,
         { imgSrc: require("./img/resume.png"), title: "机手简历", url: "http://m.gongji58.com/finddriver/index.html" },
         { imgSrc: require("./img/opcard.png"), title: "操作证", url: "http://mp.weixin.qq.com/s/5FZmLqff3JNvf3O-c9S_hw" },
+        { imgSrc: require("./img/waji.png"), title: "挖机模型", url: "https://weidian.com/item_classes.html?userid=1154610337&c=107726851&ifr=itemclasses&src=itemclasses_107726851&wfr=wx&from=groupmessage&isappinstalled=0" },
       ],
       cellList2: [
         { imgSrc: require("./img/baisi.png"), title: "百思不得姐", url: "http://www.budejie.com/" },

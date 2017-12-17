@@ -74,12 +74,27 @@ export default {
       this.isInfoComplete = this.info.point == 100
       this.isIdCardComplete = this.info.status & 4
     });
+
+    this.axios.post("/api/qrcode/member-total-scan").then(res => {
+      console.log(res);
+      //this.count = res.data.data.count;
+      let code = res.data.data.code;
+      share({
+        title: "工机管家，邀请注册",
+        img: "http://m.gongji58.com/static/imgtest.jpg",
+        desc: "注册享好礼，老铁快来工机管家看看吧",
+        link: "http://m.gongji58.com/invitepage/index.html?code=" + code,
+      })
+
+    });
+    /*
     share({
       title: "工机管家，邀请注册",
       img: "http://m.gongji58.com/static/imgtest.jpg",
       desc: "注册享好礼，老铁快来工机管家看看吧",
-      link: "http://m.gongji58.com/invitepage/index.html",
+      link: "http://m.gongji58.com/invitepage/index.html?code=" + code,
     })
+    */
   }
 };
 </script>
@@ -134,7 +149,7 @@ export default {
     display: flex;
     border-bottom: 1px solid #959595;
     .personInfo{
-      border-right: 1px solid #959595; 
+      border-right: 1px solid #959595;
     }
     .cell {
       height: 100%;

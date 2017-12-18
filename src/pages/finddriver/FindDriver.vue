@@ -269,7 +269,21 @@ export default {
           text: '注册用户可发布，请注册'
         })
       }
-    }
+    },
+    setFilterFromCache(){
+      let addVal = sessionStorage.getItem("addVal")
+      if(addVal){
+        this.addVal = [addVal]
+      }
+      // let macTypeVal = sessionStorage.getItem("macTypeVal")
+      // if(macTypeVal){
+      //   this.macTypeVal = [macTypeVal]
+      // }
+      // let salVal = sessionStorage.getItem("salVal")
+      // if(salVal){
+      //   this.salVal = [salVal]
+      // }
+    },
   },
   components: {
     XAddress,
@@ -322,21 +336,25 @@ export default {
     //     this.loadAds();
     //   }
     // );
-    this.loadData();
-    this.loadAds();
+    this.setFilterFromCache()
+    this.loadData()
+    this.loadAds()
   },
   watch: {
     addVal() {
       this.reloadData();
       this.loadAds();
+      sessionStorage.setItem("addVal", this.addVal)
     },
     macTypeVal() {
       this.reloadData();
       this.loadAds();
+      sessionStorage.setItem("macTypeVal", this.macTypeVal)
     },
     salVal() {
       this.reloadData();
       this.loadAds();
+      sessionStorage.setItem("salVal", this.salVal)
     }
   }
 };

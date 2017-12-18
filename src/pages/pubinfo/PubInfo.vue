@@ -265,7 +265,7 @@ export default {
           base_salary: JSON.parse(this.salary[0])[0],
           max_salary: JSON.parse(this.salary[0])[1],
           mobile: this.phone,
-          skill_list: this.skills_name,
+          skill_list: this.skills_name.length == 0 ? "" : this.skills_name,
           bond: this.bondSalary,
           description: this.description/*,
           will_pay: this.isLikePay,*/
@@ -291,7 +291,7 @@ export default {
     },
     getSkillValue(keys, list){
       if(keys == ""){
-        return ""
+        return []
       }
       keys = keys.split(' ')
       return keys.map((x, index) => {

@@ -92,6 +92,7 @@
       <input type="hidden" name="mobile" v-model="phone">
       <!-- 工作技能 -->
       <input type="hidden" name="skill_list[]" v-for="(item, index) in skills_name" :key="index" :value="item">
+      <input type="hidden" name="skill_list" v-if="skills_name.length == 0" value="">
       <!-- 压工资 -->
       <input type="hidden" name="bond" v-model="bondSalary">
       <!-- 工作介绍 -->
@@ -340,7 +341,7 @@ export default {
     },
     getSkillValue(keys, list){
       if(keys == ""){
-        return ""
+        return []
       }
       keys = keys.split(' ')
       return keys.map((x, index) => {

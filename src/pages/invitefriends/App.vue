@@ -48,9 +48,9 @@ export default {
       this.count = res.data.data.count;
       let code = res.data.data.code;
       share({
-        title: "工机管家，邀请注册",
+        title: "免费抢iphone-x、挖机模型、保温杯",
         img: "http://m.gongji58.com/static/imgtest.jpg",
-        desc: "注册享好礼，老铁快来工机管家看看吧",
+        desc: "共享6000亿工程机械盛宴，送积分、送大奖，还有机会做合伙代理！",
         link: "http://m.gongji58.com/invitepage/index.html?code=" + code,
       })
 

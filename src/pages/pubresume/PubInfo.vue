@@ -371,7 +371,9 @@ export default {
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
       this.realname = data.realname
-      document.querySelector(".prev").src = data.image
+      if(data.image){
+        document.querySelector(".prev").src = data.image
+      }
     },
     fileChange(e){
       let file = document.querySelector(".upload").files[0]

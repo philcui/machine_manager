@@ -36,11 +36,10 @@ export default {
           src: require('./img/2.jpg'),
           title: "摇动电动挖机模型，送小孩",
           point: 99000
-        },
-        {
-          src: require('./img/3.jpg'),
-          title: "工地专用工装靴，温暖冬天",
-          point: 89000
+        },       {
+          src: require('./img/6.jpg'),
+          title: "私人订制 业务名片头像",
+          point: 12500
         },
         {
           src: require('./img/4.jpg'),
@@ -53,9 +52,9 @@ export default {
           point: 59000
         },
         {
-          src: require('./img/6.jpg'),
-          title: "私人订制 业务名片头像",
-          point: 12500
+          src: require('./img/3.jpg'),
+          title: "工地专用工装靴，温暖冬天",
+          point: 89000
         },
       ],
       info: {
@@ -134,7 +133,8 @@ export default {
           height: 1.68rem;
         }
         .title{
-
+          font-size: 0.2rem;
+          font-weight: bold;
         }
         .point{
           color: #f39700;

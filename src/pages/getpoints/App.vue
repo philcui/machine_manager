@@ -10,20 +10,20 @@
       <a @click="goto('../personinfo/index.html', !isInfoComplete)" class="cell personInfo">
         <img src="./img/person_info.png" alt="">
         <div>完善个人资料</div>
-        <div>+20积分</div>
+        <div>+200积分</div>
         <a :class="getBtnClass(isInfoComplete)">{{isInfoComplete ? "已完成" : "去完成"}}</a>
       </a>
       <a @click="goto('../idcardauth/index.html', !isIdCardComplete)" class="cell idcard">
         <img src="./img/id_card.png" alt="">
         <div>完成实名认证</div>
-        <div>+20积分</div>
+        <div>+300积分</div>
         <a :class="getBtnClass(isIdCardComplete)">{{isIdCardComplete ? "已完成" : "去完成"}}</a>
       </a>
     </div>
     <a @click="showTip = true" class="bottom">
       <img src="./img/friends.png" alt="">
       <div>邀请好友注册</div>
-      <div>+20积分</div>
+      <div>+1500积分</div>
       <a class="btn uncomplete">去分享</a>
     </a>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>

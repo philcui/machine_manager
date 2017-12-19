@@ -9,7 +9,7 @@
     <div class="giftList">
       <div class="giftListHead">
         <span class="line"></span>
-        积分兑换请添加微信：dasheng8186
+        积分兑换请添加微信：ibxdrgn
       </div>
       <div class="giftCellList">
         <div class="giftCell" v-for="(item, index) in giftList" :key="index">
@@ -28,24 +28,34 @@ export default {
     return {
       giftList: [
         {
-          src: require('./img/charge.png'),
-          title: "小米移动电源 2000毫安",
-          point: 26000
+          src: require('./img/1.jpg'),
+          title: "小松或者神钢合金挖机模型",
+          point: 59500
         },
         {
-          src: require('./img/waji.png'),
-          title: "全合金挖掘机模型",
-          point: 26000
+          src: require('./img/2.jpg'),
+          title: "摇动电动挖机模型，送小孩",
+          point: 79000
         },
         {
-          src: require('./img/charge.png'),
-          title: "小米移动电源 2000毫安",
-          point: 26000
+          src: require('./img/3.jpg'),
+          title: "工地专用工装靴，温暖冬天",
+          point: 69000
         },
         {
-          src: require('./img/charge.png'),
-          title: "小米移动电源 2000毫安",
-          point: 26000
+          src: require('./img/4.jpg'),
+          title: "挖机冲锋衣，牛逼机手必备",
+          point: 55000
+        },
+        {
+          src: require('./img/5.jpg'),
+          title: "太阳能或者插电两用充电宝",
+          point: 49000
+        },
+        {
+          src: require('./img/6.jpg'),
+          title: "私人订制 业务名片头像",
+          point: 12500
         },
       ],
       info: {

@@ -76,7 +76,7 @@ export default {
     display: block;
   }
   .inviteTop {
-    top: 2.75rem;
+    top: 2.55rem;
     left: 0.84rem;
     height: 0.63rem;
     width: 2.97rem;
@@ -89,7 +89,7 @@ export default {
   }
   .myPoint {
     top: 9.7rem;
-    left: 2.34rem;
+    left: 4rem;
     width: 1.53rem;
     height: 0.39rem;
   }

@@ -30,27 +30,27 @@ export default {
         {
           src: require('./img/1.jpg'),
           title: "小松或者神钢合金挖机模型",
-          point: 59500
+          point: 79000
         },
         {
           src: require('./img/2.jpg'),
           title: "摇动电动挖机模型，送小孩",
-          point: 79000
+          point: 99000
         },
         {
           src: require('./img/3.jpg'),
           title: "工地专用工装靴，温暖冬天",
-          point: 69000
+          point: 89000
         },
         {
           src: require('./img/4.jpg'),
           title: "挖机冲锋衣，牛逼机手必备",
-          point: 55000
+          point: 69000
         },
         {
           src: require('./img/5.jpg'),
           title: "太阳能或者插电两用充电宝",
-          point: 49000
+          point: 59000
         },
         {
           src: require('./img/6.jpg'),

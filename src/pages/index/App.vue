@@ -84,9 +84,7 @@ export default {
   data() {
     return {
       pubMessage: [
-        { content: "最新卡特挖掘机性能介绍，必看！", link: "http://www.baidu.com" },
-        { content: "最新卡特挖掘机性能介绍，必看！", link: "http://www.taobao.com" },
-        { content: "最新卡特挖掘机性能介绍，必看！", link: "http://www.tecent.com" }
+        { content: "邀请好友领大奖，请点击屏幕右下角“我的”，注册后即可参与", link: "/invitefriends/index.html" },
       ],
       cellList: [
         {

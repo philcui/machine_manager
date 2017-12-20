@@ -52,7 +52,7 @@
             </select>
           </div>
           <div @click="regByPhone" class="submit">
-            确 定
+            提 交
           </div>
         </div>
         <div class="regTip">注册用户才可体验完整功能哦</div>
@@ -163,7 +163,7 @@ export default {
         personType: ""
       },
       checkButtonText: "短信验证码",
-      sendTime: 10,
+      sendTime: 60,
       isSending: false,
       timer: ""
     };
@@ -213,11 +213,11 @@ export default {
                 var int = setInterval(() => {
                   if (this.sendTime == 0) {
                     clearInterval(int);
-                    this.checkButtonText = "短信验证码";
-                    this.sendTime = 10;
+                    this.checkButtonText = "发送短信验证码";
+                    this.sendTime = 60;
                     this.isSending = false;
                   } else {
-                    this.checkButtonText = (this.sendTime--).toString() + "秒";
+                    this.checkButtonText = (this.sendTime--).toString() + "秒后重发";
                   }
                 }, 1000);
                 this.timer = int;

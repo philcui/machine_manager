@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MainHead></MainHead>
-    <!-- <top-msg :pubMessage='pubMessage'></top-msg> -->
+    <top-msg :pubMessage='pubMessage'></top-msg>
     <div class="menu">
       <menu-cell class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList" :key="index" :menuCell='item'></menu-cell>
     </div>
@@ -83,11 +83,11 @@ export default {
   name: "app",
   data() {
     return {
-      // pubMessage: [
-      //   { content: "最新卡特挖掘机性能介绍，必看！" },
-      //   { content: "最新卡特挖掘机性能介绍，必看！" },
-      //   { content: "最新卡特挖掘机性能介绍，必看！" }
-      // ],
+      pubMessage: [
+        { content: "最新卡特挖掘机性能介绍，必看！", link: "http://www.baidu.com" },
+        { content: "最新卡特挖掘机性能介绍，必看！", link: "http://www.taobao.com" },
+        { content: "最新卡特挖掘机性能介绍，必看！", link: "http://www.tecent.com" }
+      ],
       cellList: [
         {
           imgSrc: require("./img/zhaojiashi.png"),

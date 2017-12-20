@@ -2,7 +2,7 @@
   <div class="msgTop">
     <img class="msg" src="../assets/huatong.png" alt="">
     <marquee class="marquee">
-      <marquee-item v-for="(item, index) in pubMessage" :key="index">{{item.content}}</marquee-item>
+      <marquee-item @click.native="goto(item.link)" v-for="(item, index) in pubMessage" :key="index">{{item.content}}</marquee-item>
     </marquee>
   </div>
 </template>
@@ -16,6 +16,11 @@ export default {
   components:{
     Marquee,
     MarqueeItem
+  },
+  methods: {
+    goto(link){
+      window.location.href = link
+    }
   }
 }
 </script>

@@ -41,6 +41,7 @@ export default {
   .marquee {
     margin-left: 0.2rem;
     font-size: 0.21rem;
+    color: red;
   }
 }
 </style>

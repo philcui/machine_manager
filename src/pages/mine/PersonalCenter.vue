@@ -57,7 +57,7 @@ export default {
         { imgSrc: require("./img/resume.png"), title: "机手简历", url: "../driverresume/index.html" },
         { imgSrc: require("./img/history.png"), title: "历史发布", url: "../historypub/index.html" },
         { imgSrc: require("./img/collection.png"), title: "我的收藏", url: "../mycollection/index.html" },
-        { imgSrc: require("./img/friends.png"), title: "邀请好友", url: "../invitefriends/index.html" },
+        { imgSrc: require("./img/friends_new.png"), title: "邀请好友", url: "../invitefriends/index.html" },
         { imgSrc: require("./img/get_points.png"), title: "赚取积分", url: "../getpoints/index.html" },
         { imgSrc: require("./img/exchange_points.png"), title: "积分换购", url: "../pointstore/index.html" }
       ],

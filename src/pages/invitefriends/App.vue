@@ -14,7 +14,7 @@
     </x-dialog>
 
     <x-dialog v-model="showGift" :dialog-style="{'background-color': 'transparent'}">
-      <img class="toreal" src="./img/toreal.jpg" alt="">
+      <img class="toreal" src="./img/toreal_new.jpg" alt="">
       <div @click="showGift=false">
         <img class="close" src="../../assets/close.png" alt="">
       </div>

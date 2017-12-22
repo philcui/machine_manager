@@ -19,15 +19,15 @@
         <span>行业新闻</span>
         <!-- <a href="">更多 ></a> -->
       </div>
-      <div class="news-item">
-        <a href="https://www.vzan.cc/t/d-26994412">
-        <img src="./img/news_demo.png" alt="">
-        <div class="news-content">
-          <p class="summ">邀请挖友分享6000亿盛宴</p>
-          <p class="text">免费抢iphone—X，挖机模型，挖机冲锋衣，更有机会成为合伙代理人</p>
+      <a href="https://www.vzan.cc/t/d-26994412">
+        <div class="news-item">
+          <img src="./img/news_demo.png" alt="">
+          <div class="news-content">
+            <p class="summ">邀请挖友分享6000亿盛宴</p>
+            <p class="text">免费抢iphone—X，挖机模型，挖机冲锋衣，更有机会成为合伙代理人</p>
+          </div>
         </div>
-        </a>
-      </div>
+      </a>
     </div>
     <TabBottom :selectedItem='1'></TabBottom>
   </div>
@@ -119,12 +119,16 @@ export default {
     .news-content {
       font-size: 0.22rem;
       flex: 1;
-      color: #898989;
+      .summ {
+        color: #898989;
+      }
       .text {
         margin-top: 0.25rem;
+        color: #898989;
         font-size: 0.21rem;
         line-height: 0.23rem;
       }
+
     }
   }
 }

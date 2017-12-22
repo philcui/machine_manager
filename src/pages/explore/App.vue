@@ -120,7 +120,7 @@ export default {
       font-size: 0.22rem;
       flex: 1;
       .summ {
-        color: #898989;
+        color: #313131;
       }
       .text {
         margin-top: 0.25rem;

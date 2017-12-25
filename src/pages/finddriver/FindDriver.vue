@@ -174,7 +174,8 @@ export default {
       }
     },
     isBottom(target) {
-      return target.scrollHeight === target.scrollTop + target.clientHeight;
+      let tmp = target.scrollHeight - (target.scrollTop + target.clientHeight) 
+      return tmp < 10;
     },
     loadData() {
       // 加载，加载更多

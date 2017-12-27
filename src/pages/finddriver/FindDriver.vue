@@ -20,7 +20,7 @@
           title="title"
           :data="addressData"
           v-model="addVal"
-          :show.sync="showAddress">
+          :show.sync="showAddress" @on-change="filterChange">
         </popup-picker>
       </div>
       <div @click="changeShowMacType" class="filterItem machineType">
@@ -31,7 +31,7 @@
           title="title"
           :data="macTypeData"
           v-model="macTypeVal"
-          :show.sync="showMacType">
+          :show.sync="showMacType" @on-change="filterChange">
         </popup-picker>
       </div>
       <div @click="changeShowSal" class="filterItem sal">
@@ -42,7 +42,7 @@
           title="title"
           :data="salData"
           v-model="salVal"
-          :show.sync="showSal">
+          :show.sync="showSal" @on-change="filterChange">
         </popup-picker>
       </div>
       <!-- <div class="filterItem locate">
@@ -110,6 +110,7 @@ import TopItem from "./TopItem.vue";
 import NormalItem from "./NormalItem.vue";
 import provinceData from "@/data/prov.json";
 //import {jobList, adsList} from "@/mock/index.js";
+import { throttle } from 'vux'
 export default {
   data() {
     return {
@@ -168,7 +169,7 @@ export default {
     changeShowSal() {
       this.showSal = !this.showSal;
     },
-    scrollList(e) {
+    scrollList(e){
       if (this.isBottom(e.target)) {
         this.loadData();
       }
@@ -213,7 +214,14 @@ export default {
       // 条件变化，发生重新加载，重置当前数据及页码
       this.normalList = [];
       this.nowPage = 0;
-      this.loadData();
+      //this.loadData();
+      this.isLoading = true;
+      this.axios.post("/api/job/list", this.getFilter()).then(res => {
+        this.isLoading = false;
+        this.nowPage++;
+        this.normalList = res.data.data
+        console.log(res);
+      });
     },
     findName(val, mylist) {
       var name = "";
@@ -285,6 +293,11 @@ export default {
       //   this.salVal = [salVal]
       // }
     },
+    filterChange(){
+      this.reloadData()
+      this.loadAds()
+      sessionStorage.setItem("addVal", this.addVal)
+    },
   },
   components: {
     XAddress,
@@ -338,25 +351,23 @@ export default {
     //   }
     // );
     this.setFilterFromCache()
-    this.loadData()
+    this.reloadData()
     this.loadAds()
   },
   watch: {
-    addVal() {
-      this.reloadData();
-      this.loadAds();
-      sessionStorage.setItem("addVal", this.addVal)
-    },
-    macTypeVal() {
-      this.reloadData();
-      this.loadAds();
-      sessionStorage.setItem("macTypeVal", this.macTypeVal)
-    },
-    salVal() {
-      this.reloadData();
-      this.loadAds();
-      sessionStorage.setItem("salVal", this.salVal)
-    }
+    // addVal() {
+    //   this.reloadData();
+    //   this.loadAds();
+    //   sessionStorage.setItem("addVal", this.addVal)
+    // },
+    // macTypeVal() {
+    //   this.reloadData();
+    //   this.loadAds();
+    // },
+    // salVal() {
+    //   this.reloadData();
+    //   this.loadAds();
+    // }
   }
 };
 </script>

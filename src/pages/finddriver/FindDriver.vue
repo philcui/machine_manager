@@ -50,13 +50,14 @@
         {{locate.name}}
       </div> -->
     </div>
-    <div class="infoContent" @scroll="scrollList">
+    <div class="infoContent">
       <div class="topList">
         <top-item v-for="(item, index) in topList" :key="index" :topObj='item'></top-item>
       </div>
       <div class="normalList">
         <normal-item v-for="(item, index) in normalList" :key="index" :normalObj="item"></normal-item>
       </div>
+      <div v-if="normalList.length > 0" @click="loadData" class="loadMore">点击查看更多</div>
       <!-- <div class="noresult" v-show="topList.length == 0 && normalList.length == 0">
         <div>
           <img src="./img/noresult.png" alt="">
@@ -114,6 +115,7 @@ import { throttle } from 'vux'
 export default {
   data() {
     return {
+      isTouch: false,
       isReg: true,
       addVal: [],
       salVal: [],
@@ -169,11 +171,16 @@ export default {
     changeShowSal() {
       this.showSal = !this.showSal;
     },
-    scrollList(e){
-      if (this.isBottom(e.target)) {
+    scrollList1(e){
+      if (this.isTouch && this.isBottom(e.target)) {
         this.loadData();
       }
     },
+    scrollList2: throttle(function(e){
+      if (this.isTouch && this.isBottom(document.querySelector(".infoContent"))) {
+        this.loadData();
+      }
+    }, 250),
     isBottom(target) {
       let tmp = target.scrollHeight - (target.scrollTop + target.clientHeight) 
       return tmp < 10;
@@ -186,6 +193,12 @@ export default {
         this.nowPage++;
         this.normalList = this.normalList.concat(res.data.data);
         console.log(res);
+        if(res.data.data.length == 0){
+          this.$vux.toast.show({
+            type: 'text',
+            text: '没有了'
+          })
+        }
       });
     },
     getFilter(opt) {
@@ -449,6 +462,12 @@ export default {
     align-items: center;
     flex-direction: column;
     margin-top: 1rem;
+  }
+  .loadMore{
+    text-align: center;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    color: @theme-color;
   }
 }
 

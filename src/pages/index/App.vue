@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <MainHead></MainHead>
-    <top-msg :pubMessage='pubMessage'></top-msg>
+    <!-- <top-msg :pubMessage='pubMessage'></top-msg> -->
     <div class="menu">
-      <menu-cell class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList" :key="index" :menuCell='item'></menu-cell>
+      <menu-cell :cell-style="{'height': '1.41rem'}" class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList" :key="index" :menuCell='item'></menu-cell>
     </div>
+    <a href="./invitefriends/index.html" class="ad"><img src="./img/ad.png" alt=""></a>
     <div class="jiyouquan">
       <hdivider class="divider"></hdivider>
       <jiyou-item v-for="(item, index) in jiyouList" :key="index" :itemData='item'></jiyou-item>
@@ -98,6 +99,11 @@ export default {
           url: "https://v.pengxun.cn/f/s-826187?typeId=352705&h=0"
         },
         {
+          imgSrc: require("./img/vid.png"),
+          title: "精彩视频",
+          url: "https://v.pengxun.cn/f/s-826187?typeId=449253&h=0"
+        },
+        {
           imgSrc: require("./img/code.png"),
           title: "故障代码",
           url: "https://mp.weixin.qq.com/s/Msz5qTU8Q29HPCf1-bqaFA"
@@ -106,11 +112,6 @@ export default {
           imgSrc: require("./img/light.png"),
           title: "故障灯查询",
           url: "http://mp.weixin.qq.com/s/i_bzD3RzhQk-PxvWQ-8InQ"
-        },
-        {
-          imgSrc: require("./img/vid.png"),
-          title: "精彩视频",
-          url: "https://v.pengxun.cn/f/s-826187?typeId=449253&h=0"
         },
         {
           imgSrc: require("./img/ershou.png"),
@@ -335,7 +336,7 @@ export default {
     }
   },
   mounted() {
-    //this.setCookie();
+    this.setCookie();
     this.getAccountInfo();
     this.getArtical();
   }
@@ -345,6 +346,13 @@ export default {
 <style lang='less'>
 @import "~vux/src/styles/reset.less";
 @import "../../style/base.less";
+.ad{
+  height: 1.3rem;
+  display: block;
+  img{
+    width: 100%;
+  }
+}
 #app {
   padding-bottom: 0.9rem;
 }

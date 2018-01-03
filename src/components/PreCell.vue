@@ -1,7 +1,10 @@
 <template>
-  <div class="preCell">
+  <div class="preCell" :style="comStyle">
     <span class="title">{{title}}</span> :
-    <span class="content">{{content}}</span>
+    <span class="content" :style="contentStyle">
+      {{content}}
+      <slot></slot>
+    </span>
   </div>
 </template>
 
@@ -9,7 +12,9 @@
 export default {
   props: {
     title: String,
-    content: String
+    content: String,
+    comStyle: Object,
+    contentStyle: Object,
   }
 }
 </script>
@@ -28,6 +33,7 @@ export default {
       min-width: 1.29rem;
       display: inline-block;
       text-align-last: justify;
+      color: #a0a0a0;
     }
     .content{
 

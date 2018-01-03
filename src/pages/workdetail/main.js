@@ -10,6 +10,7 @@ import qs from 'qs'
 import axios from '@/utils/http.js'
 import  { ToastPlugin } from 'vux'
 import  { LoadingPlugin } from 'vux'
+import moment from "moment"
 
 Vue.use(LoadingPlugin)
 Vue.use(ToastPlugin)
@@ -18,6 +19,7 @@ Vue.config.productionTip = false
 Vue.prototype.axios = axios
 Vue.prototype.cookie = Cookie
 Vue.prototype.qs = qs
+Vue.prototype.moment = moment
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

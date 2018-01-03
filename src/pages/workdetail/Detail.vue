@@ -5,13 +5,12 @@
       <div class="report">
         如遇虚假信息，请<a :href="'../report/index.html?type=1&id=' + info.id">点此举报</a>
       </div>
-     <!-- <div class="right">
-        <p class="name">{{info.realname}}</p>
-        {{info.ctime}}
-      </div> -->
+      <div class="right">
+        {{moment(info.utime).format("YYYY-MM-DD HH:MM")}}
+      </div>
     </div>
     <div class="info info2">
-      <pre-cell title="发布时间" :content='info.utime'></pre-cell>
+      <!-- <pre-cell title="发布时间" :content='info.utime'></pre-cell> -->
       <pre-cell title="月薪" :content='info.salary'></pre-cell>
       <pre-cell title="设备类型" :content='info.car_type'></pre-cell>
       <pre-cell title="工作地点" :content='info.address'></pre-cell>
@@ -19,8 +18,8 @@
     <div class="info info3">
       <pre-cell title="操作方向" :content='info.operating_mode'></pre-cell>
       <pre-cell title="吃住" :content='info.benefit'></pre-cell>
-      <pre-cell title="工作内容" :content='info.skills'></pre-cell>
-      <pre-cell title="工作介绍"></pre-cell>
+      <pre-cell title="工作内容" :content='info.skills' :content-style="{'color': '#a40000'}"></pre-cell>
+      <pre-cell title="工作介绍" :com-style="{'border': 'none'}"></pre-cell>
       <div class="workDetail">{{info.description}}</div>
     </div>
     <one-key-share v-if="nowType.showShare"></one-key-share>
@@ -171,7 +170,7 @@ export default {
     .workDetail {
       font-size: 0.24rem;
       color: #535353;
-      padding-top: 0.2rem;
+      padding-top: 0.1rem;
     }
   }
 }

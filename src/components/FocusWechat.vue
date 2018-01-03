@@ -24,7 +24,7 @@ export default {
   width: 100%;
   height: 1.34rem;
   margin-top: 0.1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.66rem;
   .inner{
     height: 100%;
     line-height: 1.34rem;

@@ -2,7 +2,7 @@
   <div class="pubInfo">
     <div class="hintHead">
       <div class="tipbox">
-        <p>好的简历有助于好老板找到你 <span class="example" @click="showExample=true">效果展示</span></p>
+        <p>好的简历有助于好老板找到你 <img src="./img/btn_bg.png" class="example" @click="showExample=true"></img></p>
       </div>
     </div>
 
@@ -51,7 +51,7 @@
     </group>
     <group gutter='0.2rem'>
       <div class="mycell skillcell">
-        <p>工作技能</p>
+        <p>会干的活（可多选）</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
             v-for="(item, index) in skillList"
@@ -420,15 +420,21 @@ export default {
       font-size: 0.25rem;
       padding: 0.06rem;
       .example {
-        display: inline-block;
-        text-align: center;
-        width: 1.19rem;
-        background-color: @second-color;
-        color: white;
-        height: 0.6rem;
-        line-height: 0.6rem;
-        font-size: 0.225rem;
-        border-radius: 0.05rem;
+        //display: inline-block;
+        // text-align: center;
+        // width: 1.19rem;
+        // background-color: @second-color;
+        // color: white;
+        // height: 0.6rem;
+        // line-height: 0.6rem;
+        // font-size: 0.225rem;
+        // border-radius: 0.05rem;
+        //background: url('./img/btn_bg.png') no-repeat center center;
+        //background-size: cover;
+        //width: 1.31rem;
+        height: 0.45rem;
+        vertical-align: middle;
+        margin-left: 0.3rem;
       }
     }
   }

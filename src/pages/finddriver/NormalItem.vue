@@ -2,7 +2,10 @@
   <a class="info" :href="gethref()">
     <div class="item salary">
       <!-- <img src="./img/money_strong.png" alt=""> -->
-      <span class="moneyTitle">工资：{{normalObj.salary}}元/月</span>
+      <span class="moneyTitle">
+        <span class="label">工资：</span>
+        <span class="text">{{normalObj.salary}}元/月</span> 
+      </span>
       <tag v-if="normalObj.car_type" :tagName='normalObj.car_type'></tag>
     </div>
     <div class="item address">
@@ -45,7 +48,7 @@ export default {
     font-size: 0.24rem;
     position: relative;
     .label{
-      color: #000000;
+      color: #a0a0a0;
     }
     .text{
       color: #656565;
@@ -62,7 +65,9 @@ export default {
       border-bottom: 1px solid #e4e4e4;
       .moneyTitle{
         color: @theme-color;
-        font-weight: bold;
+        .text{
+          font-weight: bold;
+        }
       }
     }
     .address{

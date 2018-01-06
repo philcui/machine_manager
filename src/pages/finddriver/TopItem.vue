@@ -2,11 +2,17 @@
   <a class="topItem" :href="gethref()">
     <div class="line1">
       <!-- <img class="money" src="./img/money.png" alt=""> -->
-      <span class="number">工资：{{topObj.salary}}元/月</span>
+      <span class="number">
+        <span class="label">工资：</span>
+        <span class="text">{{topObj.salary}}元/月</span> 
+      </span>
       <tag v-for="(item, index) in getTags()" :key="index" :tagName='item'></tag>
     </div>
     <div class="line2">
-      <span>地点：{{topObj.address}}</span>
+      <span>
+        <span class="label">地点：</span>
+        <span class="text">{{topObj.address}}</span>
+      </span>
     </div>
     <img class="jipin" src="./img/jipin.png" alt="">
   </a>
@@ -32,9 +38,9 @@ export default {
       if(this.topObj.car_type_id){
         tags.push(getName(car_type[0], this.topObj.car_type_id))
       }
-      if(this.topObj.mode){
-        tags.push(getName(mode_type[0], this.topObj.mode))
-      }
+      // if(this.topObj.mode){
+      //   tags.push(getName(mode_type[0], this.topObj.mode))
+      // }
       // if(this.topObj.benefit){
       //   tags.push(getName(benefit[0], this.topObj.benefit))
       // }
@@ -70,14 +76,16 @@ export default {
       .number{
         margin-right: 0.2rem;
         color: @theme-color;
-        font-weight: bold;
+        .text{
+          font-weight: bold;
+        }
       }
     }
     .line2{
       height: 0.62rem;
       line-height: 0.62rem;
       overflow: hidden;
-      span{
+      .text{
         color: @second-color;
       }
     }
@@ -87,6 +95,9 @@ export default {
       right: 0.2rem;
       top: 0;
       width: 0.48rem;
+    }
+    .label{
+      color: #a0a0a0;
     }
   }
 </style>

@@ -332,7 +332,7 @@ export default {
       if (this.addVal && this.addVal.length > 0 && this.addVal[0]) {
         return this.findName(this.addVal[0], provinceData);
       } else {
-        return "地点";
+        return "工作地点";
       }
     },
     macTypeName() {
@@ -421,7 +421,8 @@ export default {
     }
   }
   .address {
-    flex: 1;
+    flex: 2;
+    letter-spacing: 0.1rem;
   }
   .machineType {
     flex: 1;

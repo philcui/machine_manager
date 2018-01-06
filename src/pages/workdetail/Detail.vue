@@ -2,9 +2,9 @@
   <div class="detail">
     <div class="info info1">
       <!-- <img class="avatar" src="../../assets/avatar.png" alt=""> -->
-      <div class="report">
-        如遇虚假信息，请<a :href="'../report/index.html?type=1&id=' + info.id">点此举报</a>
-      </div>
+      <a :href="'../report/index.html?type=1&id=' + info.id" class="report">
+        <img src="./img/jubao.png" alt="">
+      </a>
       <div class="right">
         {{moment(info.utime).format("YYYY-MM-DD HH:MM")}}
       </div>
@@ -146,11 +146,13 @@ export default {
     position: relative;
     height: 0.6rem;
     justify-content: space-between;
+    margin-top: 0.24rem;
+    a{
+      height: 0.37rem;
+    }
     .report {
-      color: #686868;
-      font-size: 0.3rem;
-      a {
-        color: red;
+      img{
+        height: 0.37rem;
       }
     }
     .avatar {

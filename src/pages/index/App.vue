@@ -35,6 +35,7 @@
     <x-dialog @on-show='initReg' v-model="showReg" :dialog-style="{'background-color': 'transparent', 'width': '87%', 'max-width': '100%'}">
       <div class="regContent">
         <!-- <a href="" class="huangou"><img src="./img/huangou.png" alt=""></a> -->
+        <img class="reg_img" src="./img/reg_img.jpg" alt="">
         <div class="info">
           <p class="label"><span>* </span>手机号码</p>
           <div class="phoneLine">
@@ -56,7 +57,7 @@
             提 交
           </div>
         </div>
-        <div class="regTip">注册用户才可体验完整功能哦</div>
+        <!-- <div class="regTip">注册用户才可体验完整功能哦</div> -->
       </div>
       <div @click="showReg=false">
         <img class="close" src="../../assets/close.png" alt="">
@@ -336,7 +337,7 @@ export default {
     }
   },
   mounted() {
-    this.setCookie();
+    //this.setCookie();
     this.getAccountInfo();
     this.getArtical();
   }
@@ -375,22 +376,19 @@ export default {
 .regContent {
   //width: 5.54rem;
   min-height: 6.96rem;
-  background: url(./img/reg_bg.jpg) no-repeat center center;
-  background-size: cover;
-  position: relative;
+  padding-bottom: 0.38rem;
+  //background: url(./img/reg_bg.jpg) no-repeat center center;
+  //background-size: cover;
+  //position: relative;
   box-sizing: border-box;
-  padding-top: 3.2rem;
-  .huangou {
-    position: absolute;
-    top: 1.97rem;
-    right: 0;
-    img {
-      height: 0.34rem;
-    }
+  background-color: #e1e1e1;
+  //padding-top: 3.2rem;
+  .reg_img{
+    width: 100%;
   }
   .info {
-    margin-left: 0.68rem;
-    margin-right: 0.68rem;
+    margin-left: 0.31rem;
+    margin-right: 0.31rem;
     .label {
       text-align: left;
       font-size: 0.194rem;
@@ -400,7 +398,7 @@ export default {
       }
     }
     .phoneLine {
-      height: 0.68rem;
+      height: 1rem;
       border: 1px solid #bfbbab;
       border-radius: 0.05rem;
       background-color: white;
@@ -412,13 +410,14 @@ export default {
         height: 100%;
         background-color: #f1f1f1;
         text-align: center;
-        line-height: 0.68rem;
+        line-height: 1rem;
         float: left;
       }
       input {
         display: block;
         float: left;
         width: 2.72rem;
+        height: 100%;
         padding: 0.2rem;
         font-size: 0.24rem;
         box-sizing: border-box;
@@ -429,29 +428,31 @@ export default {
       margin-top: 0.3rem;
       box-sizing: border-box;
       overflow: hidden;
+      display: flex;
       .codeInput {
-        width: 2.52rem;
+        //width: 2.52rem;
+        flex: 1;
         float: left;
         border: 1px solid #bfbbab;
-        height: 0.68rem;
+        height: 1rem;
         input {
           display: inline-block;
           padding: 0.2rem;
           font-size: 0.24rem;
           box-sizing: border-box;
           border: none;
-          width: 2.52rem;
+          width: 100%;
           height: 100%;
         }
       }
       .codeBtn {
-        width: 1.38rem;
+        width: 1.35rem;
         margin-left: 0.23rem;
         height: 100%;
         border: 1px solid #bfbbab;
         border-radius: 0.05rem;
-        height: 0.68rem;
-        line-height: 0.68rem;
+        height: 1rem;
+        line-height: 1rem;
         background-color: #f1f1f1;
         text-align: center;
         font-size: 0.21rem;
@@ -461,7 +462,7 @@ export default {
     }
     .selectLine {
       margin-top: 0.3rem;
-      height: 0.55rem;
+      height: 1rem;
       border: 1px solid #bfbbab;
       border-radius: 0.05rem;
       background-color: white;
@@ -473,19 +474,25 @@ export default {
         border: none;
         height: 100%;
         width: 100%;
+        appearance: none;
+        background: url("./img/select.jpg") no-repeat scroll right center transparent;
+        background-size: 1.35rem 100%;
+        padding: 0.3rem; 
+        letter-spacing: 0.1rem;
       }
     }
   }
   .submit {
-    margin: 0.2rem auto;
-    height: 0.66rem;
-    width: 3.45rem;
+    margin: 0 auto;
+    margin-top: 0.38rem;
+    height: 0.74rem;
+    width: 2.7rem;
     text-align: center;
     line-height: 0.66rem;
     color: white;
     font-size: 0.29rem;
     border-radius: 0.05rem;
-    background-color: @theme-color;
+    background-color: #b98f5c;
   }
   .regTip{
     background-color: white;

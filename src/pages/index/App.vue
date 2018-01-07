@@ -92,7 +92,7 @@ export default {
         {
           imgSrc: require("./img/zhaojiashi.png"),
           title: "找驾驶员",
-          url: "/finddriver/index.html"
+          url: "/selectindent/index.html"
         },
         {
           imgSrc: require("./img/guzhang.png"),

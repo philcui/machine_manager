@@ -67,16 +67,16 @@
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <div class="hrbottom">
-      <div class="btnpu left">
+      <div class="btnpu left" v-show="showBtn.showLeft">
         <img src="./img/icon_owner.png" alt="">
-        <a @click="pubInfo" class="button">发布机主招聘</a>
+        <a @click="pubInfo" class="button">我是机主：发布招聘</a>
       </div>
-      <div class="btnpu">
+      <div class="btnpu" v-show="showBtn.showRight">
         <img src="./img/icon_driver.png" alt="">
-        <a @click="pubResume" class="button">发布机手求职</a>
+        <a @click="pubResume" class="button">我是机手：发布求职</a>
       </div>
     </div>
-    <img src="./img/publish.png" class="publish" @click="showDialog=true">
+    <!-- <img src="./img/publish.png" class="publish" @click="showDialog=true"> -->
 
     <x-dialog v-model="showDialog" class="dialog-trans" :dialog-style="{'background-color': 'transparent', 'max-width': '100%'}">
       <div class="dia-content">
@@ -112,6 +112,7 @@ import NormalItem from "./NormalItem.vue";
 import provinceData from "@/data/prov.json";
 //import {jobList, adsList} from "@/mock/index.js";
 import { throttle } from 'vux'
+import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
     return {
@@ -158,7 +159,11 @@ export default {
             name: "12000以上"
           }
         ]
-      ]
+      ],
+      showBtn: {
+        showLeft: true,
+        showRight: false,
+      }
     };
   },
   methods: {
@@ -311,6 +316,20 @@ export default {
       this.loadAds()
       sessionStorage.setItem("addVal", this.addVal)
     },
+    setBtn(){
+      let flag = getUrlKey("indent")
+      if(flag == 1){
+        this.showBtn = {
+          showLeft: true,
+          showRight: false
+        }
+      }else{
+        this.showBtn = {
+          showLeft: false,
+          showRight: true
+        }
+      }
+    },
   },
   components: {
     XAddress,
@@ -366,6 +385,7 @@ export default {
     this.setFilterFromCache()
     this.reloadData()
     this.loadAds()
+    this.setBtn()
   },
   watch: {
     // addVal() {

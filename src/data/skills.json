@@ -1,52 +1,73 @@
 [
   {
-    "value": "1",
-    "key": "挖沟",
-    "sort": 0
+    "id":100,
+    "name":"矿山活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 2,
-    "key": "整平",
-    "sort": 0
+    "id":101,
+    "name":"土方活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 3,
-    "key": "修坡",
-    "sort": 0
+    "id":102,
+    "name":"隧道活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 4,
-    "key": "河道",
-    "sort": 0
+    "id":103,
+    "name":"市政活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 5,
-    "key": "隧道",
-    "sort": 0
+    "id":104,
+    "name":"修路活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 6,
-    "key": "绿化",
-    "sort": 0
+    "id":105,
+    "name":"煤矿活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 7,
-    "key": "矿山",
-    "sort": 0
+    "id":106,
+    "name":"拆楼拆迁",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 8,
-    "key": "破碎",
-    "sort": 0
+    "id":107,
+    "name":"房地产活",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 9,
-    "key": "拆楼",
-    "sort": 0
+    "id":108,
+    "name":"农田改造",
+    "sort":0,
+    "is_enabled":"1"
   },
   {
-    "value": 10,
-    "key": "甩方",
-    "sort": 0
-  }
-]
+    "id":109,
+    "name":"石头修坡",
+    "sort":0,
+    "is_enabled":"1"
+  },
+  {
+    "id":110,
+    "name":"水路挖机",
+    "sort":0,
+    "is_enabled":"1"
+  },
+  {
+    "id":111,
+    "name":"其他",
+    "sort":0,
+    "is_enabled":"1"
+  }]

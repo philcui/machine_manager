@@ -1,73 +1,73 @@
 [
   {
     "id":100,
-    "name":"矿山活",
+    "value":"矿山活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":101,
-    "name":"土方活",
+    "value":"土方活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":102,
-    "name":"隧道活",
+    "value":"隧道活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":103,
-    "name":"市政活",
+    "value":"市政活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":104,
-    "name":"修路活",
+    "value":"修路活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":105,
-    "name":"煤矿活",
+    "value":"煤矿活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":106,
-    "name":"拆楼拆迁",
+    "value":"拆楼拆迁",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":107,
-    "name":"房地产活",
+    "value":"房地产活",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":108,
-    "name":"农田改造",
+    "value":"农田改造",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":109,
-    "name":"石头修坡",
+    "value":"石头修坡",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":110,
-    "name":"水路挖机",
+    "value":"水路挖机",
     "sort":0,
     "is_enabled":"1"
   },
   {
     "id":111,
-    "name":"其他",
+    "value":"其他",
     "sort":0,
     "is_enabled":"1"
   }]

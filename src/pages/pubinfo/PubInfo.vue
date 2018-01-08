@@ -354,6 +354,8 @@ export default {
       this.isLikePay = data.will_pay
       this.realname = data.realname
       //this.anotherWorkContent = data.anotherWorkContent
+      this.anotherWorkContent = []
+
     },
     getAddList(target){
       let res = []

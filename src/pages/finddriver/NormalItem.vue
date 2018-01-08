@@ -4,9 +4,9 @@
       <!-- <img src="./img/money_strong.png" alt=""> -->
       <span class="moneyTitle">
         <span class="label">工资：</span>
-        <span class="text">{{normalObj.salary}}元/月</span> 
+        <span class="text">{{normalObj.salary}}元/月</span>
       </span>
-      <tag v-if="normalObj.car_type" :tagName='normalObj.car_type'></tag>
+      <tag v-if="normalObj.car_type_alias" :tagName='normalObj.car_type_alias'></tag>
     </div>
     <div class="item address">
       <!-- <img src="./img/car.png" alt=""> -->

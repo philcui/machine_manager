@@ -4,7 +4,7 @@
       <!-- <img class="money" src="./img/money.png" alt=""> -->
       <span class="number">
         <span class="label">工资：</span>
-        <span class="text">{{topObj.salary}}元/月</span> 
+        <span class="text">{{topObj.salary}}元/月</span>
       </span>
       <tag v-for="(item, index) in getTags()" :key="index" :tagName='item'></tag>
     </div>
@@ -25,6 +25,7 @@ import mode_type from "@/data/mode_type.json"
 import location from "@/data/location.json"
 import benefit from "@/data/benefit.json"
 import getName from "@/utils/getName.js"
+import getAliasName from "@/utils/getAliasName";
 export default {
   props:{
     topObj: Object
@@ -36,7 +37,7 @@ export default {
     getTags(){
       let tags = []
       if(this.topObj.car_type_id){
-        tags.push(getName(car_type[0], this.topObj.car_type_id))
+        tags.push(getAliasName(car_type[0], this.topObj.car_type_id))
       }
       // if(this.topObj.mode){
       //   tags.push(getName(mode_type[0], this.topObj.mode))

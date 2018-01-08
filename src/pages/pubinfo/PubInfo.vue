@@ -298,7 +298,7 @@ export default {
           skill_list: this.skills_name.length == 0 ? "" : this.skills_name,
           bond: this.bondSalary,
           description: this.description,
-          anotherWorkContent: anotherWorkContent,
+          anotherWorkContent: this.anotherWorkContent,
           /*will_pay: this.isLikePay,*/
         })
     },

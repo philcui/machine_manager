@@ -1,62 +1,52 @@
 [
   {
     "value": "1",
-    "key": "矿山活",
+    "key": "挖沟",
     "sort": 0
   },
   {
     "value": 2,
-    "key": "土方活",
+    "key": "整平",
     "sort": 0
   },
   {
     "value": 3,
-    "key": "隧道活",
+    "key": "修坡",
     "sort": 0
   },
   {
     "value": 4,
-    "key": "市政活",
+    "key": "河道",
     "sort": 0
   },
   {
     "value": 5,
-    "key": "修路活",
+    "key": "隧道",
     "sort": 0
   },
   {
     "value": 6,
-    "key": "煤矿活",
+    "key": "绿化",
     "sort": 0
   },
   {
     "value": 7,
-    "key": "拆楼拆迁",
+    "key": "矿山",
     "sort": 0
   },
   {
     "value": 8,
-    "key": "房地产活",
+    "key": "破碎",
     "sort": 0
   },
   {
     "value": 9,
-    "key": "农田改造",
+    "key": "拆楼",
     "sort": 0
   },
   {
     "value": 10,
-    "key": "石头修坡",
-    "sort": 0
-  },
-  {
-    "value": 10,
-    "key": "水陆挖机",
-    "sort": 0
-  },
-  {
-    "value": 10,
-    "key": "其它",
+    "key": "甩方",
     "sort": 0
   }
 ]

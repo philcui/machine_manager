@@ -217,7 +217,7 @@ export default {
                     this.sendTime = 60;
                     this.isSending = false;
                   } else {
-                    this.checkButtonText = (this.sendTime--).toString() + "秒后重发";
+                    this.checkButtonText = (this.sendTime--).toString() + "秒后重发"; 
                   }
                 }, 1000);
                 this.timer = int;

@@ -39,6 +39,17 @@
     </group>
     <group gutter='0.2rem'>
       <div v-show="isShowWorkContent">
+        <p class="checker_content">你还会哪些设备</p>
+        <checker class="checker" type='checkbox' v-model="anotherWorkContent" default-item-class="work-item" selected-item-class="work-item-selected">
+          <checker-item
+            v-for="(item, index) in anotherSkill"
+            :key="index"
+            :value='item.value'>
+            {{item.key}}
+          </checker-item>
+        </checker>
+      </div>
+      <div v-show="isShowWorkContent">
         <p class="checker_content">工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
@@ -122,6 +133,25 @@ export default {
       bondSalary: "",
       bondList: bond,
       type: 0,
+      anotherWorkContent: [],
+      anotherSkill: [
+        {
+          value: "长臂挖",
+          key: "长臂挖"
+        },
+        {
+          value: "轮挖",
+          key: "轮挖"
+        },
+        {
+          value: "水陆挖",
+          key: "水陆挖"
+        },
+        {
+          value: "装载机",
+          key: "装载机"
+        },
+      ]
     };
   },
   components: {
@@ -267,8 +297,9 @@ export default {
           mobile: this.phone,
           skill_list: this.skills_name.length == 0 ? "" : this.skills_name,
           bond: this.bondSalary,
-          description: this.description/*,
-          will_pay: this.isLikePay,*/
+          description: this.description,
+          anotherWorkContent: anotherWorkContent,
+          /*will_pay: this.isLikePay,*/
         })
     },
     getResInfo(res){
@@ -322,6 +353,7 @@ export default {
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
       this.realname = data.realname
+      //this.anotherWorkContent = data.anotherWorkContent
     },
     getAddList(target){
       let res = []

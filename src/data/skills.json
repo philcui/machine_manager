@@ -1,61 +1,61 @@
 [
   {
-    "value": "1",
+    "value": 100,
     "key": "矿山活",
     "sort": 0
   },
   {
-    "value": 2,
+    "value": 101,
     "key": "土方活",
     "sort": 0
   },
   {
-    "value": 3,
+    "value": 102,
     "key": "隧道活",
     "sort": 0
   },
   {
-    "value": 4,
+    "value": 103,
     "key": "市政活",
     "sort": 0
   },
   {
-    "value": 5,
+    "value": 104,
     "key": "修路活",
     "sort": 0
   },
   {
-    "value": 6,
+    "value": 105,
     "key": "煤矿活",
     "sort": 0
   },
   {
-    "value": 7,
+    "value": 106,
     "key": "拆楼拆迁",
     "sort": 0
   },
   {
-    "value": 8,
+    "value": 107,
     "key": "房地产活",
     "sort": 0
   },
   {
-    "value": 9,
+    "value": 108,
     "key": "农田改造",
     "sort": 0
   },
   {
-    "value": 10,
+    "value": 109,
     "key": "石头修坡",
     "sort": 0
   },
   {
-    "value": 10,
+    "value": 110,
     "key": "水陆挖机",
     "sort": 0
   },
   {
-    "value": 10,
+    "value": 111,
     "key": "其它",
     "sort": 0
   }

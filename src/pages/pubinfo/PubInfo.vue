@@ -38,7 +38,7 @@
       <div class="mycell nextTip">【以下部分为选填项】</div>
     </group>
     <group gutter='0.2rem'>
-      <div v-show="isShowWorkContent">
+      <!--div v-show="isShowWorkContent">
         <p class="checker_content">你还会哪些设备</p>
         <checker class="checker" type='checkbox' v-model="anotherWorkContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
@@ -48,7 +48,7 @@
             {{item.key}}
           </checker-item>
         </checker>
-      </div>
+      </div-->
       <div v-show="isShowWorkContent">
         <p class="checker_content">工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">

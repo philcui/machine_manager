@@ -93,7 +93,7 @@ export default {
     .jipin{
       position: absolute;
       display: block;
-      right: 0.2rem;
+      right: 0.50rem;
       top: 0;
       width: 0.48rem;
     }

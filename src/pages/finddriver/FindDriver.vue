@@ -467,7 +467,7 @@ export default {
   height: 100%;
   overflow: auto;
   padding-top: 0.57rem;
-  padding-bottom: 0.78rem;
+  padding-bottom: 1rem;
   background-color: #eeeeee;
   z-index: 2;
   box-sizing: border-box;
@@ -503,7 +503,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 0.78rem;
+    height: 1rem;
     background-color: @theme-color;
     img {
       height: 0.34rem;

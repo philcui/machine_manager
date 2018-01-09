@@ -38,17 +38,17 @@
       <div class="mycell nextTip">【以下部分为选填项】</div>
     </group>
     <group gutter='0.2rem'>
-      <!--div v-show="isShowWorkContent">
-        <p class="checker_content">你还会哪些设备</p>
-        <checker class="checker" type='checkbox' v-model="anotherWorkContent" default-item-class="work-item" selected-item-class="work-item-selected">
+      <div>
+        <p class="checker_content">特别说明</p>
+        <checker class="checker" type='checkbox' v-model="specialInfo" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
-            v-for="(item, index) in anotherSkill"
+            v-for="(item, index) in specialInfoList"
             :key="index"
             :value='item.value'>
             {{item.key}}
           </checker-item>
         </checker>
-      </div-->
+      </div>
       <div v-show="isShowWorkContent">
         <p class="checker_content">工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
@@ -133,24 +133,17 @@ export default {
       bondSalary: "",
       bondList: bond,
       type: 0,
-      anotherWorkContent: [],
-      anotherSkill: [
+
+      specialInfo: [],
+      specialInfoList: [
         {
-          value: "长臂挖",
-          key: "长臂挖"
+          key: "新机子",
+          value: "新机子",
         },
         {
-          value: "轮挖",
-          key: "轮挖"
-        },
-        {
-          value: "水陆挖",
-          key: "水陆挖"
-        },
-        {
-          value: "装载机",
-          key: "装载机"
-        },
+          key: "要新手",
+          value: "要新手"
+        }
       ]
     };
   },
@@ -250,6 +243,7 @@ export default {
       if (this.validatePubInfo()) {
         if(!this.isShowWorkContent){
           this.workContent = []
+          this.specialInfo = []
           this.operate = []
         }
         //前端校验通过
@@ -296,6 +290,8 @@ export default {
           max_salary: JSON.parse(this.salary[0])[1],
           mobile: this.phone,
           skill_list: this.skills_name.length == 0 ? "" : this.skills_name,
+          special_list: this.specials_name.length == 0 ? "" : this.specials_name,
+
           bond: this.bondSalary,
           description: this.description,
           anotherWorkContent: this.anotherWorkContent,
@@ -320,8 +316,8 @@ export default {
         this.setHisInfo(res.data.data)
       })
     },
-    getSkillValue(keys, list){
-      if(keys == ""){
+    getItemValue(keys, list){
+      if(!keys){
         return []
       }
       keys = keys.split(' ')
@@ -348,13 +344,15 @@ export default {
       this.phone = data.mobile
       this.description = data.description
       //todo 这里的接口返回的是数值不是id导致前端双层遍历查找
-      this.workContent = this.getSkillValue(data.skills, this.skillList)
+      this.workContent = this.getItemValue(data.skills, this.skillList)
+      this.specialInfo = this.getItemValue(data.specials, this.specialInfoList)
+
       this.bondSalary = data.bond
       this.zhengshu = data.certified
       this.isLikePay = data.will_pay
       this.realname = data.realname
       //this.anotherWorkContent = data.anotherWorkContent
-      this.anotherWorkContent = []
+      //this.anotherWorkContent = []
 
     },
     getAddList(target){
@@ -370,6 +368,13 @@ export default {
       let names = [];
       this.workContent.forEach((item, index, arr) => {
         names.push(this.skillList.find((it) => {return it.value == item}).key);
+      });
+      return names;
+    },
+    specials_name(){
+      let names = [];
+      this.specialInfo.forEach((item, index, arr) => {
+        names.push(this.specialInfoList.find((it) => {return it.value == item}).key);
       });
       return names;
     },
@@ -435,6 +440,9 @@ export default {
       color: #eeeeee;
       font-size: 0.25rem;
     }
+  }
+  .skillcell {
+    padding-right: 0 !important;
   }
   .addTip {
     font-size: 0.2rem;

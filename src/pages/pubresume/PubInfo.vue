@@ -50,17 +50,17 @@
       </div>
     </group>
     <group gutter='0.2rem'>
-      <!--div class="mycell skillcell">
-        <p>特别说明</p>
-        <checker class="checker" type='checkbox' v-model="specialInfo" default-item-class="work-item" selected-item-class="work-item-selected">
+      <div class="mycell skillcell">
+        <p>你还会哪些设备</p>
+        <checker class="checker" type='checkbox' v-model="anotherWorkContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
-            v-for="(item, index) in specialInfoList"
+            v-for="(item, index) in anotherSkill"
             :key="index"
             :value='item.value'>
             {{item.key}}
           </checker-item>
         </checker>
-      </div-->
+      </div>
       <div class="mycell skillcell">
         <p>工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
@@ -104,9 +104,9 @@
       <!-- 工作技能 -->
       <input type="hidden" name="skill_list[]" v-for="(item, index) in skills_name" :key="index" :value="item">
       <input type="hidden" name="skill_list" v-if="skills_name.length == 0" value="">
-      <!-- 特别说明 -->
-      <input type="hidden" name="special_info_list[]" v-for="(item, index) in specialInfo" :key="index" :value="item">
-      <input type="hidden" name="special_info_list" v-if="specialInfo.length == 0" value="">
+      <!-- 其他工作技能 -->
+      <input type="hidden" name="another_skill_list[]" v-for="(item, index) in another_skills_name" :key="index" :value="item">
+      <input type="hidden" name="another_skill_list" v-if="another_skills_name.length == 0" value="">
       <!-- 压工资 -->
       <input type="hidden" name="bond" v-model="bondSalary">
       <!-- 工作介绍 -->
@@ -186,16 +186,24 @@ export default {
       editType: "/api/resume/add",
       bondSalary: "",
       bondList: bond,
-      specialInfo: [],
-      specialInfoList: [
+      anotherWorkContent: [],
+      anotherSkill: [
         {
-          key: "新机子",
-          value: "新机子",
+          value: "长臂挖",
+          key: "长臂挖"
         },
         {
-          key: "要新手",
-          value: "要新手"
-        }
+          value: "轮挖",
+          key: "轮挖"
+        },
+        {
+          value: "水路挖",
+          key: "水路挖"
+        },
+        {
+          value: "装载机",
+          key: "装载机"
+        },
       ]
     };
   },
@@ -218,6 +226,14 @@ export default {
       });
       return names;
     },
+    another_skills_name() {
+      let names = [];
+      this.anotherWorkContent.forEach((item, index, arr) => {
+        names.push(this.anotherSkill.find((it) => {return it.value == item}).key);
+      });
+      return names;
+    },
+
     subAdd(){
       if(this.addVal[2] == '--'){
         return this.addVal[1]
@@ -364,8 +380,8 @@ export default {
         }
       })
     },
-    getSkillValue(keys, list){
-      if(keys == ""){
+    getItemValue(keys, list){
+      if(!keys){
         return []
       }
       keys = keys.split(' ')
@@ -392,7 +408,9 @@ export default {
       this.description = data.description
       //todo 这里的接口返回的是数值不是id导致前端双层遍历查找
       //todo 这里如果key与value相同，会简化许多
-      this.workContent = this.getSkillValue(data.skills, this.skillList)
+      this.workContent = this.getItemValue(data.skills, this.skillList)
+      this.anotherWorkContent= this.getItemValue(data.another_skills, this.anotherSkill)
+
       //this.specialInfo = data.specialInfo
       this.bondSalary = data.bond
       this.zhengshu = data.certified
@@ -506,9 +524,7 @@ export default {
     color: #434343;
   }
 }
-.skillcell {
-  padding-right: 0 !important;
-}
+
 .img-box {
   height: 7.46rem;
   overflow: hidden;

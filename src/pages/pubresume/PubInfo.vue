@@ -50,7 +50,7 @@
       </div>
     </group>
     <group gutter='0.2rem'>
-      <div class="mycell skillcell">
+      <!--div class="mycell skillcell">
         <p>特别说明</p>
         <checker class="checker" type='checkbox' v-model="specialInfo" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
@@ -60,7 +60,7 @@
             {{item.key}}
           </checker-item>
         </checker>
-      </div>
+      </div-->
       <div class="mycell skillcell">
         <p>工作内容</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">

@@ -7,6 +7,7 @@
         <span class="text">{{topObj.salary}}元/月</span>
       </span>
       <tag v-for="(item, index) in getTags()" :key="index" :tagName='item'></tag>
+      <tag :tag-style="{'background': '#ca9d63', 'color': '#fff'}" v-for="(item, index) in specialList" :key="index" :tagName='item'></tag>
     </div>
     <div class="line2">
       <span>
@@ -27,6 +28,11 @@ import benefit from "@/data/benefit.json"
 import getName from "@/utils/getName.js"
 import getAliasName from "@/utils/getAliasName";
 export default {
+  data(){
+    return {
+      specialList: []
+    }
+  },
   props:{
     topObj: Object
   },
@@ -50,7 +56,18 @@ export default {
     gethref(){
       return "../workdetail/index.html?id=" + this.topObj.id
     },
+    getSpecialTag(){
+      let list = this.topObj.specials
+      if(list == "" || list == null){
+        this.specialList = []
+      }else{
+        this.topObj = list.split(" ")
+      }
+    },
   },
+  mounted(){
+    this.getSpecialTag()
+  }
 }
 </script>
 

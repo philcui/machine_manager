@@ -146,13 +146,13 @@ export default {
     position: relative;
     height: 0.6rem;
     justify-content: space-between;
-    margin-top: 0.24rem;
+    margin-top: 0.1rem;
     a{
       height: 0.37rem;
     }
     .report {
       img{
-        height: 0.37rem;
+        height: 0.42rem;
       }
     }
     .avatar {
@@ -167,7 +167,7 @@ export default {
   .info2 {
   }
   .info3 {
-    margin-top: 0.18rem;
+    //margin-top: 0.18rem;
     flex: 1;
     .workDetail {
       font-size: 0.24rem;

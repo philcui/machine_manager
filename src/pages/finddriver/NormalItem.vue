@@ -7,6 +7,7 @@
         <span class="text">{{normalObj.salary}}元/月</span>
       </span>
       <tag v-if="normalObj.car_type_alias" :tagName='normalObj.car_type_alias'></tag>
+      <tag :tag-style="{'background': '#ca9d63', 'color': '#fff'}" v-for="(item, index) in specialList" :key="index" :tagName='item'></tag> 
     </div>
     <div class="item address">
       <!-- <img src="./img/car.png" alt=""> -->
@@ -25,6 +26,11 @@
 <script>
 import Tag from '@/components/Tag.vue'
 export default {
+  data(){
+    return {
+      specialList : [],
+    }
+  },
   props:{
     normalObj: Object
   },
@@ -34,7 +40,18 @@ export default {
   methods: {
     gethref(){
       return "../workdetail/index.html?id=" + this.normalObj.id
-    }
+    },
+    getSpecialTag(){
+      let list = this.normalObj.specials
+      if(list == "" || list == null){
+        this.specialList = []
+      }else{
+        this.specialList = list.split(" ")
+      }
+    },
+  },
+  mounted(){
+    this.getSpecialTag()
   }
 }
 </script>

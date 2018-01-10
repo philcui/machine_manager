@@ -51,7 +51,7 @@
     </group>
     <group gutter='0.2rem'>
       <div class="mycell skillcell">
-        <p>你还会哪些设备</p>
+        <p class="label">你还会哪些设备（可多选）</p>
         <checker class="checker" type='checkbox' v-model="anotherWorkContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
             v-for="(item, index) in anotherSkill"
@@ -62,7 +62,7 @@
         </checker>
       </div>
       <div class="mycell skillcell">
-        <p>工作内容</p>
+        <p class="label">会干的活儿（可多选）</p>
         <checker class="checker" type='checkbox' v-model="workContent" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
             v-for="(item, index) in skillList"
@@ -73,7 +73,7 @@
         </checker>
       </div>
       <div class="mycell skillcell">
-        <p>是否接受压工资</p>
+        <p class="label">是否接受压工资</p>
         <checker class="checker" v-model="bondSalary" default-item-class="work-item" selected-item-class="work-item-selected">
           <checker-item
             v-for="(item, index) in bondList"
@@ -548,5 +548,8 @@ export default {
     width: 100%;
     opacity: 0;
   }
+}
+.label{
+  margin-bottom: 0.1rem;
 }
 </style>

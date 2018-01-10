@@ -1,11 +1,12 @@
 <template>
-  <span class="tag">{{tagName}}</span>
+  <span :style="tagStyle" class="tag">{{tagName}}</span>
 </template>
 
 <script>
 export default {
   props: {
-    tagName: String
+    tagName: String,
+    tagStyle: Object,
   }
 }
 </script>

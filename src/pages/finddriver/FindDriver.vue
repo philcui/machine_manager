@@ -67,13 +67,17 @@
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <div class="hrbottom">
-      <div class="btnpu left" v-show="showBtn.showLeft">
-        <img src="./img/icon_owner.png" alt="">
-        <a @click="pubInfo" class="button">我是机主：发布招聘</a>
+      <div @click="pubInfo" class="btnpu left" v-show="showBtn.showLeft">
+        <div class="line_btn">
+          <img src="./img/icon_owner.png" alt="">
+          <a class="button">我是机主：发布招聘</a>
+        </div>
       </div>
-      <div class="btnpu" v-show="showBtn.showRight">
-        <img src="./img/icon_driver.png" alt="">
-        <a @click="pubResume" class="button">我是机手：发布求职</a>
+      <div @click="pubResume" class="btnpu" v-show="showBtn.showRight">
+        <div class="line_btn">
+          <img src="./img/icon_driver.png" alt="">
+          <a class="button">我是机手：发布求职</a>
+        </div>
       </div>
     </div>
     <!-- <img src="./img/publish.png" class="publish" @click="showDialog=true"> -->
@@ -81,12 +85,16 @@
     <x-dialog v-model="showDialog" class="dialog-trans" :dialog-style="{'background-color': 'transparent', 'max-width': '100%'}">
       <div class="dia-content">
         <div class="dia_content_line" style="border-bottom: 1px solid #707070;">
-          <img src="./img/icon_find.png" alt="">
-          <a @click="pubInfo" class="dia-button">我是机主：发布招聘</a>
+          <div class="line_btn">
+            <img src="./img/icon_find.png" alt="">
+            <a @click="pubInfo" class="dia-button">我是机主：发布招聘</a>
+          </div>
         </div>
         <div class="dia_content_line">
-          <img src="./img/icon_admin.png" alt="">
-          <a @click="pubResume" class="dia-button">我是机手：发布求职</a>
+          <div class="line_btn">
+            <img src="./img/icon_admin.png" alt="">
+            <a @click="pubResume" class="dia-button">我是机手：发布求职</a>
+          </div>
         </div>
       </div>
       <div @click="showDialog=false">
@@ -263,6 +271,7 @@ export default {
         .post("/api/job/ads-list", this.getFilter({ limit: 5 }))
         .then(res => {
           this.topList = res.data.data;
+          console.log(res);
         });
     },
     getRegInfo(){
@@ -505,6 +514,7 @@ export default {
     align-items: center;
     height: 1rem;
     background-color: @theme-color;
+    padding: 0.15rem;
     img {
       height: 0.34rem;
       padding-right: 0.14rem;
@@ -558,4 +568,14 @@ export default {
     width: 0.6rem;
   }
 }
+ .line_btn{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #fff;
+    border-radius: 0.05rem;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>

@@ -355,7 +355,9 @@ export default {
   }
 }
 #app {
-  padding-bottom: 0.9rem;
+  padding-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
 }
 .menu {
   background-color: #fff;
@@ -369,7 +371,8 @@ export default {
   margin-top: 0.12rem;
   background-color: #fff;
   padding-top: 0.33rem;
-  max-height: 55%;
+  //max-height: 55%;
+  flex: 1;
   overflow-y: auto;
 }
 

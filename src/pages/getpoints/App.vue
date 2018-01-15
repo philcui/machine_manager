@@ -23,7 +23,7 @@
     <a @click="showTip = true" class="bottom">
       <img src="./img/friends.png" alt="">
       <div>邀请好友注册</div>
-      <div>+1500积分</div>
+      <div>+1000积分</div>
       <a class="btn uncomplete">去分享</a>
     </a>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>

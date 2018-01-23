@@ -51,10 +51,10 @@ export default {
         { imgSrc: require("./img/waji.png"), title: "挖机模型", url: "https://weidian.com/item_classes.html?userid=1154610337&c=107726851&ifr=itemclasses&src=itemclasses_107726851&wfr=wx&from=groupmessage&isappinstalled=0" },
       ],
       cellList2: [
-        { imgSrc: require("./img/baisi.png"), title: "百思不得姐", url: "http://www.budejie.com/" },
-        { imgSrc: require("./img/neihan.png"), title: "内涵视频", url: "http://neihanshequ.com/video/" },
-        { imgSrc: require("./img/huoshan.png"), title: "挖机视频", url: "https://v.pengxun.cn/f/s-826187?typeId=449253&h=0" },
-        { imgSrc: require("./img/meinv.png"), title: "美女直播", url: "http://www.huajiao.com/mobile/index" }
+        { imgSrc: require("./img/gaoxiaoduanzi.png"), title: "搞笑视频", url: "http://neihanshequ.com/video/" },
+        { imgSrc: require("./img/meinvshipin.png"), title: "美女直播", url: "http://live.bianxianmao.com/redirect.htm?appKey=06da220afd5b4406b11e776fecba4b25&appType=h5&appEntrance=1" },
+        { imgSrc: require("./img/wawaji.png"), title: "玩娃娃机", url: "https://wwj.bianxianmao.com/#/home?appKey=06da220afd5b4406b11e776fecba4b25&appType=h5&appEntrance=1" },
+        { imgSrc: require("./img/fulishe.png"), title: "福利社", url: "https://fuli.bianxianmao.com?appKey=06da220afd5b4406b11e776fecba4b25&appType=h5&appEntrance=1" },
       ]
     };
   },

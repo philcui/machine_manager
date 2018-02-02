@@ -5,7 +5,7 @@
     <div class="menu">
       <menu-cell :cell-style="{'height': '1.41rem'}" class="menu-cell" @on-cellclick="cellClick(item)" v-for="(item, index) in cellList" :key="index" :menuCell='item'></menu-cell>
     </div>
-    <a href="./invitefriends/index.html" class="ad"><img src="./img/ad.png" alt=""></a>
+    <a href="./invitefriends/index.html" class="ad"><img src="./img/ad.jpg" alt=""></a>
     <div class="jiyouquan">
       <hdivider class="divider"></hdivider>
       <jiyou-item v-for="(item, index) in jiyouList" :key="index" :itemData='item'></jiyou-item>
@@ -217,7 +217,7 @@ export default {
                     this.sendTime = 60;
                     this.isSending = false;
                   } else {
-                    this.checkButtonText = (this.sendTime--).toString() + "秒后重发"; 
+                    this.checkButtonText = (this.sendTime--).toString() + "秒后重发";
                   }
                 }, 1000);
                 this.timer = int;
@@ -480,7 +480,7 @@ export default {
         appearance: none;
         background: url("./img/select.jpg") no-repeat scroll right center transparent;
         background-size: 1.35rem 100%;
-        padding: 0.3rem; 
+        padding: 0.3rem;
         letter-spacing: 0.1rem;
       }
     }

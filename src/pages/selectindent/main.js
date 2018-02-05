@@ -5,7 +5,6 @@ import App from './App.vue'
 import FastClick from 'fastclick'
 import setRem from '@/utils/setRem.js'
 import axios from '@/utils/http.js'
-
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
@@ -14,7 +13,9 @@ new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
+  methods:{
+  },
   mounted(){
-    setRem()
-  }
+		setRem()
+	}
 })

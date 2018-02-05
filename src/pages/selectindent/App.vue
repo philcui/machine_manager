@@ -1,6 +1,7 @@
+
 <template>
   <div id="app">
-    <div class="selectPage">
+    <div class="selectPage" v-if="type==1">
       <div class="me1">
         <img src="./img/jizhu.png" alt="">
         <a href="../finddriver/index.html?indent=1" class="btn">
@@ -14,21 +15,40 @@
         </a>
       </div>
     </div>
+    <div class="selectPage" v-if="type==2">
+      <div class="me1">
+        <img src="./img/qiugou.png" alt="">
+        <a href="../salelist/index.html" class="btn">
+          我想求购二手机
+        </a>
+      </div>
+      <div class="me2">
+        <img src="./img/xiaoshou.png" alt="">
+        <a href="../buylist/index.html" class="btn">
+          我想销售二手机
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import getUrlKey from '@/utils/getUrlKey.js';
 export default {
   data(){
     return {
-      
+      type: 0
     }
   },
   methods:{
-
+  
   },
   components:{
 
+  },
+  mounted(){
+    this.type = getUrlKey('type')
+    console.log(getUrlKey('type'),this.type)
   }
 }
 </script>

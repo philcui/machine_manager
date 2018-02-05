@@ -1,5 +1,5 @@
 <template>
-  <div class="oneKeyShare">
+  <div class="oneKeyShare" :style="pStyle">
     <p class="tip">分享到朋友圈，赚积分，可以让更多业务找到你</p>
     <a @click="shareTip" class="shareButton">一键分享</a>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
@@ -13,6 +13,9 @@ export default {
     return {
       showTip: false
     }
+  },
+  props: {
+    pStyle: Object
   },
   methods:{
     shareTip(){
@@ -33,7 +36,7 @@ export default {
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 0.94rem;
+  bottom: 0.8rem;
   .tip{
     color: #626262;
     font-size: 0.216rem;

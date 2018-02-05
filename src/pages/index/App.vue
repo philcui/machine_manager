@@ -92,7 +92,7 @@ export default {
         {
           imgSrc: require("./img/zhaojiashi.png"),
           title: "找驾驶员",
-          url: "/selectindent/index.html"
+          url: "/selectindent/index.html?type=1"
         },
         {
           imgSrc: require("./img/guzhang.png"),
@@ -114,10 +114,10 @@ export default {
           title: "故障灯查询",
           url: "http://mp.weixin.qq.com/s/i_bzD3RzhQk-PxvWQ-8InQ"
         },
-        {
+       {
           imgSrc: require("./img/ershou.png"),
-          title: "二手机"
-
+          title: "二手机",
+          //url: "/selectindent/index.html?type=2"
         }
         // { imgSrc: require("./img/maimai.png"), title: "买卖供求" },
         // { imgSrc: require("./img/banche.png"), title: "板车托运" }

@@ -1,0 +1,904 @@
+[
+    {
+        "brand": "临工",
+        "list": [
+            {
+                "id": 1,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 2,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 3,
+                "model": "952",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 4,
+                "model": "952H",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 5,
+                "model": "952L",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 6,
+                "model": "953",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 7,
+                "model": "953L",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 8,
+                "model": "953N",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 9,
+                "model": "955N",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 10,
+                "model": "956",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 11,
+                "model": "956L",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 12,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 13,
+                "model": "933",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 14,
+                "model": "933L",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 15,
+                "model": "936",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 16,
+                "model": "936L",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 17,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 18,
+                "model": "920",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "龙工",
+        "list": [
+            {
+                "id": 19,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 20,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 21,
+                "model": "50C",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 22,
+                "model": "50CD",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 23,
+                "model": "850",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 24,
+                "model": "853",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 25,
+                "model": "853B",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 26,
+                "model": "853D",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 27,
+                "model": "853N",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 28,
+                "model": "855",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 29,
+                "model": "855B",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 30,
+                "model": "855D",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 31,
+                "model": "855E",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 32,
+                "model": "855N",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 33,
+                "model": "856",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 34,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 35,
+                "model": "833",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 36,
+                "model": "833B",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 37,
+                "model": "833n",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 38,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "柳工",
+        "list": [
+            {
+                "id": 39,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 40,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 41,
+                "model": "50C",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 42,
+                "model": "50CN",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 43,
+                "model": "50CN",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 44,
+                "model": "850H",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 45,
+                "model": "855",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 46,
+                "model": "856",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 47,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 48,
+                "model": "836",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 49,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "山工",
+        "list": [
+            {
+                "id": 50,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 51,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 52,
+                "model": "50F",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 53,
+                "model": "50F-2",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 54,
+                "model": "650",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 55,
+                "model": "650B",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 56,
+                "model": "652B",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 57,
+                "model": "655D",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 58,
+                "model": "952",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 59,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 60,
+                "model": "30E",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 61,
+                "model": "30E-2",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 62,
+                "model": "630",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 63,
+                "model": "632D",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 64,
+                "model": "636",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 65,
+                "model": "639",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 66,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "徐工",
+        "list": [
+            {
+                "id": 67,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 68,
+                "model": "500FL",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 69,
+                "model": "500FN",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 70,
+                "model": "500K",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 71,
+                "model": "500KN",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 72,
+                "model": "50G",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 73,
+                "model": "50GN",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 74,
+                "model": "520",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 75,
+                "model": "521",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 76,
+                "model": "540",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 77,
+                "model": "541",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 78,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 79,
+                "model": "300",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 80,
+                "model": "300F",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 81,
+                "model": "320",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 82,
+                "model": "321",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 83,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "厦工",
+        "list": [
+            {
+                "id": 84,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 85,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 86,
+                "model": "951",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 87,
+                "model": "955",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 88,
+                "model": "956",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 89,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 90,
+                "model": "320",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 91,
+                "model": "321",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 92,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "福田",
+        "list": [
+            {
+                "id": 93,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 94,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 95,
+                "model": "955",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 96,
+                "model": "956",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 97,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 98,
+                "model": "935",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 99,
+                "model": "936",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 100,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "成工",
+        "list": [
+            {
+                "id": 101,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 102,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 103,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 104,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "斗山",
+        "list": [
+            {
+                "id": 105,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 106,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 107,
+                "model": "503",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 108,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 109,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "现代",
+        "list": [
+            {
+                "id": 110,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 111,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 112,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 113,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "沃德",
+        "list": [
+            {
+                "id": 114,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 115,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 116,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 117,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "晋工",
+        "list": [
+            {
+                "id": 118,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 119,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 120,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 121,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "山推",
+        "list": [
+            {
+                "id": 122,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 123,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 124,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 125,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "宇通",
+        "list": [
+            {
+                "id": 126,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 127,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 128,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 129,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "常林",
+        "list": [
+            {
+                "id": 130,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 131,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 132,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 133,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    },
+    {
+        "brand": "其他",
+        "list": [
+            {
+                "id": 134,
+                "model": "60以上",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 135,
+                "model": "50系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 136,
+                "model": "30系",
+                "sort": 0,
+                "state": 1
+            },
+            {
+                "id": 137,
+                "model": "20以下",
+                "sort": 0,
+                "state": 1
+            }
+        ]
+    }
+]

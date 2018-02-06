@@ -48,11 +48,8 @@ export default {
     &:nth-child(2) {
       padding-top: 1.2rem;
     }
-    &:nth-child(2n+1) {
-      margin-top: -1.8rem;
-    }
-    &:nth-child(1) {
-      margin-top: 0;
+    &:nth-child(2n+3) {
+      margin-top: -1.2rem;
     }
     .info {
       display: block;

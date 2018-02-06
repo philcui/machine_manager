@@ -80,7 +80,7 @@
         </div>
       </div>
     </div> -->
-    <bottom-btns @on-pubclick="pubBuy"></bottom-btns>
+    <bottom-btns @on-pubclick="pubBuy" :uid="uId"></bottom-btns>
   </div>
 </template>
 
@@ -127,6 +127,7 @@ export default {
       normalList: [],
       isLoading: false,
       nowPage: 0,
+      uId: null
     };
   },
   methods: {
@@ -261,6 +262,7 @@ export default {
         if(res.data.data.status & 2){
           //已注册
           this.isReg = true
+          this.uId = res.data.data.id
         }else{
           //未注册
           this.isReg = false
@@ -327,6 +329,7 @@ export default {
   },
   mounted() {
     //this.setFilterFromCache()
+    this.getRegInfo()
     this.reloadData()
     //this.loadAds()
   },

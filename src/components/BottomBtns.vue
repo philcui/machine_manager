@@ -8,7 +8,7 @@
       <img src="../assets/pub-icon.png" alt="">
       <span>发布</span>
     </div>
-    <a class="btn" href="/m">
+    <a class="btn" :href='getHref()'>
       <img src="../assets/my-icon.png" alt="">
       <span>店铺</span>
     </a>
@@ -17,6 +17,7 @@
 
 <script>
 export default {
+	props: ['uid'],
   data(){
     return {
 
@@ -25,6 +26,13 @@ export default {
   methods:{
     clickpub(){
       this.$emit('on-pubclick')
+    },
+    getHref(){
+    	if(this.uid===null){
+    		return '/'
+    	}else{
+    		return "../mystore/index.html?mid=" + this.uid
+    	}
     }
   },
   components:{
@@ -50,6 +58,7 @@ export default {
 			align-items: center;
 			justify-content: center;
 			color: #fff;
+			font-size: 0.32rem;
 			img {
 				width: 0.32rem;
 				margin-bottom: 2px;

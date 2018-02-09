@@ -2,7 +2,7 @@
   <div class="pubInfo">
     <group gutter='0'>
       <x-input :title="redDot + '设备类型'" v-model="macTypeVal" text-align='right' placeholder="请输入，例如小松pc200"></x-input>  
-      <div @click="changeShowAddress" style="border-top: 1px solid #e2e2e2;">
+      <div style="border-top: 1px solid #e2e2e2;">
         <x-input :title="redDot + '需求地点'" disabled v-model="addName" text-align='right'></x-input>
         <div v-transfer-dom>
           <popup v-model="showAddress" position="right" width="70%">
@@ -21,6 +21,7 @@
           </popup>
         </div>
       </div>
+      <div @click="changeShowAddress" class="fake"></div>
     </group>
     <group gutter='0.2rem'>    
       <x-input :title="redDot + '联系电话'" v-model="phone" text-align='right'></x-input>  
@@ -137,6 +138,7 @@ export default {
       }
     },
     commitAddressFilter(){
+      this.addVal=[]
       for(let i=0;i<this.selectedList.length;i++){
         this.addVal.push(this.addressData[0][this.selectedList[i]]['value'])
       }
@@ -337,6 +339,13 @@ export default {
     font-size: 0.32rem;
     margin-top: 0.2rem;
   }
+  .fake {
+    width: 100%;
+    height: 0.92rem;
+    position: absolute;
+    left: 0;
+    top: 0.92rem;
+  }
 }
 
 .mycell {
@@ -439,6 +448,8 @@ export default {
       font-size: 0.32rem;
       font-weight: 300;
       color: #fff;
+      // margin: 0 auto;
+      // border-radius: 0.2rem;
     }
     .btn-reset {
       background-color: @theme-color;

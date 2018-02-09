@@ -32,6 +32,9 @@
         <normal-item v-for="(item, index) in normalList" :key="index" :normalObj="item"></normal-item>
       </div>
       <div v-if="normalList.length > 0" @click="loadData" class="loadMore">点击查看更多</div>
+      <div style="text-align:center;" v-else>
+        暂时没有记录
+      </div>
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <!-- <div class="hrbottom">
@@ -129,7 +132,8 @@ export default {
         {
           page: this.nowPage,
           address_id: this.addVal[0], //|| this.locate.id,
-          brand: this.brandTypeVal[0],
+          //brand: this.brandTypeVal[0],
+          brand: this.brandName
         },
         opt
       );
@@ -138,6 +142,9 @@ export default {
       }
       if(this.brandTypeVal[0] === "0"){
         delete filter.car_type_id
+      }
+      if(this.brandName === "设备"){
+        delete filter.brand
       }
       return this.qs.stringify(filter);
     },

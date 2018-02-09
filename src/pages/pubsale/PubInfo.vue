@@ -4,7 +4,7 @@
       <p>暂时只提供二手挖掘机买卖交流</p>
     </div> -->
     <group gutter='0'>
-      <div @click="changeShowBrandType" class="filterItem">
+      <div class="filterItem">
         <x-input :title="redDot + '设备类型'" disabled v-model="fullName" text-align='right' placeholder="请选择"></x-input>
         <div v-transfer-dom>
           <popup v-model="showBrandType" position="right" width="70%">
@@ -37,6 +37,7 @@
           </popup>
         </div>
       </div>
+      <div @click="changeShowBrandType" class="fake"></div>
       <div @click="changeShowDate" class="filterItem mycell">
         <x-input placeholder="例如2010" :title="redDot + '出厂时间'" v-model="date" text-align='right' :style="{'padding':0}">
           <span slot="right" type="primary" class="unit">/年</span>
@@ -87,7 +88,10 @@
         <p><span style='color:red;'>*</span>设备详情<span class="smdesc">（请如实上传照片，为你加分，最多9张）</span></p>
         <div class="summary" style="border:none;">
           <div class="img-box" id="imgboxid">
-            <img :src="item" alt="" v-for="(item,i) in imgs" />
+            <label v-for="(item,i) in imgs" class="wrap" :for="'fake-upload-'+i">
+              <img :src="item" alt="" />
+              <input name="image" type="file" accept="image/*" class="fake-upload" :id="'fake-upload-'+i" @change="editImg(i)" />
+            </label> 
           </div>
           <!-- <div class="upload-muti" @click="uploadMuti"></div> -->
           <label class="takephoto" for="photo-info"></label>
@@ -355,6 +359,7 @@ export default {
       this.description = data.description
       this.price = data.price
       this.addVal = ['0',data.address_id]
+      //this.addVal = data.address
       this.thumb = data.thumb
       this.imgs = data.imgs.split(',')
     },
@@ -397,9 +402,23 @@ export default {
         })
       }
     },
-    // uploadMuti(){
-
-    // },
+    editImg(index){
+      let id = '#fake-upload-'+index
+      let file = document.querySelector(id).files[0]
+      let reader = new FileReader()
+      reader.onload = function(e){
+        document.querySelector(id).previousElementSibling.src = e.target.result
+      }
+      let formdata = new FormData();
+      formdata.append('imgs[]',file);
+      this.axios.post("/api/used-m/upload-img",formdata,{headers: {'Content-Type': 'multipart/form-data'}})
+      .then((res) => {
+        if(res.data.code == 200){
+          this.imgs.splice(index,1,res.data.data[0])
+        } 
+      })
+      reader.readAsDataURL(file)  
+    },
     getAddList(target){
       let res = []
       res.push(target.substring(0, 2) + "0000")
@@ -443,6 +462,13 @@ export default {
 .pubInfo {
   height: 100%;
   background-color: #eeeeee;
+  .fake {
+    width: 100%;
+    height: 0.92rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .hintHead {
     padding: 0.1rem 0.2rem;
     box-sizing: border-box;
@@ -492,10 +518,26 @@ export default {
       font-size: 0.32rem;
     }
     .img-box {
-      >img {
-        //display: block;
+      font-size: 0;
+      .wrap {
+        display: inline-block;
         width: 1.8rem;
         height: 1.8rem;
+        position: relative;
+        >img {
+          //display: block;
+          width: 1.8rem;
+          height: 1.8rem;
+        }
+        .fake-upload {
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 9
+        }
       }
     }
     .prev {
@@ -588,17 +630,19 @@ export default {
     width: 100%;
     height: 0.76rem;
     position: absolute;
-    bottom: 0;
+    bottom: 0.2rem;
     left: 0;
     font-size: 0;
     >div {
-      display: inline-block;
-      width: 100%;
+      display: block;
+      width: 80%;
       line-height: 0.76rem;
       text-align: center;
       font-size: 0.32rem;
       font-weight: 300;
       color: #fff;
+      margin: 0 auto;
+      border-radius: 0.2rem;
     }
     .btn-reset {
       background-color: @theme-color;

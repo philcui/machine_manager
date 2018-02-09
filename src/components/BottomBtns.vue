@@ -58,13 +58,12 @@ export default {
 			align-items: center;
 			justify-content: center;
 			color: #fff;
-			font-size: 0.36rem;
 			img {
 				width: 0.45rem;
 				margin-bottom: 4px;
 			}
 			span {
-				font-size: 0.1rem;
+				font-size: 0.28rem;
 				line-height: 1em;
 			}
 		}

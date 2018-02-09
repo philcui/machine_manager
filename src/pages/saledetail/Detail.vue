@@ -40,7 +40,7 @@
     <one-key-share v-if="nowType.showShare" :p-style="{'position':'static'}"></one-key-share>
     <focus-wechat v-if="nowType.showFocus"></focus-wechat>
     <free-resume v-if="false"></free-resume>
-    <info-bottom v-if="nowType.showInfo" :mobileLink="mobileLink"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <info-bottom v-if="nowType.showInfo" :mobileLink="mobileLink"  :item_id="info.id" :item_type="3" :isShowCollect='true'></info-bottom>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
   </div>
 </template>
@@ -150,6 +150,7 @@ export default {
       this.brandName = res.data.data.brand+res.data.data.model
       this.info.price = res.data.data.price+'万'
       this.info.production_date = res.data.data.production_date+'年'
+      this.info.imgs.push(this.info.thumb)
       // this.info.imgs = this.info.imgs.map((item,i)=>{
       //   return 'http://'+item
       // })

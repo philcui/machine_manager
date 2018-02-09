@@ -7,14 +7,17 @@
           <span class="name">{{uinfo.nickname}}</span>
           <!-- <span class="tag" v-if="myself" @click="popularize">申请推广</span> -->
           <span class="certi" v-if="uinfo.status==2">已认证</span>
-          <span class="uncerti" v-else>未认证 <i> >>去认证</i></span>
+          <span class="uncerti" v-else>未认证<a href="/idcardauth/index.html" v-if="myself">&nbsp;>>&nbsp;去认证</a></span>
         </dt>
         <dd>{{uinfo.nickname}}</dd>
         <dd>{{uinfo.address}}</dd>
       </dl>
     </div>
-    <h1>我发布的二手机</h1>
-    <div class="listWrap">
+    <h1>
+      <div @click="tab=1"><span :class="{'selected':tab==1}">我的发布</span></div>
+      <div @click="tab=2"><span :class="{'selected':tab==2}">我的收藏</span></div>
+    </h1>
+    <div class="listWrap" v-show="tab==1">
       <div @click="gotoPubDetail(item.id)" class="hisItem" v-for="(item, index) in publist" :key="index">
         <div class="top">
           <img class="left" :src="item.thumb" alt="">
@@ -35,15 +38,35 @@
         </div>
       </div>
     </div>
-    <div v-if="publist.length > 0" @click="loadData" class="loadMore">查看更多</div>
-    <div style="text-align:center;" v-if="publist.length == 0">
+    <div class="listWrap" v-show="tab==2">
+      <div @click="gotoPubDetail(item.id)" class="hisItem" v-for="(item, index) in favlist" :key="index">
+        <div class="top">
+          <img class="left" :src="item.thumb" alt="">
+          <div class="right">
+            <div class="info">
+              <p>{{item.brand}}{{item.model}}</p>
+              <h5>{{item.production_date}} | {{item.address}}</h5>
+            </div>
+            <div class="time">
+              <strong>{{item.price}}万</strong>{{item.ctime}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="publist.length > 0 && tab == 1" @click="loadData" class="loadMore">查看更多</div>
+    <div v-if="favlist.length > 0 && tab == 2" @click="loadFavList" class="loadMore">查看更多</div>
+    <div style="text-align:center;" v-if="publist.length == 0 && tab == 1">
       还没有发布过二手机
+    </div>
+    <div style="text-align:center;" v-if="favlist.length == 0 && tab == 2">
+      还没有收藏
     </div>
     <div class="share-btn" v-if="myself" @click="showTip=true;">分享我的店铺</div>
     <share-guide @closeGuide="closeGuide" :show="showTip"></share-guide>
     <!-- <one-key-share v-if="myself"></one-key-share> -->
     <focus-wechat v-if="!myself"></focus-wechat>
-    <info-bottom v-if="!myself" :mobileLink="mobileLink" :item_type="1" :isShowCollect='true'></info-bottom>
+    <info-bottom v-if="!myself" :mobileLink="mobileLink" :item_type="1" :isShowCollect='false'></info-bottom>
   </div>
 </template>
 
@@ -57,6 +80,7 @@ import share from '@/utils/share.js'
 export default {
   data() {
     return {
+      tab: 1,
       showTip: false,
       myId: '',
       myself: false,
@@ -72,7 +96,9 @@ export default {
         status: 0,
       },
       publist: [],
+      favlist: [],
       nowPage: 0,
+      nowFavPage: 0,
     };
   },
   methods: {
@@ -118,54 +144,45 @@ export default {
         }, 1000)
       });
     },
-    loadData(){
-      this.mobileLink = "/api/job/query-mobile?item_id="
+    loadFavList(){
       let _this = this
-      let mInfoPromise = new Promise((resolve,reject)=>{
-        _this.axios.get("/api/user/my").then((mInfoRes) => {
-          resolve(mInfoRes)
+      let listPromise = new Promise((resolve,reject)=>{
+        _this.axios.get("/api/member-fav/list?type=3&mid="+getUrlKey('mid')+"&page="+_this.nowFavPage).then((listRes)=>{
+          resolve(listRes)
         })
       })
-      let storePromise = new Promise((resolve,reject)=>{
-        _this.axios.get("/api/used-m/member-store?mid="+getUrlKey('mid')).then(storeRes => {
-          resolve(storeRes)
-        })
+      listPromise.then((listRes)=>{
+        if(listRes.data.data.length){
+          _this.nowFavPage++
+          _this.favlist = _this.favlist.concat(listRes.data.data)
+        }else{
+          _this.$vux.toast.show({
+            type: "text",
+            text: "没有了"
+          });
+        }
       })
+    },
+    loadData(){
+      let _this = this
       let listPromise = new Promise((resolve,reject)=>{
         _this.axios.post("/api/used-m/sell-list",_this.qs.stringify({
-          mid: getUrlKey('mid')
+          mid: getUrlKey('mid'),
+          page: _this.nowPage,
         })).then((listRes)=>{
           resolve(listRes)
         })
       })
-      mInfoPromise.then((mInfoRes)=>{
-        _this.isLogin = mInfoRes.data.data.status & 1
-        _this.myId = mInfoRes.data.data.id
-        if(_this.myId == getUrlKey('mid')){
-          _this.myself = true
+      listPromise.then((listRes)=>{
+        if(listRes.data.data.length){
+          _this.nowPage++
+          _this.publist = _this.publist.concat(listRes.data.data)
         }else{
-          _this.myself = false
+          _this.$vux.toast.show({
+            type: "text",
+            text: "没有了"
+          });
         }
-        storePromise.then((storeRes)=>{
-          _this.uinfo = storeRes.data.data
-          share({
-            title: storeRes.data.data.nickname + "的最新二手机",
-            img: "http://m.gongji58.com/static/imgtest.jpg",
-            desc: storeRes.data.data.amount + "台二手机在售",
-            link: window.location.href,
-          })
-        })
-        listPromise.then((listRes)=>{
-          if(listRes.data.data.length){
-            _this.nowPage++
-            _this.publist = _this.publist.concat(listRes.data.data)
-          }else{
-            _this.$vux.toast.show({
-              type: "text",
-              text: "没有了"
-            });
-          }
-        })
       })
       // this.axios.get("/api/user/my")
       // .then((res) => {
@@ -196,6 +213,40 @@ export default {
       //   })
       // })
     },
+    init(){
+      this.mobileLink = "/api/job/query-mobile?item_id="
+      let _this = this
+      let mInfoPromise = new Promise((resolve,reject)=>{
+        _this.axios.get("/api/user/my").then((mInfoRes) => {
+          resolve(mInfoRes)
+        })
+      })
+      let storePromise = new Promise((resolve,reject)=>{
+        _this.axios.get("/api/used-m/member-store?mid="+getUrlKey('mid')).then(storeRes => {
+          resolve(storeRes)
+        })
+      })
+      mInfoPromise.then((mInfoRes)=>{
+        _this.isLogin = mInfoRes.data.data.status & 1
+        _this.myId = mInfoRes.data.data.id
+        if(_this.myId == getUrlKey('mid')){
+          _this.myself = true
+        }else{
+          _this.myself = false
+        }
+        storePromise.then((storeRes)=>{
+          _this.uinfo = storeRes.data.data
+          share({
+            title: storeRes.data.data.nickname + "的最新二手机",
+            img: "http://m.gongji58.com/static/imgtest.jpg",
+            desc: storeRes.data.data.amount + "台二手机在售",
+            link: window.location.href,
+          })
+        })
+        _this.loadData()
+        _this.loadFavList()
+      })
+    },
   },
   components: {
     FocusWechat,
@@ -204,7 +255,8 @@ export default {
     ShareGuide
   },
   mounted() {
-    this.loadData()
+    this.init()
+    //this.loadData()
   }
 };
 </script>
@@ -266,7 +318,7 @@ export default {
           margin-right: 0.16rem;
           border-radius: 2px;
           padding: 0.04rem;
-          >i {
+          >a {
             color: @theme-color;
             font-style: normal;
           }
@@ -293,10 +345,28 @@ export default {
   }
   h1 {
     width: 100%;
-    line-height: 0.6rem;
-    text-align: center;
+    height: 0.6rem;
     background-color: #f8f8f8;
-    font-size: 0.28rem;
+    font-size: 0;
+    >div {
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      font-size: 0.28rem;
+      >span {
+        display: block;
+        width: 60%;
+        height: 100%;
+        line-height: 0.68rem;
+        margin: 0 auto;
+        text-align: center;
+        color: #5a5a5a;
+      }
+      .selected {
+        color: @theme-color;
+        border-bottom: 1px solid @theme-color;
+      }
+    }
   }
   .listWrap {
     .hisItem {
@@ -329,6 +399,9 @@ export default {
             overflow: hidden;
             border-bottom: 1px solid @divid-color;
             padding-bottom: 0.1rem;
+            >p {
+              color: #626262;
+            }
             >h5 {
               color: #9f9f9f;
               font-weight: normal;

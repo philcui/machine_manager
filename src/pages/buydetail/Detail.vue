@@ -20,7 +20,7 @@
     <one-key-share v-if="nowType.showShare"></one-key-share>
     <focus-wechat v-if="nowType.showFocus"></focus-wechat>
     <free-resume v-if="false"></free-resume>
-    <info-bottom v-if="nowType.showInfo" :mobileLink="mobileLink"  :item_id="info.id" :item_type="1" :isShowCollect='true'></info-bottom>
+    <info-bottom v-if="nowType.showInfo" :mobileLink="mobileLink"  :item_id="info.id" :item_type="4" :isShowCollect='false'></info-bottom>
   </div>
 </template>
 

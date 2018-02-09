@@ -7,10 +7,17 @@
         <div v-transfer-dom>
           <popup v-model="showBrandType" position="right" width="70%">
             <div class="filter-wrap">
-              <h2><img src="../../assets/back-icon.png" />品 牌</h2>
+              <!-- <h2><img src="../../assets/back-icon.png" />品 牌</h2> -->
+              <p>挖机</p>
               <div class="options">
                 <div class="list">
-                  <div class="item" :class="{ 'selected': selectedBrandTypeIndex==index }" v-for="(item, index) in brandTypeData[0]" :key="index" @click="selectBrandType(item,index)">{{item.name}}</div>
+                  <div class="item" :class="{ 'selected': selectedWajiIndex==i }" v-for="(item, i) in wajiData" :key="i" @click="selectBrandType(item,'挖机',i)">{{item}}</div>
+                </div>
+              </div>
+              <p>铲车</p>
+              <div class="options">
+                <div class="list">
+                  <div class="item" :class="{ 'selected': selectedChancheIndex==j }" v-for="(item, j) in chancheData" :key="j" @click="selectBrandType(item,'铲车',j)">{{item}}</div>
                 </div>
               </div>
               <div class="btns">
@@ -70,6 +77,9 @@
         <normal-item v-for="(item, index) in normalList" :key="index" :normalObj="item"></normal-item>
       </div>
       <div v-if="normalList.length > 0" @click="loadData" class="loadMore">点击查看更多</div>
+      <div style="text-align:center;" v-else>
+        暂时没有记录
+      </div>
       <load-more v-show="isLoading" tip="努力加载中"></load-more>
     </div>
     <!-- <div class="hrbottom">
@@ -112,7 +122,8 @@ export default {
       isReg: false,
       addVal: [],
       priceVal: [],
-      selectedBrandTypeIndex: -1,
+      selectedWajiIndex: -1,
+      selectedChancheIndex: -1,
       selectedPriceIndex: -1,
       selectedAddressIndex: -1,
       addressData: provinceData,
@@ -120,8 +131,11 @@ export default {
       showPrice: false,
       locate: { name: "定位中", id: "" },
       priceData: priceData,
-      brandTypeData: brandTypeData,
-      brandTypeVal: [],
+      wajiData: ['小松','日立','斗山','卡特','神钢','三一','现代','沃尔沃','佳友','柳工','玉柴','雷沃','久保田','龙工','加藤','临工','其他'],
+      chancheData: ['临工','龙工','柳工','山工','徐工','厦工','福田','成工','斗山','现代','沃得','晋工','山推','宇通','其他'],
+      //brandTypeData: brandTypeData,
+      brandType: '',
+      brandName: '设备',
       showBrandType: false,
       topList: [],
       normalList: [],
@@ -140,8 +154,15 @@ export default {
     changeShowPrice() {
       this.showPrice = !this.showPrice;
     },
-    selectBrandType(item,index) {
-      this.selectedBrandTypeIndex = index
+    selectBrandType(item,type,index) {
+      console.log(index)
+      if(type=='chanche'){
+        this.selectedChancheIndex = index
+      }else if(type=='waji'){
+        this.selectedWajiIndex = index
+      }
+      this.brandType = type
+      this.brandName = item
       this.commitBrandTypeFilter()
     },
     selectPrice(item,index) {
@@ -153,7 +174,6 @@ export default {
       this.commitAddressFilter()
     },
     commitBrandTypeFilter(){
-      this.brandTypeVal = this.selectedBrandTypeIndex==-1?0:[this.brandTypeData[0][this.selectedBrandTypeIndex]['value']]
       this.changeShowBrandType()
       this.filterChange()
     },
@@ -168,7 +188,9 @@ export default {
       this.filterChange()
     },
     resetBrandTypeFilter(){
-      this.selectedBrandTypeIndex = -1
+      this.selectedChancheIndex = -1
+      this.selectedWajiIndex = -1
+      this.brandName = '设备'
       this.commitBrandTypeFilter()
     },
     resetPriceFilter(){
@@ -215,7 +237,8 @@ export default {
         {
           page: this.nowPage,
           address_id: this.addVal[0], //|| this.locate.id,
-          brand: this.brandTypeVal[0],
+          brand: this.brandName,
+          type: this.brandType,
           //mid: 
           min_price:
             this.priceVal.length && parseInt(this.priceVal[0].split(",")[0]),
@@ -227,8 +250,8 @@ export default {
       if(this.addVal[0] === "0"){
         delete filter.address_id
       }
-      if(this.brandTypeVal[0] === "0"){
-        delete filter.car_type_id
+      if(this.brandName === "设备"){
+        delete filter.brand
       }
       return this.qs.stringify(filter);
     },
@@ -335,13 +358,6 @@ export default {
         return "地区";
       }
     },
-    brandName() {
-      if (this.brandTypeVal && this.brandTypeVal.length > 0 && this.brandTypeVal[0]) {
-        return this.findName(this.brandTypeVal[0], brandTypeData);
-      } else {
-        return "设备";
-      }
-    },
   },
   mounted() {
     //this.setFilterFromCache()
@@ -389,7 +405,7 @@ export default {
   }
   .address {
     flex: 1;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.06rem;
   }
   .price {
     flex: 1;
@@ -398,7 +414,7 @@ export default {
   }
   .brandType {
     flex: 1;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.06rem;
   }
   .sal{
     flex: 1;
@@ -527,6 +543,8 @@ export default {
   height: 100%;
   position: relative;
   background-color: #fff;
+  overflow: hidden;
+  padding-top: 0.1rem;
   >h2 {
     >img {
       width: 0.3rem;
@@ -542,6 +560,17 @@ export default {
     font-weight: 300;
     letter-spacing: 0.8em;
     vertical-align: middle;
+  }
+  >p {
+    width: 92%;
+    line-height: 0.54rem;
+    border-radius: 4px;
+    border: 0.5px solid @theme-color;
+    color: @theme-color;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    margin: 0.1rem auto;
+    overflow: hidden;
   }
   .options {
     .list {
@@ -568,17 +597,19 @@ export default {
     width: 100%;
     height: 0.76rem;
     position: absolute;
-    bottom: 0;
+    bottom: 0.2rem;
     left: 0;
     font-size: 0;
     >div {
-      display: inline-block;
-      width: 100%;
+      display: block;
+      width: 80%;
       line-height: 0.76rem;
       text-align: center;
       font-size: 0.32rem;
       font-weight: 300;
       color: #fff;
+      margin: 0 auto;
+      border-radius: 0.2rem;
     }
     .btn-reset {
       background-color: @theme-color;

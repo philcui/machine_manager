@@ -5,7 +5,7 @@
         <p>{{normalObj.brand+normalObj.model}}</p>
       </div>
       <div class="info1">
-        {{normalObj.production_date}}年|{{normalObj.address}}<strong>{{normalObj.price}}万</strong>
+        <strong>{{normalObj.price}}万</strong>{{normalObj.production_date}}年|{{normalObj.address}}
       </div>
       <div class="info2">
         {{normalObj.description}}
@@ -87,6 +87,7 @@ export default {
         text-align: center;
         >strong {
           color: #920016;
+          margin-right: 0.04rem;
         }
       }
       .info2 {

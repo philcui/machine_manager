@@ -45,11 +45,12 @@ export default {
     margin: 0.1rem;
     font-size: 0.24rem;
     overflow: hidden;
+    border: 1px solid @divid-color;
     &:nth-child(2) {
-      padding-top: 1.2rem;
+      margin-top: 1.2rem;
     }
     &:nth-child(2n+3) {
-      margin-top: -1.2rem;
+      margin-top: -1rem;
     }
     .info {
       display: block;
@@ -75,7 +76,11 @@ export default {
       }
       .info1 {
         width: 100%;
+        height: 0.6rem;
         line-height: 0.6rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         background-color: #f4f4f4;
         color: #000;
         font-size: 0.22rem;

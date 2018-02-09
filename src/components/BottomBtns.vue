@@ -47,7 +47,7 @@ export default {
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		height: 0.8rem;
+		height: 1rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
@@ -58,10 +58,10 @@ export default {
 			align-items: center;
 			justify-content: center;
 			color: #fff;
-			font-size: 0.32rem;
+			font-size: 0.36rem;
 			img {
-				width: 0.32rem;
-				margin-bottom: 2px;
+				width: 0.45rem;
+				margin-bottom: 4px;
 			}
 			span {
 				font-size: 0.1rem;

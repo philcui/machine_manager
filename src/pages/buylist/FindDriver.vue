@@ -59,7 +59,7 @@ import { PopupPicker } from "vux";
 import brandTypeData from "@/data/brand.json";
 import TopItem from "./TopItem.vue";
 import NormalItem from "./NormalItem.vue";
-import provinceData from "@/data/prov.json";
+import provinceData from "@/data/prov_min.json";
 //import {jobList, adsList} from "@/mock/index.js";
 import { throttle } from 'vux'
 import getUrlKey from '@/utils/getUrlKey.js'
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       isTouch: false,
-      isReg: true,
+      isReg: false,
       addVal: [],
       addressData: provinceData,
       showAddress: false,
@@ -196,10 +196,11 @@ export default {
       if(this.isReg){
         window.location.href = "../pubsale/index.html"
       }else{
-        this.$vux.toast.show({
-          type: 'text',
-          text: '注册用户可发布，请注册'
-        })
+        // this.$vux.toast.show({
+        //   type: 'text',
+        //   text: '注册用户可发布，请注册'
+        // })
+        window.location.href = '/'
       }
     },
     setFilterFromCache(){
@@ -255,7 +256,7 @@ export default {
 .filter {
   display: flex;
   width: 100%;
-  height: 0.57rem;
+  height: 0.75rem;
   background-color: white;
   position: fixed;
   top: 0;
@@ -263,8 +264,8 @@ export default {
   border-bottom: 1px solid #c9c9c9;
   .filterItem {
     text-align: center;
-    line-height: 0.57rem;
-    height: 0.57rem;
+    line-height: 0.75rem;
+    height: 0.75rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -309,7 +310,7 @@ export default {
 .infoContent {
   height: 100%;
   overflow: auto;
-  padding-top: 0.57rem;
+  padding-top: 0.75rem;
   padding-bottom: 1rem;
   background-color: #eeeeee;
   z-index: 2;

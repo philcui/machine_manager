@@ -2,32 +2,32 @@
 <template>
   <div id="app">
     <div class="selectPage" v-if="type==1">
-      <div class="me1">
+      <a class="me1" href="../finddriver/index.html?indent=1">
         <img src="./img/jizhu.png" alt="">
-        <a href="../finddriver/index.html?indent=1" class="btn">
+        <div class="btn">
           我是机主，找驾驶员
-        </a>
-      </div>
-      <div class="me2">
+        </div>
+      </a>
+      <a class="me2" href="../finddriver/index.html?indent=2">
         <img src="./img/jishou.png" alt="">
-        <a href="../finddriver/index.html?indent=2" class="btn">
+        <div class="btn">
           我是机手，找工作
-        </a>
-      </div>
+        </div>
+      </a>
     </div>
     <div class="selectPage" v-if="type==2">
-      <div class="me1">
+      <a class="me1" href="../salelist/index.html">
         <img src="./img/qiugou.png" alt="">
-        <a href="../salelist/index.html" class="btn">
+        <div class="btn">
           我想求购二手机
-        </a>
-      </div>
-      <div class="me2">
+        </div>
+      </a>
+      <a class="me2" href="../buylist/index.html">
         <img src="./img/xiaoshou.png" alt="">
-        <a href="../buylist/index.html" class="btn">
+        <div class="btn">
           我想销售二手机
-        </a>
-      </div>
+        </div>
+      </a>
     </div>
   </div>
 </template>

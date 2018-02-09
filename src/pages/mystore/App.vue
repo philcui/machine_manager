@@ -1,18 +1,16 @@
 <template>
   <div id="app">
     <div class="infoWrap">
-      <img :src="uinfo.avatar" />
+      <a href="/personinfo/index.html"><img :src="uinfo.avatar" /></a>
       <dl>
         <dt>
           <span class="name">{{uinfo.nickname}}</span>
-          <span class="tag" v-if="myself">申请推广</span>
+          <!-- <span class="tag" v-if="myself" @click="popularize">申请推广</span> -->
+          <span class="certi" v-if="uinfo.status==2">已认证</span>
+          <span class="uncerti" v-else>未认证 <i> >>去认证</i></span>
         </dt>
         <dd>{{uinfo.nickname}}</dd>
-        <dd>
-          <span class="certi" v-if="uinfo.status==2">已认证</span>
-          <span class="uncerti" v-else>未认证</span>
-          <span class="add">{{uinfo.address}}</span>
-        </dd>
+        <dd>{{uinfo.address}}</dd>
       </dl>
     </div>
     <h1>我发布的二手机</h1>
@@ -23,7 +21,7 @@
           <div class="right">
             <div class="info">
               <p>{{item.brand}}{{item.model}}</p>
-              <p>{{item.production_date}}|{{item.address}}</p>
+              <h5>{{item.production_date}} | {{item.address}}</h5>
             </div>
             <div class="time">
               <strong>{{item.price}}万</strong>{{item.ctime}}
@@ -55,6 +53,7 @@ import FocusWechat from "@/components/FocusWechat.vue";
 import OneKeyShare from "@/components/OneKeyShare.vue";
 import InfoBottom from '@/components/InfoBottom.vue'
 import ShareGuide from "@/components/ShareGuide.vue"
+import share from '@/utils/share.js'
 export default {
   data() {
     return {
@@ -77,6 +76,12 @@ export default {
     };
   },
   methods: {
+    popularize() {
+      this.$vux.toast.show({
+        text: "功能开发中，敬请期待",
+        type: "text"
+      });
+    },
     closeGuide() {
       this.showTip = false
     },
@@ -143,6 +148,12 @@ export default {
         }
         storePromise.then((storeRes)=>{
           _this.uinfo = storeRes.data.data
+          share({
+            title: storeRes.data.data.nickname + "的最新二手机",
+            img: "http://m.gongji58.com/static/imgtest.jpg",
+            desc: storeRes.data.data.amount + "台二手机在售",
+            link: window.location.href,
+          })
         })
         listPromise.then((listRes)=>{
           if(listRes.data.data.length){
@@ -210,12 +221,15 @@ export default {
     height: 2.15rem;
     padding: 0 0.4rem;
     background-color: @theme-color;
-    >img {
-      width: 1.2rem;
-      height: 1.2rem;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      margin-right: 0.2rem;
+    >a {
+      display: block;
+      >img {
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        margin-right: 0.2rem;
+      }
     }
     >dl {
       display: flex;
@@ -229,7 +243,7 @@ export default {
         font-size: 0.32rem;
         height: 0.4rem;
         .name {
-          margin-right: 0.5rem;
+          margin-right: 0.2rem;
         }
         .tag {
           width: 1.2rem;
@@ -242,24 +256,35 @@ export default {
           border: 1px solid #000;
           border-radius: 10px;
         }
+        .uncerti {
+          display: flex;
+          align-items: center;
+          background-color: #313131;
+          text-align: center;
+          color: #fff;
+          font-size: 0.24rem;
+          margin-right: 0.16rem;
+          border-radius: 2px;
+          padding: 0.04rem;
+          >i {
+            color: @theme-color;
+            font-style: normal;
+          }
+        }
+        .certi {
+          display: flex;
+          align-items: center;
+          background-color: #313131;
+          color: @theme-color;
+          border-radius: 2px;
+          font-size: 0.24rem;
+          padding: 0.04rem;
+        }
       }
       >dd {
         display: flex;
         font-size: 0.28rem;
         height: 0.4rem;
-        .uncerti {
-          width: 0.88rem;
-          height: 0.4rem;
-          background-color: #eeeeee;
-          text-align: center;
-          color: #8d8d8d;
-          font-size: 0.28rem;
-          margin-right: 0.16rem;
-        }
-        .certi {
-          background-color: #000;
-          color: @theme-color;
-        }
         .add {
 
         }
@@ -303,18 +328,23 @@ export default {
             word-wrap: break-word;
             overflow: hidden;
             border-bottom: 1px solid @divid-color;
-            padding-bottom: 0.16rem;
+            padding-bottom: 0.1rem;
+            >h5 {
+              color: #9f9f9f;
+              font-weight: normal;
+            }
           }
           .time {
             display: flex;
             justify-content: space-between;
-            font-size: 0.2rem;
+            align-items: center;
+            font-size: 0.24rem;
             color: #b2b2b2;
             padding-top: 0.16rem;
             padding-right: 0.25rem;
             >strong {
               color: @theme-color;
-              font-size: 0.16rem;
+              font-size: 0.36rem;
             }
           }
         }

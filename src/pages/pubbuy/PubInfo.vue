@@ -1,8 +1,8 @@
 <template>
   <div class="pubInfo">
     <group gutter='0'>
-      <x-input :title="redDot + '设备类型'" v-model="macTypeVal" text-align='right'></x-input>  
-      <div @click="changeShowAddress">
+      <x-input :title="redDot + '设备类型'" v-model="macTypeVal" text-align='right' placeholder="请输入，例如小松pc200"></x-input>  
+      <div @click="changeShowAddress" style="border-top: 1px solid #e2e2e2;">
         <x-input :title="redDot + '需求地点'" disabled v-model="addName" text-align='right'></x-input>
         <div v-transfer-dom>
           <popup v-model="showAddress" position="right" width="70%">
@@ -50,7 +50,7 @@ import {
   CheckerItem,
   XDialog
 } from "vux";
-import provinceData from "@/data/prov.json"
+import provinceData from "@/data/prov_min.json"
 import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
@@ -258,6 +258,14 @@ export default {
     if(getUrlKey("id") > 0){
       //编辑已发布的信息
       this.getHisInfo();
+    }else{
+      this.axios.get("/api/user/my")
+      .then((res) => {
+        //这里存在大量赋值操作，后续可以和后台数据字段做整理
+        console.log(res.data.data)
+        let data  = res.data.data
+        this.phone = data.mobile
+      })
     }
   },
 };
@@ -311,11 +319,12 @@ export default {
     border: 1px solid #e2e2e2;
     textarea {
       width: 100%;
-      height: 1.21rem;
+      height: 1.6rem;
       resize: none;
       padding: 0;
       margin: 0;
       border: none;
+      font-size: 0.32rem;
     }
   }
   .submit {

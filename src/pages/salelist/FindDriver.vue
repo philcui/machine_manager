@@ -14,8 +14,8 @@
                 </div>
               </div>
               <div class="btns">
-                <div class="btn-reset" @click="selectedBrandTypeIndex=-1">重 置</div>
-                <div class="btn-commit" @click="commitBrandTypeFilter">提 交</div>
+                <div class="btn-reset" @click="resetBrandTypeFilter">重 置</div>
+                <!-- <div class="btn-commit" @click="commitBrandTypeFilter">提 交</div> -->
               </div>
             </div>
           </popup>
@@ -34,8 +34,8 @@
                 </div>
               </div>
               <div class="btns">
-                <div class="btn-reset" @click="selectedPriceIndex=-1">重 置</div>
-                <div class="btn-commit" @click="commitPriceFilter">提 交</div>
+                <div class="btn-reset" @click="resetPriceFilter">重 置</div>
+                <!-- <div class="btn-commit" @click="commitPriceFilter">提 交</div> -->
               </div>
             </div>
           </popup>
@@ -54,8 +54,8 @@
                 </div>
               </div>
               <div class="btns">
-                <div class="btn-reset" @click="selectedAddressIndex=-1">重 置</div>
-                <div class="btn-commit" @click="commitAddressFilter">提 交</div>
+                <div class="btn-reset" @click="resetAddressFilter">重 置</div>
+                <!-- <div class="btn-commit" @click="commitAddressFilter">提 交</div> -->
               </div>
             </div>
           </popup>
@@ -101,7 +101,7 @@ import brandTypeData from "@/data/brand.json";
 import priceData from "@/data/price.json";
 import TopItem from "./TopItem.vue";
 import NormalItem from "./NormalItem.vue";
-import provinceData from "@/data/prov.json";
+import provinceData from "@/data/prov_min.json";
 //import {jobList, adsList} from "@/mock/index.js";
 import { throttle } from 'vux'
 import getUrlKey from '@/utils/getUrlKey.js'
@@ -109,7 +109,7 @@ export default {
   data() {
     return {
       isTouch: false,
-      isReg: true,
+      isReg: false,
       addVal: [],
       priceVal: [],
       selectedBrandTypeIndex: -1,
@@ -142,12 +142,15 @@ export default {
     },
     selectBrandType(item,index) {
       this.selectedBrandTypeIndex = index
+      this.commitBrandTypeFilter()
     },
     selectPrice(item,index) {
       this.selectedPriceIndex = index
+      this.commitPriceFilter()
     },
     selectAddress(item,index) {
       this.selectedAddressIndex = index
+      this.commitAddressFilter()
     },
     commitBrandTypeFilter(){
       this.brandTypeVal = this.selectedBrandTypeIndex==-1?0:[this.brandTypeData[0][this.selectedBrandTypeIndex]['value']]
@@ -163,6 +166,18 @@ export default {
       this.addVal = this.selectedAddressIndex==-1?0:[this.addressData[0][this.selectedAddressIndex]['value']]
       this.changeShowAddress()
       this.filterChange()
+    },
+    resetBrandTypeFilter(){
+      this.selectedBrandTypeIndex = -1
+      this.commitBrandTypeFilter()
+    },
+    resetPriceFilter(){
+      this.selectedPriceIndex = -1
+      this.commitPriceFilter()
+    },
+    resetAddressFilter(){
+      this.selectedAddressIndex = -1
+      this.commitAddressFilter()
     },
     scrollList1(e){
       if (this.isTouch && this.isBottom(e.target)) {
@@ -273,10 +288,11 @@ export default {
       if(this.isReg){
         window.location.href = "../pubbuy/index.html"
       }else{
-        this.$vux.toast.show({
-          type: 'text',
-          text: '注册用户可发布，请注册'
-        })
+        // this.$vux.toast.show({
+        //   type: 'text',
+        //   text: '注册用户可发布，请注册'
+        // })
+        window.location.href = '/'
       }
     },
     // setFilterFromCache(){
@@ -343,7 +359,7 @@ export default {
 .filter {
   display: flex;
   width: 100%;
-  height: 0.57rem;
+  height: 0.75rem;
   background-color: white;
   position: fixed;
   top: 0;
@@ -351,8 +367,8 @@ export default {
   border-bottom: 1px solid #c9c9c9;
   .filterItem {
     text-align: center;
-    line-height: 0.57rem;
-    height: 0.57rem;
+    line-height: 0.75rem;
+    height: 0.75rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -401,7 +417,7 @@ export default {
 .infoContent {
   height: 100%;
   overflow: auto;
-  padding-top: 0.57rem;
+  padding-top: 0.75rem;
   padding-bottom: 1rem;
   background-color: #eeeeee;
   z-index: 2;
@@ -557,7 +573,7 @@ export default {
     font-size: 0;
     >div {
       display: inline-block;
-      width: 50%;
+      width: 100%;
       line-height: 0.76rem;
       text-align: center;
       font-size: 0.32rem;

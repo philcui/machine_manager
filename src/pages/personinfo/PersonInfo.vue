@@ -68,9 +68,7 @@ export default {
         let formdata = new FormData();
         formdata.append("nickname", this.nickname);
         //formdata.append("mobile", this.phone);
-        if(this.address[2]) {
-          formdata.append("address_id", this.address[2]);
-        }
+        formdata.append("address_id", this.address[2]);
         formdata.append("description", this.introduce);
         if(document.querySelector(".upload").value){
           formdata.append("avatar", document.querySelector(".upload").files[0])
@@ -82,7 +80,8 @@ export default {
             text: res.data.msg
           })
         });
-      } else { }
+      } else {
+      }
     },
     fileChange(e) {
       let file = document.querySelector(".upload").files[0];

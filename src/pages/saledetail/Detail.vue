@@ -36,7 +36,7 @@
       </dl>
       <span>更多>></span>
     </a>
-    <declaration @on-hideclick="tabShow" @on-tipclick="tabTip" :tip="tip" :dec-show="decShow"></declaration>
+    <declaration @on-hideclick="tabShow" @on-tipclick="tabTip" :tip="tip" :dec-show="decShow" :no-decla="noDecla"></declaration>
     <one-key-share v-if="nowType.showShare" :p-style="{'position':'static'}"></one-key-share>
     <focus-wechat v-if="nowType.showFocus"></focus-wechat>
     <free-resume v-if="false"></free-resume>
@@ -63,6 +63,7 @@ export default {
     return {
       tip: false,
       decShow: true,
+      noDecla: false,
       showTip: false,
       info: { 
         production_date: '',
@@ -125,13 +126,21 @@ export default {
     },
     tabShow(){
       this.decShow = false
+      if (this.tip) {
+        localStorage.setItem("noDecla", true)
+        this.noDecla = true
+      }
     },
     tabTip(){
       this.tip = !this.tip
     }
   },
   mounted() {
-    //todo 地址有问题
+    if (localStorage.getItem("noDecla")) {
+      console.log(1111)
+      this.noDecla = true
+      this.decShow = false
+    }
 
     let minfo = this.axios.get("/api/used-m/sell-detail?id=" + getUrlKey('id'))
     .then(res => {
@@ -153,31 +162,32 @@ export default {
         desc: " / " + this.info.description,
         link: window.location.href,
       })
-    });
-    let uinfo = this.axios.get("/api/user/my")
-    .then((res) => {
-      this.isLogin = res.data.data.status & 1
-      this.user_id = res.data.data.id
-      this.axios.get("/api/used-m/member-store?mid="+this.user_id)
-      .then(res => {
-        this.store = res.data.data
+      let uinfo = this.axios.get("/api/user/my")
+      .then((res) => {
+        this.isLogin = res.data.data.status & 1
+        this.user_id = res.data.data.id
+        this.axios.get("/api/used-m/member-store?mid="+this.info.mid)
+        .then(res => {
+          this.store = res.data.data
+          if(this.isLogin){
+            if(this.user_id == this.member_id){
+              this.nowType = this.typeMap.myInfo
+            }else{
+              this.nowType = this.typeMap.otherInfo
+            }
+          }else{
+            this.nowType = this.typeMap.unLogIn
+          }
+        })
       })
-    })
+    });
 
-    Promise.all([minfo,uinfo]).then(() => {
-      if(this.isLogin){
-        if(this.user_id == this.member_id){
-          this.nowType = this.typeMap.myInfo
-        }else{
-          this.nowType = this.typeMap.otherInfo
-        }
-      }else{
-        this.nowType = this.typeMap.unLogIn
-      }
-    })
-    .catch((err) => {
-      this.nowType = this.typeMap.otherInfo
-    })
+    // Promise.all([minfo,uinfo]).then(() => {
+      
+    // })
+    // .catch((err) => {
+    //   this.nowType = this.typeMap.otherInfo
+    // })
   }
 };
 </script>

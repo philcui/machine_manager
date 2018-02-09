@@ -6,7 +6,7 @@
     	</div>
     	<div class="info">
     		<p>工机管家二手机是为用户提供工程机械设备交易信息分享、传播及获取的平台，店铺的所有行为并不因为实名认证或车商认证成功而具备真实性与合法性，卖家收取定金、保证金等都属于个人行为，与平台无关，敬请留意甄别</p>
-    		<div class="tip" @click="handleTip"><span :class="{'selected':tip}"></span>不再提示</div>
+    		<div class="tip" @click="handleTip" v-show="!noDecla"><span :class="{'selected':tip}"></span>不再提示</div>
     		<div class="btn" @click="handleHide">我知道了</div>
     	</div>
     </div>
@@ -17,6 +17,9 @@
 export default {
 	props: {
 		decShow: {
+      type: Boolean
+    },
+    noDecla: {
       type: Boolean
     },
     tip: {
@@ -73,13 +76,14 @@ export default {
 				>p {
 					font-size: 0.26rem;
 					line-height: 1.5;
+					margin-bottom: 0.35rem;
 				}
 				.tip {
 					color: #999;
 					font-size: 0.2rem;
 					display: flex;
 					align-items: center;
-					margin: 0.35rem 0;
+					margin-bottom: 0.35rem;
 					>span {
 						display: inline-block;
 						width: 0.24rem;

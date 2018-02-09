@@ -1,11 +1,11 @@
 <template>
   <div class="pubInfo">
-    <div class="hintHead">
+    <!-- <div class="hintHead">
       <p>暂时只提供二手挖掘机买卖交流</p>
-    </div>
+    </div> -->
     <group gutter='0'>
       <div @click="changeShowBrandType" class="filterItem">
-        <x-input :title="redDot + '设备类型'" disabled v-model="fullName" text-align='right'></x-input>
+        <x-input :title="redDot + '设备类型'" disabled v-model="fullName" text-align='right' placeholder="请选择"></x-input>
         <div v-transfer-dom>
           <popup v-model="showBrandType" position="right" width="70%">
             <div class="selectPage" @click="changeShowBrandName">
@@ -31,14 +31,14 @@
                 <div v-for="(brand,i) in macTypeData" :key="i" class="item" :class="{'selected': brandNameIndex == i}" @click="selectBrand(brand,i)">{{brand.brand}}</div>
               </div>
               <div class="right-wrap">
-                <div v-for="(model,j) in modelData" :key="j" class="item" @click="selectModel(model,j)">{{model.model}}</div>
+                <div v-for="(model,j) in modelData" :key="j" class="item" :class="{'title':model.is_regular==1}" @click="selectModel(model,j)">{{model.model}}</div>
               </div>
             </div>
           </popup>
         </div>
       </div>
-      <div @click="changeShowDate" class="filterItem">
-        <x-input placeholder="例如2010" :title="redDot + '出厂时间'" v-model="date" text-align='right'>
+      <div @click="changeShowDate" class="filterItem mycell">
+        <x-input placeholder="例如2010" :title="redDot + '出厂时间'" v-model="date" text-align='right' :style="{'padding':0}">
           <span slot="right" type="primary" class="unit">/年</span>
         </x-input>
         <div v-transfer-dom>
@@ -51,8 +51,8 @@
                 </div>
               </div>
               <div class="btns">
-                <div class="btn-reset" @click="selectedDateIndex=-1">重 置</div>
-                <div class="btn-commit" @click="commitDateFilter">提 交</div>
+                <div class="btn-reset" @click="resetDateFilter">重 置</div>
+                <!-- <div class="btn-commit" @click="commitDateFilter">提 交</div> -->
               </div>
             </div>
           </popup>
@@ -68,7 +68,7 @@
     </group>
     <group gutter='0.2rem'>
       <x-input placeholder="请填写" :title="redDot + '联系电话'" v-model="phone" text-align='right'></x-input>
-      <div class="mycell" :style="{'border':'none'}">
+      <div class="mycell">
         <p>详细介绍</p>
         <div class="summary">
           <textarea name="" id="" cols="30" rows="10" v-model="description"
@@ -76,7 +76,7 @@
         </div>
       </div>
       <div class="mycell" :style="{'border':'none'}">
-        <p><span style='color:red;'>*</span>设备主图</p>
+        <p><span style='color:red;'>*</span>设备主图<span class="smdesc">（请上传你最想让买家看到的设备整体外观图片，限1张）</span></p>
         <div class="summary" style="border:none;">
           <img :src="thumb" alt="" class="prev">
           <label class="takephoto" for="photo-head"></label>
@@ -84,11 +84,12 @@
         </div>
       </div>
       <div class="mycell" :style="{'border':'none'}">
-        <p><span style='color:red;'>*</span>设备详情<span class="smdesc">(请如实上传照片，为你加分，最多9张)</span></p>
+        <p><span style='color:red;'>*</span>设备详情<span class="smdesc">（请如实上传照片，为你加分，最多9张）</span></p>
         <div class="summary" style="border:none;">
           <div class="img-box" id="imgboxid">
             <img :src="item" alt="" v-for="(item,i) in imgs" />
           </div>
+          <!-- <div class="upload-muti" @click="uploadMuti"></div> -->
           <label class="takephoto" for="photo-info"></label>
           <input name="image" type="file" @change="fileInfoChange" accept="image/*" id="photo-info" multiple="multiple" class="upload-info">
         </div>
@@ -161,7 +162,9 @@ export default {
   },
   methods: {
     changeShowBrandName(ev) {
-      let _className = ev.srcElement.className
+      //_className = ev.srcElement.className
+      let _className = ev.target.parentElement.className
+      console.log(ev)
       if(_className == 'me1'){
         this.macTypeData = wajiTypeData
         this.macTypeVal='挖机'
@@ -179,10 +182,15 @@ export default {
     },
     selectDate(item,index){
       this.selectedDateIndex = index
+      this.commitDateFilter()
     },
     commitDateFilter(){
       this.date = this.dateData[this.selectedDateIndex]
       this.changeShowDate()
+    },
+    resetDateFilter(){
+      this.selectedDateIndex = -1
+      this.commitDateFilter()
     },
     selectBrand(brand,i){
       this.brandNameIndex = i
@@ -373,32 +381,25 @@ export default {
       for(let i=0;i<files.length;i++){
         var file = files[i]
         formdata.append('imgs[]',file);
-        let reader = new FileReader()
-        reader.onload = function (e) {
-          // var imgstr='<img style="width:2rem;height:2rem;" src="'+e.target.result+'"/>';
-          //var oimgbox=document.getElementById("imgboxid");
-          // var ndiv=document.createElement("div");//创建div节点
-          // //限制上传的图片数
-          // var a=oimgbox.getElementsByTagName("div").length;
-          //_this.imgs.push(e.target.result)    
-          if(_this.imgs.length<9){
-            
-          }else{
-            _this.$vux.toast.show({
-              text: '最多上传9张',
-              type: "text"
-            });
-          }
-        }
-        reader.readAsDataURL(file);  
       }
-      this.axios.post("/api/used-m/upload-img",formdata,{headers: {'Content-Type': 'multipart/form-data'}})
-      .then((res) => {
-        if(res.data.code == 200){
-          this.imgs = this.imgs.concat(res.data.data)
-        } 
-      })
+      if(files.length+_this.imgs.length>9){
+        _this.$vux.toast.show({
+          text: '最多上传9张',
+          type: "text"
+        });
+        return false
+      }else{
+        this.axios.post("/api/used-m/upload-img",formdata,{headers: {'Content-Type': 'multipart/form-data'}})
+        .then((res) => {
+          if(res.data.code == 200){
+            this.imgs = this.imgs.concat(res.data.data)
+          } 
+        })
+      }
     },
+    // uploadMuti(){
+
+    // },
     getAddList(target){
       let res = []
       res.push(target.substring(0, 2) + "0000")
@@ -422,7 +423,7 @@ export default {
         //这里存在大量赋值操作，后续可以和后台数据字段做整理
         console.log(res.data.data)
         let data  = res.data.data
-        //this.phone = data.mobile
+        this.phone = data.mobile
       })
       // this.axios.post("/api/default/guess-address")
       // .then((res) => {
@@ -483,23 +484,24 @@ export default {
     border: 1px solid @divid-color;
     textarea {
       width: 100%;
-      height: 1.21rem;
+      height: 1.6rem;
       resize: none;
       padding: 0;
       margin: 0;
       border: none;
+      font-size: 0.32rem;
     }
     .img-box {
       >img {
-        display: block;
-        width: 2rem;
-        height: 2rem;
+        //display: block;
+        width: 1.8rem;
+        height: 1.8rem;
       }
     }
     .prev {
-      display: block;
-      width: 2rem;
-      height: 2rem;
+      //display: block;
+      width: 1.8rem;
+      height: 1.8rem;
     }
     .takephoto {
       display: block;
@@ -512,6 +514,13 @@ export default {
     input {
       position: absolute;
       clip: rect(0 0 0 0);
+    }
+    .upload-muti {
+      width: 2rem;
+      height: 2rem;
+      border: 1px dotted #999;
+      background: url('./img/photo.png') no-repeat center center;
+      background-size: 0.53rem 0.43rem;
     }
   }
   .submit {
@@ -584,7 +593,7 @@ export default {
     font-size: 0;
     >div {
       display: inline-block;
-      width: 50%;
+      width: 100%;
       line-height: 0.76rem;
       text-align: center;
       font-size: 0.32rem;
@@ -654,6 +663,10 @@ export default {
     overflow: scroll;
     background-color: #fff;
     float: left;
+    .title {
+      font-weight: 800;
+      color: @theme-color;
+    }
   }
   .item {
     padding-left: 0.4rem;

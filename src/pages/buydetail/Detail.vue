@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="info info1">
       <!-- <img class="avatar" src="../../assets/avatar.png" alt=""> -->
-      <a :href="'../report/index.html?type=1&id=' + info.id" class="report">
+      <a :href="'../report/index.html?type=4&id=' + info.id" class="report">
         <img src="./img/jubao.png" alt="">
       </a>
       <div class="right">

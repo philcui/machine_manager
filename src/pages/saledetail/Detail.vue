@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="info info1">
       <!-- <img class="avatar" src="../../assets/avatar.png" alt=""> -->
-      <a :href="'../report/index.html?type=1&id=' + info.id" class="report">
+      <a :href="'../report/index.html?type=3&id=' + info.id" class="report">
         <img src="./img/jubao.png" alt="">
       </a>
       <div class="right">
@@ -17,7 +17,7 @@
     </div>
     <div class="info info2">
       <pre-cell title="详细介绍" :com-style="{'border': 'none'}"></pre-cell>
-      <div class="dec-btn" @click="decShow=true;">免责声明</div>
+      <div class="dec-btn" @click="decShow=true;" v-show="decButtonShow">免责声明</div>
       <div class="workDetail">{{info.description}}</div>
     </div>
     <a @click="shareTip" class="shareButton" v-if="nowType.showShare">立即分享</a>
@@ -62,6 +62,7 @@ export default {
   data() {
     return {
       tip: false,
+      decButtonShow: true,
       decShow: true,
       noDecla: false,
       showTip: false,
@@ -172,6 +173,8 @@ export default {
           this.store = res.data.data
           if(this.isLogin){
             if(this.user_id == this.member_id){
+              this.decButtonShow = false
+              this.decShow = false
               this.nowType = this.typeMap.myInfo
             }else{
               this.nowType = this.typeMap.otherInfo

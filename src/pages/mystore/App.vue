@@ -13,9 +13,12 @@
         <dd>{{uinfo.address}}</dd>
       </dl>
     </div>
-    <h1>
+    <h1 v-if="myself">
       <div @click="tab=1"><span :class="{'selected':tab==1}">我的发布</span></div>
       <div @click="tab=2"><span :class="{'selected':tab==2}">我的收藏</span></div>
+    </h1>
+    <h1 v-else>
+      <span>他的发布</span>
     </h1>
     <div class="listWrap" v-show="tab==1">
       <div @click="gotoPubDetail(item.id)" class="hisItem" v-for="(item, index) in publist" :key="index">
@@ -38,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="listWrap" v-show="tab==2">
+    <div class="listWrap" v-show="tab==2 && myself">
       <div @click="gotoPubDetail(item.id)" class="hisItem" v-for="(item, index) in favlist" :key="index">
         <div class="top">
           <img class="left" :src="item.thumb" alt="">
@@ -348,6 +351,13 @@ export default {
     height: 0.6rem;
     background-color: #f8f8f8;
     font-size: 0;
+    >span {
+      display: block;
+      width: 100%;
+      line-height: 0.6rem;
+      font-size: 0.28rem;
+      text-align: center;
+    }
     >div {
       width: 50%;
       height: 100%;

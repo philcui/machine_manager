@@ -66,6 +66,7 @@
         :title="redDot + '设备地点'" v-model="addVal"
         :list="addressData" placeholder="请选择" hide-district>
       </x-address>
+      <span :style="{'position':'absolute','top':'2.82rem','left':'0,85rem','right':'0.55rem','background':'#fff','color':'#999'}" v-show="showFake">{{addValFromEdit}}</span>
     </group>
     <group gutter='0.2rem'>
       <x-input placeholder="请填写" :title="redDot + '联系电话'" v-model="phone" text-align='right'></x-input>
@@ -79,8 +80,12 @@
       <div class="mycell" :style="{'border':'none'}">
         <p><span style='color:red;'>*</span>设备主图<span class="smdesc">（请上传你最想让买家看到的设备整体外观图片，限1张）</span></p>
         <div class="summary" style="border:none;">
-          <img :src="thumb" alt="" class="prev">
-          <label class="takephoto" for="photo-head"></label>
+          <div class="head-img-wrap" v-show="thumb">
+            <img :src="thumb" alt="" class="prev">
+            <label class="takephoto" for="photo-head"></label>
+            <!-- <img src="../../assets/close.png" class="close" @click="handleDeleHead" /> -->
+          </div>
+          <label class="takephoto" for="photo-head" v-show="!thumb"></label>
           <input name="image" type="file" @change="fileHeadChange" accept="image/*" id="photo-head" class="upload-head">
         </div>
       </div>
@@ -127,12 +132,14 @@ import getUrlKey from '@/utils/getUrlKey.js'
 export default {
   data() {
     return {
+      showFake: false,
       showBrandName: false,
       showBrandType: false,
       showDate: false,
       selectedDateIndex: -1,
       addressData: ChinaAddressV4Data,
       addVal: [],
+      addValFromEdit: '',
       dateData: ['2017','2016','2015','2014','2013','2012','2011','2010','2009','2008','2007','2006','2005','2004','2003','2002','2001','2000'],
       date: '',
       price: '',
@@ -207,6 +214,7 @@ export default {
       this.fullName = this.brandName+this.modelVal
       this.showBrandName = !this.showBrandName
       this.changeShowBrandType()
+      this.changeShowDate()
     },
     getErrorInfo(key) {
       var infoMap = {
@@ -359,6 +367,7 @@ export default {
       this.description = data.description
       this.price = data.price
       this.addVal = ['0',data.address_id]
+      this.addValFromEdit = data.address
       //this.addVal = data.address
       this.thumb = data.thumb
       this.imgs = data.imgs.split(',')
@@ -402,6 +411,9 @@ export default {
         })
       }
     },
+    // handleDeleHead(){
+
+    // },
     editImg(index){
       let id = '#fake-upload-'+index
       let file = document.querySelector(id).files[0]
@@ -427,6 +439,14 @@ export default {
       return res
     }
   },
+  watch: {
+    'addVal': function(newVal,oldVal){
+      console.log(newVal,oldVal)
+      if(newVal[0]!=0){
+        this.showFake = false
+      }
+    }
+  },
   computed: {
     
   },
@@ -434,6 +454,7 @@ export default {
     //修改发布的招聘信息
     if(getUrlKey("id") > 0){
       //编辑已发布的信息
+      this.showFake = true
       this.getHisInfo();
     }else{
       //新发布
@@ -516,6 +537,18 @@ export default {
       margin: 0;
       border: none;
       font-size: 0.32rem;
+    }
+    .head-img-wrap {
+      width: 1.8rem;
+      height: 1.8rem;
+      position: relative;
+      .takephoto {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+        background: none;
+      }
     }
     .img-box {
       font-size: 0;

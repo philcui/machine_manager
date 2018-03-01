@@ -27,3 +27,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * 全局的http请求方法
 * 移动端rem适配
 * 其他工具方法
+* data文件为相应数据结构

@@ -96,7 +96,7 @@
             <label v-for="(item,i) in imgs" class="wrap" :for="'fake-upload-'+i">
               <img :src="item" alt="" />
               <input name="image" type="file" accept="image/*" class="fake-upload" :id="'fake-upload-'+i" @change="editImg(i)" />
-            </label> 
+            </label>
           </div>
           <!-- <div class="upload-muti" @click="uploadMuti"></div> -->
           <label class="takephoto" for="photo-info"></label>
@@ -129,6 +129,8 @@ import provinceData from "@/data/prov.json"
 //阉割版地图
 import ChinaAddressV4Data from "@/data/china_data.json"
 import getUrlKey from '@/utils/getUrlKey.js'
+import wxImg from '@/utils/wxImg.js'
+
 export default {
   data() {
     return {
@@ -337,7 +339,7 @@ export default {
       this.axios.get("/api/used-m/sell-detail?id=" + getUrlKey('id')).then((res) => {
         console.log(res)
         this.setHisInfo(res.data.data)
-      })      
+      })
     },
     getItemValue(keys, list){
       if(!keys){
@@ -353,7 +355,7 @@ export default {
     setHisInfo(data){
       this.axios.get("/api/used-m/query-sell-mobile?item_id=" + getUrlKey('id')).then((res) => {
         this.phone = res.data.data.mobile
-      })      
+      })
       Object.keys(data).forEach((item, index) => {
         if(data[item]){
           data[item] = data[item].toString()
@@ -384,11 +386,12 @@ export default {
       .then((res) => {
         if(res.data.code == 200){
           this.thumb = res.data.data[0]
-        } 
+        }
       })
-      reader.readAsDataURL(file)  
+      reader.readAsDataURL(file)
     },
     fileInfoChange(){
+      /*
       let files = document.querySelector(".upload-info").files
       let _this = this
       let formdata = new FormData();
@@ -407,14 +410,18 @@ export default {
         .then((res) => {
           if(res.data.code == 200){
             this.imgs = this.imgs.concat(res.data.data)
-          } 
+          }
         })
-      }
+      }*/
+
+      wxImg(this);
+
     },
     // handleDeleHead(){
 
     // },
     editImg(index){
+      /*
       let id = '#fake-upload-'+index
       let file = document.querySelector(id).files[0]
       let reader = new FileReader()
@@ -427,9 +434,12 @@ export default {
       .then((res) => {
         if(res.data.code == 200){
           this.imgs.splice(index,1,res.data.data[0])
-        } 
+        }
       })
-      reader.readAsDataURL(file)  
+      reader.readAsDataURL(file)
+      */
+      wxImg(this);
+
     },
     getAddList(target){
       let res = []
@@ -448,9 +458,10 @@ export default {
     }
   },
   computed: {
-    
+
   },
   mounted(){
+
     //修改发布的招聘信息
     if(getUrlKey("id") > 0){
       //编辑已发布的信息

@@ -407,6 +407,7 @@ export default {
       background-color: white;
       box-sizing: border-box;
       overflow: hidden;
+      display: flex;
       span {
         display: block;
         width: 1.43rem;
@@ -419,7 +420,8 @@ export default {
       input {
         display: block;
         float: left;
-        width: 2.72rem;
+        //width: 2.72rem;
+        flex: 1;
         height: 100%;
         padding: 0.2rem;
         font-size: 0.24rem;

@@ -409,6 +409,9 @@ export default {
         if(data.realname){
           this.realname = data.realname
         }
+        if(data.mobile){
+          this.phone = data.mobile
+        }
         //this.phone = data.mobile
       })
       // this.axios.post("/api/default/guess-address")

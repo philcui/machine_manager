@@ -266,7 +266,7 @@ export default {
         });
         return false;
       }
-      if (!/^1[34578]\d{9}$/.test(this.regInfo.phoneNum)) {
+      if (!/^1[3456789]\d{9}$/.test(this.regInfo.phoneNum)) {
         this.$vux.toast.show({
           text: this.getErrorInfo("003"),
           type: "text"
